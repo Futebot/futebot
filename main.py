@@ -49,7 +49,7 @@ async def roll(ctx, arg):
 
 
 @bot.command()
-async def imageme(ctx, *search_query):
+async def imgme(ctx, *search_query):
     try:
         url = generate_image_search_url(search_query)
         res = requests.get(url)
