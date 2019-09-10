@@ -4,10 +4,8 @@ import os
 import re
 import random
 
-
 import requests
 from discord.ext import commands
-import requests
 
 from helpers import generate_image_search_url, RANDOM_EXCEPTION_COMEBACKS as rec
 
