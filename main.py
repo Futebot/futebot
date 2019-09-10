@@ -17,6 +17,19 @@ puts.basicConfig(format='%(asctime)s - %(message)s', level=puts.INFO)
 async def ping(ctx):
     await ctx.send('pong')
 
+
+@bot.command()
+async def listall(ctx):
+    await ctx.send('```--- Commands List --- \n'
+                   '.coach                   - Returns a random motivational quote\n'
+                   '.gifme     {search_term} - Search for a Gif\n'
+                   '.horoscopo {horoscopo}   - Search for you daily horoscope\n'
+                   '.ping                    - Check if bot is Alive\n'
+                   '.youtube   {search_term} - Search for a Youtube Video\n'
+                   '.imageme   {search_term} - Search for an image in Google\n'
+                   '```')
+
+
 @bot.command()
 async def coach(ctx):
     try:
