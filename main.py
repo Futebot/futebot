@@ -9,7 +9,7 @@ from discord.ext import commands
 
 from helpers import generate_image_search_url, RANDOM_EXCEPTION_COMEBACKS as rec
 
-bot = commands.Bot(command_prefix='>')
+bot = commands.Bot(command_prefix='.')
 puts.basicConfig(format='%(asctime)s - %(message)s', level=puts.INFO)
 
 
@@ -17,6 +17,26 @@ puts.basicConfig(format='%(asctime)s - %(message)s', level=puts.INFO)
 async def ping(ctx):
     await ctx.send('pong')
 
+
+@bot.command()
+async def listall(ctx):
+    await ctx.send('```--- Commands List --- \n'
+                   '.coach                   - Returns a random motivational quote\n'
+                   '.gifme     {search_term} - Search for a Gif\n'
+                   '.horoscopo {horoscopo}   - Search for you daily horoscope\n'
+                   '.ping                    - Check if bot is Alive\n'
+                   '.youtube   {search_term} - Search for a Youtube Video\n'
+                   '.imageme   {search_term} - Search for an image in Google\n'
+                   '```')
+
+
+@bot.command()
+async def coach(ctx):
+    try:
+        r = requests.get(url="http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en")
+        await ctx.send(r.json()['quoteText'])
+    except:
+        await ctx.send('Are you dumb?')
 
 @bot.command()
 async def roll(ctx, arg):
