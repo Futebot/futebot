@@ -19,6 +19,16 @@ async def ping(ctx):
 
 
 @bot.command()
+async def charada(ctx):
+    try:
+        r = requests.get(url="https://us-central1-kivson.cloudfunctions.net/charada-aleatoria",
+                         headers={'Accept': 'application/json'})
+        await ctx.send(r.json()['pergunta'])
+        await ctx.send(r.json()['resposta'])
+    except:
+        await ctx.send('Are you dumb?')
+
+@bot.command()
 async def listall(ctx):
     await ctx.send('```--- Commands List --- \n'
                    '.coach                   - Returns a random motivational quote\n'
