@@ -1,0 +1,9 @@
+*.pyc
+.idea/
+*.egg-info/
+.DS_Store
+*/*.egg-info/**
+*.egg-info/**
+.vscode/
+__pycache__/
+Pipfile.lock
