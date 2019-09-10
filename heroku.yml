@@ -1,0 +1,7 @@
+build:
+  docker:
+    config:
+      DISCORD_APP_TOKEN: "< %= ENV['DISCORD_APP_TOKEN'] %>"
+      GOOGLE_CUSTOM_SEARCH_API_TOKEN: "< %= ENV['GOOGLE_CUSTOM_SEARCH_API_TOKEN'] %>"
+      GOOGLE_CUSTOM_SEARCH_API_ID: "< %= ENV['GOOGLE_CUSTOM_SEARCH_API_ID'] %>"
+    web: Dockerfile
