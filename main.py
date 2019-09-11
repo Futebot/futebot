@@ -35,7 +35,7 @@ async def listall(ctx):
                    '.horoscopo {horoscopo}   - Search for you daily horoscope\n'
                    '.ping                    - Check if bot is Alive\n'
                    '.youtube   {search_term} - Search for a Youtube Video\n'
-                   '.imageme   {search_term} - Search for an image in Google\n'
+                   '.imgme     {search_term} - Search for an image in Google\n'
                    '```')
 
 @bot.command()
