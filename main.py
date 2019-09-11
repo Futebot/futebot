@@ -7,7 +7,8 @@ import random
 import requests
 from discord.ext import commands
 
-from helpers import generate_image_search_url, RANDOM_EXCEPTION_COMEBACKS as rec
+from helpers import generate_image_search_url, RANDOM_EXCEPTION_COMEBACKS as rec, get_json_fields_from_url, \
+    get_json_field_from_url
 
 bot = commands.Bot(command_prefix='.')
 puts.basicConfig(format='%(asctime)s - %(message)s', level=puts.INFO)
@@ -20,13 +21,10 @@ async def ping(ctx):
 
 @bot.command()
 async def charada(ctx):
-    try:
-        r = requests.get(url="https://us-central1-kivson.cloudfunctions.net/charada-aleatoria",
-                         headers={'Accept': 'application/json'})
-        await ctx.send(r.json()['pergunta'])
-        await ctx.send(r.json()['resposta'])
-    except:
-        await ctx.send('Are you dumb?')
+    fields = get_json_fields_from_url('https://us-central1-kivson.cloudfunctions.net/charada-aleatoria',
+                                           'pergunta', 'resposta')
+    for field in fields:
+        await ctx.send(field)
 
 @bot.command()
 async def listall(ctx):
@@ -39,14 +37,10 @@ async def listall(ctx):
                    '.imageme   {search_term} - Search for an image in Google\n'
                    '```')
 
-
 @bot.command()
 async def coach(ctx):
-    try:
-        r = requests.get(url="http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en")
-        await ctx.send(r.json()['quoteText'])
-    except:
-        await ctx.send('Are you dumb?')
+    await ctx.send(get_json_field_from_url('http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en',
+                                    'quoteText'))
 
 @bot.command()
 async def roll(ctx, arg):
@@ -98,11 +92,8 @@ async def youtube(ctx, *args):
 
 @bot.command()
 async def horoscopo(ctx, arg):
-    try:
-        r = requests.get(url="http://babi.hefesto.io/signo/{}/dia".format(arg))
-        await ctx.send(r.json()['texto'])
-    except:
-        await ctx.send('Are you dumb?')
-
+    await ctx.send(
+        get_json_field_from_url('http://babi.hefesto.io/signo/{}/dia'.format(arg),
+                                 'texto'))
 
 bot.run(os.environ['DISCORD_APP_TOKEN'])
