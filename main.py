@@ -4,6 +4,7 @@ import os
 import re
 import random
 
+import discord
 import requests
 from discord.ext import commands
 
@@ -41,6 +42,19 @@ async def listall(ctx):
 async def coach(ctx):
     await ctx.send(get_json_field_from_url('http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en',
                                     'quoteText'))
+
+@bot.command()
+async def mention(ctx, arg):
+    if len(arg) < 3:
+        await ctx.send('Don\'t be evil.')
+        return
+    for member in ctx.message.channel.members:
+        if arg.lower() in member.name.lower():
+            await ctx.send(member.mention)
+
+
+
+
 
 @bot.command()
 async def roll(ctx, arg):
