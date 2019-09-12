@@ -9,15 +9,18 @@ import requests
 from discord.ext import commands
 
 from helpers import generate_image_search_url, RANDOM_EXCEPTION_COMEBACKS as rec, get_json_fields_from_url, \
-    get_json_field_from_url
+    get_json_field_from_url, mention
 
 bot = commands.Bot(command_prefix='.')
 puts.basicConfig(format='%(asctime)s - %(message)s', level=puts.INFO)
 
 
 @bot.command()
-async def ping(ctx):
-    await ctx.send('pong')
+async def ping(ctx, arg=''):
+    if arg == '':
+        await ctx.send('pong')
+    else:
+        await ctx.send('Pinging ' + mention(ctx, arg) + ' 🏓')
 
 
 @bot.command()
@@ -30,31 +33,18 @@ async def charada(ctx):
 @bot.command()
 async def listall(ctx):
     await ctx.send('```--- Commands List --- \n'
-                   '.coach                   - Returns a random motivational quote\n'
-                   '.gifme     {search_term} - Search for a Gif\n'
-                   '.horoscopo {horoscopo}   - Search for you daily horoscope\n'
-                   '.ping                    - Check if bot is Alive\n'
-                   '.youtube   {search_term} - Search for a Youtube Video\n'
-                   '.imgme     {search_term} - Search for an image in Google\n'
+                   '.coach                     - Returns a random motivational quote\n'
+                   '.gifme     {search_term}   - Search for a Gif\n'
+                   '.horoscopo {horoscopo}     - Search for you daily horoscope\n'
+                   '.ping      {optional_name} - Check if bot is Alive with optional mention\n'
+                   '.youtube   {search_term}   - Search for a Youtube Video\n'
+                   '.imgme     {search_term}   - Search for an image in Google\n'
                    '```')
 
 @bot.command()
 async def coach(ctx):
     await ctx.send(get_json_field_from_url('http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en',
                                     'quoteText'))
-
-@bot.command()
-async def mention(ctx, arg):
-    if len(arg) < 3:
-        await ctx.send('Don\'t be evil.')
-        return
-    for member in ctx.message.channel.members:
-        if arg.lower() in member.name.lower():
-            await ctx.send(member.mention)
-
-
-
-
 
 @bot.command()
 async def roll(ctx, arg):
