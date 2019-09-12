@@ -4,12 +4,12 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pudb = "2019.1"
-pytest = "5.1.2"
+pudb = "*"
+pytest = "==5.1.2"
 
 [packages]
 "discord.py" = "==1.2.3"
-requests = "2.22.0"
+requests = "==2.22.0"
 
 [requires]
 python_version = "3.7"
