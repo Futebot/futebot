@@ -5,11 +5,11 @@ verify_ssl = true
 
 [dev-packages]
 pudb = "*"
-pytest = "*"
+pytest = "5.1.2"
 
 [packages]
 "discord.py" = "==1.2.3"
-requests = "*"
+requests = "2.22.0"
 
 [requires]
 python_version = "3.7"
