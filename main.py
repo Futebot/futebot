@@ -1,14 +1,14 @@
 import logging as puts
-import urllib
 import os
-import re
 import random
+import re
+import urllib
+from service import roll_service
 
-import discord
 import requests
 from discord.ext import commands
 
-from helpers import generate_image_search_url, RANDOM_EXCEPTION_COMEBACKS as rec, get_json_fields_from_url, \
+from util.helpers import generate_image_search_url, RANDOM_EXCEPTION_COMEBACKS as rec, get_json_fields_from_url, \
     get_json_field_from_url, mention
 
 bot = commands.Bot(command_prefix='.')
@@ -49,8 +49,8 @@ async def coach(ctx):
 @bot.command()
 async def roll(ctx, arg):
     try:
-        rolled = random.randrange(1, int(arg))
-        await ctx.send('Rolled ' + str(rolled))
+        response = roll_service.roll(arg)
+        await ctx.send(response)
     except Exception as e:
         puts.info(e)
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
