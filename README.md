@@ -1,5 +1,7 @@
 # Futebot
 
+[![CircleCI](https://circleci.com/gh/mrisoli/futebot/tree/master.svg?style=svg)](https://circleci.com/gh/mrisoli/futebot/tree/master)
+
 Simple Discord Bot
 
 ## Installation
