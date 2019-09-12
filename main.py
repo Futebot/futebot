@@ -11,7 +11,7 @@ from discord.ext import commands
 from util.helpers import generate_image_search_url, RANDOM_EXCEPTION_COMEBACKS as rec, get_json_fields_from_url, \
     get_json_field_from_url, mention
 
-bot = commands.Bot(command_prefix='.')
+bot = commands.Bot(command_prefix='>')
 puts.basicConfig(format='%(asctime)s - %(message)s', level=puts.INFO)
 
 

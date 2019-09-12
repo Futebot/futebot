@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 pudb = "*"
+pytest = "*"
 
 [packages]
 "discord.py" = "==1.2.3"
