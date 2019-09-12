@@ -7,6 +7,7 @@ import random
 import discord
 import requests
 from discord.ext import commands
+from PIL import Image, ImageDraw, ImageFont
 
 from helpers import generate_image_search_url, RANDOM_EXCEPTION_COMEBACKS as rec, get_json_fields_from_url, \
     get_json_field_from_url, mention
@@ -99,5 +100,28 @@ async def horoscopo(ctx, arg):
     await ctx.send(
         get_json_field_from_url('http://babi.hefesto.io/signo/{}/dia'.format(arg),
                                  'texto'))
+
+
+@bot.command()
+async def soniko(ctx, *args):
+    try:
+        string = ' '.join(args)
+        if len(string) >= 23:  # 23 or bigger string would cut the text out, for now just avoid it.
+            await ctx.send("Diminue esse textão aí, pfv.")
+
+        else:
+            position = (83, 274)
+            img = Image.open("templates/imgs/soniko.png")
+            drawer = ImageDraw.Draw(img)
+            drawer.text(position, string, font=ImageFont.truetype(font='Arial', size=25), fill=(0, 0, 0))
+            img.save("result.png")
+            image_binary = open("result.png", "rb")
+            discord_file = discord.File(image_binary)
+            await ctx.send(file=discord_file)
+
+    except Exception as e:
+        puts.info(e)
+        raise e
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 bot.run(os.environ['DISCORD_APP_TOKEN'])

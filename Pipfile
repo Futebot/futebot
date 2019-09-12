@@ -5,10 +5,12 @@ verify_ssl = true
 
 [dev-packages]
 pudb = "*"
+ipython = "*"
 
 [packages]
 "discord.py" = "==1.2.3"
 requests = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"
