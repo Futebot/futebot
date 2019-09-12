@@ -3,11 +3,13 @@ import os
 import random
 import re
 import urllib
-from service import roll_service
 
 import requests
+from PIL import Image, ImageDraw, ImageFont
+from discord import File
 from discord.ext import commands
 
+from service import roll_service
 from util.helpers import generate_image_search_url, RANDOM_EXCEPTION_COMEBACKS as rec, get_json_fields_from_url, \
     get_json_field_from_url, mention
 
@@ -26,9 +28,10 @@ async def ping(ctx, arg=''):
 @bot.command()
 async def charada(ctx):
     fields = get_json_fields_from_url('https://us-central1-kivson.cloudfunctions.net/charada-aleatoria',
-                                           'pergunta', 'resposta')
+                                      'pergunta', 'resposta')
     for field in fields:
         await ctx.send(field)
+
 
 @bot.command()
 async def listall(ctx):
@@ -41,10 +44,13 @@ async def listall(ctx):
                    '.imgme     {search_term}   - Search for an image in Google\n'
                    '```')
 
+
 @bot.command()
 async def coach(ctx):
-    await ctx.send(get_json_field_from_url('http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en',
-                                    'quoteText'))
+    await ctx.send(
+        get_json_field_from_url('http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en',
+                                'quoteText'))
+
 
 @bot.command()
 async def roll(ctx, arg):
@@ -82,7 +88,6 @@ async def gifme(ctx, *search_query):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-
 @bot.command()
 async def youtube(ctx, *args):
     try:
@@ -98,6 +103,28 @@ async def youtube(ctx, *args):
 async def horoscopo(ctx, arg):
     await ctx.send(
         get_json_field_from_url('http://babi.hefesto.io/signo/{}/dia'.format(arg),
-                                 'texto'))
+                                'texto'))
+
+
+@bot.command()
+async def soniko(ctx, *args):
+    try:
+        string = ' '.join(args)
+        if len(string) >= 23:  # 23 or bigger string would cut the text out, for now just avoid it.
+            await ctx.send("Diminue esse textão aí, pfv.")
+
+        else:
+            position = (83, 274)
+            img = Image.open("templates/imgs/soniko.png")
+            drawer = ImageDraw.Draw(img)
+            # TODO: Enable fonts in Dockerfile
+            drawer.text(position, string, font=ImageFont.truetype(font='Arial.ttf', size=25), fill=(0, 0, 0))
+            img.save("result.png")
+            await ctx.send(file=File(open("result.png", "rb")))
+
+    except Exception as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
 
 bot.run(os.environ['DISCORD_APP_TOKEN'])
