@@ -11,3 +11,15 @@ $ docker build . -t futebot:latest
 
 $ docker run -it -e DISCORD_APP_TOKEN=${DISCORD_APP_TOKEN} -e GOOGLE_CUSTOM_SEARCH_API_TOKEN=${GOOGLE_CUSTOM_SEARCH_API_TOKEN} -e GOOGLE_CUSTOM_SEARCH_API_ID=${GOOGLE_CUSTOM_SEARCH_API_ID} --name futebot futebot:latest
 ```
+
+Or
+
+```
+docker-compose up --build
+```
+The step above expects a file `keys.env` in the root directory with the following variables:
+```.env
+DISCORD_APP_TOKEN=<HUETOKEN>
+GOOGLE_CUSTOM_SEARCH_API_TOKEN=<HUEAPITOKEN>
+GOOGLE_CUSTOM_SEARCH_API_ID=<HUEAPIID>
+```
