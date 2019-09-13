@@ -9,7 +9,9 @@ from PIL import Image, ImageDraw, ImageFont
 from discord import File
 from discord.ext import commands
 
+from exception.exceptions import FutebotException
 from service import roll_service
+from service.img_card_service import generate_card
 from util.helpers import generate_image_search_url, RANDOM_EXCEPTION_COMEBACKS as rec, get_json_fields_from_url, \
     get_json_field_from_url, mention
 
@@ -42,6 +44,8 @@ async def listall(ctx):
                    '.ping      {optional_name} - Check if bot is Alive with optional mention\n'
                    '.youtube   {search_term}   - Search for a Youtube Video\n'
                    '.imgme     {search_term}   - Search for an image in Google\n'
+                   '.soniko    {caption}       - Create a Soniko meme\n'
+                   '.speech     {caption}       - Speech Meme\n'
                    '```')
 
 
@@ -110,18 +114,24 @@ async def horoscopo(ctx, arg):
 async def soniko(ctx, *args):
     try:
         string = ' '.join(args)
-        if len(string) >= 23:  # 23 or bigger string would cut the text out, for now just avoid it.
-            await ctx.send("Diminue esse textão aí, pfv.")
+        await ctx.send(file=generate_card(string, "templates/imgs/soniko.png", "soniko", 25, 83, 274, (0, 0, 0), 23))
 
-        else:
-            position = (83, 274)
-            img = Image.open("templates/imgs/soniko.png")
-            drawer = ImageDraw.Draw(img)
-            drawer.text(position, string, font=ImageFont.truetype(font='templates/fonts/OpenSans-Bold.ttf', size=25), fill=(0, 0, 0))
-            img.save("result.png")
-            await ctx.send(file=File(open("result.png", "rb")))
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
-    except Exception as e:
+@bot.command()
+async def speech(ctx, *args):
+    try:
+        string = ' '.join(args)
+        if not string.isdigit():
+            await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+            return
+
+        await ctx.send(file=generate_card(string, "templates/imgs/speech.png", "speech",
+                                          110, 670, 10, (255,255,255), 4))
+
+    except FutebotException as e:
         puts.info(e)
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
