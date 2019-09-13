@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 pudb = "==2019.1"
 ipython = "==7.8.0"
+pycodestyle = "==2.5.0"
 
 [packages]
 "discord.py" = "==1.2.3"
