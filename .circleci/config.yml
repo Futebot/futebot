@@ -48,11 +48,11 @@ jobs:
           command: |
             pipenv run pytest --cov=.
       - store_test_results:
-          path: test-results
+          path: .coverage
       - store_artifacts:
-          path: test-results
+          path: .coverage
       - codecov/upload:
-          file: coverage/.coverage
+          file: .coverage
 
 workflows:
   build_and_test:
