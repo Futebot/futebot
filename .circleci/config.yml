@@ -1,9 +1,11 @@
-version: 2
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/python:3.7.4
+version: 2.1
 jobs:
   build:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/python:3.7.4
+    <<: *defaults
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
@@ -20,10 +22,24 @@ jobs:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
+      - persist_to_workspace:
+          root: /home/circleci
+          paths:
+            - repo
+  lint:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /home/circleci
       - run:
           name: run linter
           command: |
             pipenv run pycodestyle .
+  test:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /home/circleci
       - run:
           name: run tests
           command: |
@@ -33,3 +49,14 @@ jobs:
       - store_artifacts:
           path: test-results
           destination: test-reports
+
+workflows:
+  build_and_test:
+    jobs:
+    - build
+    - lint:
+        requires:
+          - build
+    - test:
+        requires:
+          - lint
