@@ -1,7 +1,7 @@
 import random
 
 
-def roll(arg:str):
+def roll(arg: str):
     params = arg.lower().split('d')
     times = int(params[0])
     sides = int(params[1])

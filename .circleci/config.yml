@@ -21,6 +21,11 @@ jobs:
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
       - run:
+          name: run linter
+          command: |
+            pipenv run pycodestyle .
+      - run:
+          name: run tests
           command: |
             pipenv run pytest
       - store_test_results:
