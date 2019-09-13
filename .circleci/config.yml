@@ -3,6 +3,8 @@ defaults: &defaults
   docker:
     - image: circleci/python:3.7.4
 version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.5
 jobs:
   build:
     <<: *defaults
@@ -44,12 +46,13 @@ jobs:
       - run:
           name: run tests
           command: |
-            pipenv run pytest
+            pipenv run pytest --cov=.
       - store_test_results:
           path: test-results
       - store_artifacts:
           path: test-results
-          destination: test-reports
+      - codecov/upload:
+          file: coverage/.coverage
 
 workflows:
   build_and_test:
