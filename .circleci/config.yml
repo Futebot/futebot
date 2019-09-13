@@ -23,7 +23,7 @@ jobs:
       - run:
           name: run linter
           command: |
-            pipenv run pycodestyle
+            pipenv run pycodestyle .
       - run:
           name: run tests
           command: |
