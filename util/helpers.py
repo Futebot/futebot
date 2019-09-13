@@ -7,8 +7,10 @@ RANDOM_EXCEPTION_COMEBACKS = [
     "No, I don't think I will."
 ]
 
+
 def get_json_field_from_url(url: str, field: str):
     return get_json_fields_from_url(url, field)[0]
+
 
 def get_json_fields_from_url(url: str, *fields: str):
     try:
@@ -22,6 +24,7 @@ def get_json_fields_from_url(url: str, *fields: str):
     except Exception as e:
         puts.info(e)
         return ['Are you dumb?']
+
 
 def generate_image_search_url(search_terms, **kwargs):
     search_terms = ' '.join(search_terms)
@@ -37,6 +40,7 @@ def generate_image_search_url(search_terms, **kwargs):
         return google_image_query_url + "&fileType=gif"
 
     return google_image_query_url
+
 
 def mention(ctx, criteria):
     if len(criteria) < 3:

@@ -27,8 +27,10 @@ async def ping(ctx, arg=''):
 
 @bot.command()
 async def charada(ctx):
-    fields = get_json_fields_from_url('https://us-central1-kivson.cloudfunctions.net/charada-aleatoria',
-                                      'pergunta', 'resposta')
+    fields = get_json_fields_from_url(
+        'https://us-central1-kivson.cloudfunctions.net/charada-aleatoria',
+        'pergunta',
+        'resposta')
     for field in fields:
         await ctx.send(field)
 
@@ -92,10 +94,13 @@ async def gifme(ctx, *search_query):
 async def youtube(ctx, *args):
     try:
         query_string = urllib.parse.urlencode({"search_query": " ".join(args)})
-        html_content = urllib.request.urlopen("http://www.youtube.com/results?" + query_string)
-        search_results = re.findall(r'href=\"\/watch\?v=(.{11})', html_content.read().decode())
+        html_content = urllib.request.urlopen(
+            "http://www.youtube.com/results?" + query_string)
+        search_results = re.findall(
+            r'href=\"\/watch\?v=(.{11})',
+            html_content.read().decode())
         await ctx.send("http://www.youtube.com/watch?v=" + search_results[0])
-    except:
+    except BaseException:
         await ctx.send('Are you dumb?')
 
 
@@ -110,7 +115,8 @@ async def horoscopo(ctx, arg):
 async def soniko(ctx, *args):
     try:
         string = ' '.join(args)
-        if len(string) >= 23:  # 23 or bigger string would cut the text out, for now just avoid it.
+        # 23 or bigger string would cut the text out, for now just avoid it.
+        if len(string) >= 23:
             await ctx.send("Diminue esse textão aí, pfv.")
 
         else:
@@ -118,7 +124,10 @@ async def soniko(ctx, *args):
             img = Image.open("templates/imgs/soniko.png")
             drawer = ImageDraw.Draw(img)
             # TODO: Enable fonts in Dockerfile
-            drawer.text(position, string, font=ImageFont.truetype(font='Arial.ttf', size=25), fill=(0, 0, 0))
+            drawer.text(
+                position, string, font=ImageFont.truetype(
+                    font='Arial.ttf', size=25), fill=(
+                    0, 0, 0))
             img.save("result.png")
             await ctx.send(file=File(open("result.png", "rb")))
 
