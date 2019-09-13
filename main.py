@@ -134,6 +134,7 @@ async def soniko(ctx, *args):
         puts.info(e)
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
+
 @bot.command()
 async def speech(ctx, *args):
     try:
@@ -143,7 +144,7 @@ async def speech(ctx, *args):
             return
 
         await ctx.send(file=generate_card(string, "templates/imgs/speech.png", "speech",
-                                          110, 670, 10, (255,255,255), 4))
+                                          110, 670, 10, (255, 255, 255), 4))
 
     except FutebotException as e:
         puts.info(e)
