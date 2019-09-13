@@ -123,11 +123,16 @@ async def soniko(ctx, *args):
             position = (83, 274)
             img = Image.open("templates/imgs/soniko.png")
             drawer = ImageDraw.Draw(img)
-            # TODO: Enable fonts in Dockerfile
             drawer.text(
-                position, string, font=ImageFont.truetype(
-                    font='Arial.ttf', size=25), fill=(
-                    0, 0, 0))
+                position,
+                string,
+                font=ImageFont.truetype(
+                    font='templates/fonts/OpenSans-Bold.ttf',
+                    size=25),
+                fill=(
+                    0,
+                    0,
+                    0))
             img.save("result.png")
             await ctx.send(file=File(open("result.png", "rb")))
 
