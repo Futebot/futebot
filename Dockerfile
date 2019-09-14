@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:3.7.4
 
 WORKDIR /usr/src/app
 

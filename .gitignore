@@ -7,3 +7,5 @@
 .vscode/
 __pycache__/
 venv/
+.coverage
+cov.xml
