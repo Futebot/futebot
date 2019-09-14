@@ -1,7 +1,5 @@
 import os
 
-import pytest
-
 from ...util.helpers import generate_image_search_url
 
 
@@ -32,4 +30,3 @@ def test_generate_image_search_url_gif():
         f"fileType=gif"
     )
     assert query == google_image_query_url
-
