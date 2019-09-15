@@ -14,7 +14,8 @@ def test_generate_image_search_url():
         f"q={'this is a test'}&"
         f"searchType=image"
     )
-    assert query == google_image_query_url
+    if not query == google_image_query_url:
+        raise AssertionError()
 
 
 def test_generate_image_search_url_gif():
@@ -29,4 +30,5 @@ def test_generate_image_search_url_gif():
         f"searchType=image&"
         f"fileType=gif"
     )
-    assert query == google_image_query_url
+    if not query == google_image_query_url:
+        raise AssertionError()
