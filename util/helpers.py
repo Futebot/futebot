@@ -27,8 +27,8 @@ def generate_image_search_url(search_terms, **kwargs):
 
     google_image_query_url = (
         f"https://www.googleapis.com/customsearch/v1?"
-        f"key={os.environ['GOOGLE_CUSTOM_SEARCH_API_TOKEN']}&"
-        f"cx={os.environ['GOOGLE_CUSTOM_SEARCH_API_ID']}&"
+        f"key={os.getenv('GOOGLE_CUSTOM_SEARCH_API_TOKEN')}&"
+        f"cx={os.getenv('GOOGLE_CUSTOM_SEARCH_API_ID')}&"
         f"q={search_terms}&"
         f"searchType=image"
     )

@@ -9,8 +9,8 @@ def test_generate_image_search_url():
 
     google_image_query_url = (
         f"https://www.googleapis.com/customsearch/v1?"
-        f"key={os.environ['GOOGLE_CUSTOM_SEARCH_API_TOKEN']}&"
-        f"cx={os.environ['GOOGLE_CUSTOM_SEARCH_API_ID']}&"
+        f"key={os.getenv('GOOGLE_CUSTOM_SEARCH_API_TOKEN')}&"
+        f"cx={os.getenv('GOOGLE_CUSTOM_SEARCH_API_ID')}&"
         f"q={'this is a test'}&"
         f"searchType=image"
     )
@@ -23,8 +23,8 @@ def test_generate_image_search_url_gif():
 
     google_image_query_url = (
         f"https://www.googleapis.com/customsearch/v1?"
-        f"key={os.environ['GOOGLE_CUSTOM_SEARCH_API_TOKEN']}&"
-        f"cx={os.environ['GOOGLE_CUSTOM_SEARCH_API_ID']}&"
+        f"key={os.getenv('GOOGLE_CUSTOM_SEARCH_API_TOKEN')}&"
+        f"cx={os.getenv('GOOGLE_CUSTOM_SEARCH_API_ID')}&"
         f"q={'this is a test'}&"
         f"searchType=image&"
         f"fileType=gif"
