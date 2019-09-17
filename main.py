@@ -125,6 +125,26 @@ async def horoscopo(ctx, arg):
 
 
 @bot.command()
+async def tano(ctx, *args):
+    try:
+        string = ' '.join(args)
+        await ctx.send(file=generate_card(string, "templates/imgs/tano.png", "tano", 35, 330, 115, (0, 0, 0), 15))
+
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+@bot.command()
+async def tomacu(ctx, *args):
+    try:
+        string = ' '.join(args)
+        await ctx.send(file=generate_card(string, "templates/imgs/tomacu.png", "tomacu", 40, 560, 110, (0, 0, 0), 15))
+
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+@bot.command()
 async def soniko(ctx, *args):
     try:
         string = ' '.join(args)
