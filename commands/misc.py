@@ -1,5 +1,3 @@
-import os
-
 from util.helpers import mention
 from .utils import bot
 

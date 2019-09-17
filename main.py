@@ -1,21 +1,6 @@
-import logging as puts
-import os
-import random
-import re
-import urllib
-
-import requests
 from discord.ext import commands
-from exception.exceptions import FutebotException
-from service import roll_service
-from service.img_card_service import generate_card
-from util.helpers import (
-    generate_image_search_url,
-    RANDOM_EXCEPTION_COMEBACKS as rec,
-    get_json_fields_from_url,
-    get_json_field_from_url,
-    mention,
-)
+import logging as puts
+
 from commands.utils import bot
 
 puts.basicConfig(format="%(asctime)s - %(message)s", level=puts.INFO)
