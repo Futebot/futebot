@@ -1,4 +1,3 @@
-from discord.ext import commands
 import logging as puts
 
 from commands.utils import bot
