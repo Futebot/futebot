@@ -1,7 +1,6 @@
 # Futebot
 
 [![CircleCI](https://circleci.com/gh/mrisoli/futebot/tree/master.svg?style=svg)](https://circleci.com/gh/mrisoli/futebot/tree/master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8aad709b46e74762a946811c009d92b7)](https://www.codacy.com/manual/mrisoli/futebot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mrisoli/futebot&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/mrisoli/futebot/branch/master/graph/badge.svg)](https://codecov.io/gh/mrisoli/futebot)
 
 Simple Discord Bot
