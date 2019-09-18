@@ -123,6 +123,14 @@ async def horoscopo(ctx, arg):
         )
     )
 
+@bot.command()
+async def decide(ctx, arg):
+    await ctx.send(
+        get_json_field_from_url(
+            "https://yesno.wtf/api", "image"
+        )
+    )
+
 
 @bot.command()
 async def tano(ctx, *args):
