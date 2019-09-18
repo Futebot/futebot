@@ -123,6 +123,7 @@ async def horoscopo(ctx, arg):
         )
     )
 
+
 @bot.command()
 async def decide(ctx, arg):
     await ctx.send(
