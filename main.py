@@ -142,6 +142,7 @@ async def tano(ctx, *args):
         puts.info(e)
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
+
 @bot.command()
 async def tomacu(ctx, *args):
     try:
@@ -151,6 +152,7 @@ async def tomacu(ctx, *args):
     except FutebotException as e:
         puts.info(e)
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
 
 @bot.command()
 async def soniko(ctx, *args):
