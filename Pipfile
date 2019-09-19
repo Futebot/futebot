@@ -15,7 +15,7 @@ pytest-cov = "==2.7.1"
 requests = "==2.22.0"
 Pillow = "==6.1.0"
 pytest = "==5.1.2"
-text2art = "==3.3"
+art = "==4.0"
 
 [requires]
 python_version = "3.7"
