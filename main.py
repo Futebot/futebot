@@ -3,12 +3,13 @@ import os
 import random
 import re
 import urllib
+from art import *
 
 import requests
 from discord.ext import commands
-from exception.exceptions import FutebotException
+from exception.exceptions import FutebotException, TooManyCharsException
 from service import roll_service
-from service.img_card_service import generate_card
+from service.img_card_service import generate_card, generate_card_img
 from util.helpers import (
     generate_image_search_url,
     RANDOM_EXCEPTION_COMEBACKS as rec,
@@ -134,10 +135,34 @@ async def decide(ctx, arg):
 
 
 @bot.command()
+async def banner(ctx, *args):
+    string = ' '.join(args)
+
+    if len(string) >= 10:
+        raise TooManyCharsException("Diminue esse textão aí, pfv.")
+
+    art = text2art(string)
+    await ctx.send("```" + art + "```")
+
+
+@bot.command()
 async def tano(ctx, *args):
     try:
         string = ' '.join(args)
         await ctx.send(file=generate_card(string, "templates/imgs/tano.png", "tano", 35, 330, 115, (0, 0, 0), 15))
+
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+
+@bot.command()
+async def feijoada(ctx, *args):
+    try:
+        string = ' '.join(args)
+
+        await ctx.send(file=generate_card_img(string, "templates/imgs/nada.png", "nada", 15, 205, 70, (0, 0, 0), 15,
+                       ctx.author.avatar_url._url, 16, 52, 150, 150))
 
     except FutebotException as e:
         puts.info(e)
