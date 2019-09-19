@@ -161,8 +161,12 @@ async def feijoada(ctx, *args):
     try:
         string = ' '.join(args)
 
-        await ctx.send(file=generate_card_img(string, "templates/imgs/nada.png", "nada", 15, 205, 70, (0, 0, 0), 15,
-                       ctx.author.avatar_url._url, 16, 52, 150, 150))
+        url = generate_image_search_url(args)
+        res = requests.get(url)
+        image_link = res.json()["items"][0]["link"]
+
+        await ctx.send(file=generate_card_img(string, "templates/imgs/nada.png", "nada", 15, 205, 70, (0, 0, 0), 30,
+                       image_link, 16, 55, 150, 150))
 
     except FutebotException as e:
         puts.info(e)
