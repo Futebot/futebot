@@ -59,9 +59,6 @@ async def buemo(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-
-
-
 @commands.command()
 async def feijoada(ctx, *args):
     try:
