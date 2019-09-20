@@ -1,9 +1,9 @@
 from util.helpers import mention
-from .utils import bot
+from discord.ext import commands
 
 
-@bot.command()
-async def ping(ctx, arg=""):
+@commands.command()
+async def ping2(ctx, arg=""):
     if arg == "":
         await ctx.send("pong")
     else:

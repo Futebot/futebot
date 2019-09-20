@@ -1,6 +1,7 @@
-from .utils import bot
+from discord.ext import commands
 
-@bot.command()
+
+@commands.command()
 async def listall(ctx):
     await ctx.send("```--- Commands List --- \n"
                    ".coach                     - Returns a random motivational quote\n"

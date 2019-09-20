@@ -1,5 +1,6 @@
 import logging as puts
 import random
+from discord.ext import commands
 
 from service import roll_service
 from util.helpers import (
@@ -8,10 +9,9 @@ from util.helpers import (
 )
 
 from .config import CHARADA_ENDPOINT
-from .utils import bot
 
 
-@bot.command()
+@commands.command()
 async def charada(ctx):
     fields = get_json_fields_from_url(
         CHARADA_ENDPOINT,
@@ -22,7 +22,7 @@ async def charada(ctx):
         await ctx.send(field)
 
 
-@bot.command()
+@commands.command()
 async def roll(ctx, arg):
     try:
         response = roll_service.roll(arg)

@@ -1,13 +1,12 @@
 import logging as puts
 import random
+from discord.ext import commands
 
 from exception.exceptions import FutebotException
 from service.img_card_service import generate_card
 
-from .utils import bot
 
-
-@bot.command()
+@commands.command()
 async def soniko(ctx, *args):
     try:
         string = ' '.join(args)
@@ -18,7 +17,7 @@ async def soniko(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-@bot.command()
+@commands.command()
 async def speech(ctx, *args):
     try:
         string = " ".join(args)
