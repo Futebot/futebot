@@ -1,0 +1,120 @@
+import logging as puts
+import random
+
+from util.helpers import RANDOM_EXCEPTION_COMEBACKS as rec
+import requests
+from discord.ext import commands
+
+from exception.exceptions import FutebotException, TooManyCharsException
+from service.img_card_service import generate_card, generate_card_img
+from util.helpers import generate_image_search_url
+
+
+@commands.command()
+async def soniko(ctx, *args):
+    try:
+        string = ' '.join(args)
+        await ctx.send(file=generate_card(string, "templates/imgs/soniko.png", "soniko", 25, 83, 274, (0, 0, 0), 23))
+
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+
+@commands.command()
+async def speech(ctx, *args):
+    try:
+        string = " ".join(args)
+        if not string.isdigit():
+            await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+            return
+
+        await ctx.send(file=generate_card(string, "templates/imgs/speech.png", "speech",
+                                          110, 670, 10, (255, 255, 255), 4))
+
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+
+@commands.command()
+async def tano(ctx, *args):
+    try:
+        string = ' '.join(args)
+        await ctx.send(file=generate_card(string, "templates/imgs/tano.png", "tano", 35, 330, 115, (0, 0, 0), 15))
+
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+
+@commands.command()
+async def buemo(ctx, *args):
+    try:
+        string = ' '.join(args)
+        await ctx.send(file=generate_card(string, "templates/imgs/buemo.png", "buemo", 35, 20, 100, (0, 0, 0), 30,
+                                          "helvetica"))
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+
+
+
+
+@commands.command()
+async def feijoada(ctx, *args):
+    try:
+        string = ' '.join(args)
+
+        url = generate_image_search_url(args)
+        res = requests.get(url)
+        image_link = res.json()["items"][0]["link"]
+
+        await ctx.send(file=generate_card_img(string, "templates/imgs/nada.png", "nada", 15, 205, 70, (0, 0, 0), 30,
+                       image_link, 16, 55, 150, 150))
+
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+
+@commands.command()
+async def book(ctx, *args):
+    try:
+        if len(args) > 3:
+            raise TooManyCharsException("Diminue esse textão, pfv")
+
+        font_size = 120 - (25*len(args))
+
+        string = '\n'.join(args)
+        img = None
+        img_index = 0
+        while img is None:
+            url = generate_image_search_url(args)
+            res = requests.get(url)
+            image_link = res.json()["items"][img_index]["link"]
+
+            img = generate_card_img(string, "templates/imgs/oreilly.png", "book", font_size, 50, 150, (255, 255, 255), 30,
+                                   image_link, 30, 285, 300, 300, "garamond")
+            img_index += 1
+
+            if img is not None:
+                await ctx.send(file=img)
+
+
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+
+@commands.command()
+async def tomacu(ctx, *args):
+    try:
+        string = ' '.join(args)
+        await ctx.send(file=generate_card(string, "templates/imgs/tomacu.png", "tomacu", 40, 560, 110, (0, 0, 0), 15))
+
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
