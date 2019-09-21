@@ -1,8 +1,12 @@
+from io import BytesIO
 import logging as puts
+from PIL import Image
 import random
 import requests
 import urllib
+import uuid
 from discord.ext import commands
+from discord import File
 
 from util.helpers import (
     generate_image_search_url,
@@ -10,18 +14,28 @@ from util.helpers import (
 )
 
 from .config import (
+    AVAILABLE_SPOILER_ACTIONS,
     YT_RESULTS_ENDPOINT,
     YT_WATCH_ENDPOINT,
 )
 
 
 @commands.command()
-async def imgme(ctx, *search_query):
+async def imgme(ctx, search_query, spoiler=None):
     try:
         url = generate_image_search_url(search_query)
         res = requests.get(url)
         image_link = res.json()["items"][0]["link"]
-        await ctx.send(image_link)
+
+        response = requests.get(image_link, stream=True)
+        image = Image.open(BytesIO(response.content))
+        filename = "{}.{}".format(uuid.uuid1(), image.format)
+        image.save(filename)
+        f = File(open(filename, "rb"))
+        if spoiler and spoiler in AVAILABLE_SPOILER_ACTIONS:
+            setattr(f, 'filename', "{}{}".format("SPOILER_", f.filename)) 
+        
+        await ctx.send(file=f)
 
     except Exception as e:
         puts.info(e)
