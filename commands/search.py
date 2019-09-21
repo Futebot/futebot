@@ -33,8 +33,8 @@ async def imgme(ctx, search_query, spoiler=None):
         image.save(filename)
         f = File(open(filename, "rb"))
         if spoiler and spoiler in AVAILABLE_SPOILER_ACTIONS:
-            setattr(f, 'filename', "{}{}".format("SPOILER_", f.filename)) 
-        
+            setattr(f, 'filename', "{}{}".format("SPOILER_", f.filename))
+
         await ctx.send(file=f)
 
     except Exception as e:
