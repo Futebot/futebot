@@ -1,12 +1,10 @@
 from io import BytesIO
 import logging as puts
-from PIL import Image
 import random
 import requests
 import urllib
-import uuid
+
 from discord.ext import commands
-from discord import File
 
 from util.helpers import (
     generate_image_search_url,
@@ -27,14 +25,7 @@ async def imgme(ctx, search_query, spoiler=None):
         res = requests.get(url)
         image_link = res.json()["items"][0]["link"]
 
-        response = requests.get(image_link, stream=True)
-        image = Image.open(BytesIO(response.content))
-        filename = "{}.{}".format(uuid.uuid1(), image.format)
-        image.save(filename)
-        f = File(open(filename, "rb"))
-        if spoiler and spoiler in AVAILABLE_SPOILER_ACTIONS:
-            setattr(f, 'filename', "{}{}".format("SPOILER_", f.filename))
-
+        f = create_discord_file_object(image_link, spoiler)
         await ctx.send(file=f)
 
     except Exception as e:
@@ -43,12 +34,14 @@ async def imgme(ctx, search_query, spoiler=None):
 
 
 @commands.command()
-async def gifme(ctx, *search_query):
+async def gifme(ctx, search_query, spoiler=None):
     try:
         url = generate_image_search_url(search_query, gif=True)
         res = requests.get(url)
         image_link = res.json()["items"][0]["link"]
-        await ctx.send(image_link)
+
+        f = create_discord_file_object(image_link, spoiler)
+        await ctx.send(file=f)
 
     except Exception as e:
         puts.info(e)
