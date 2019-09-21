@@ -3,7 +3,7 @@ from discord.ext import commands
 
 
 @commands.command()
-async def ping2(ctx, arg=""):
+async def ping(ctx, arg=""):
     if arg == "":
         await ctx.send("pong")
     else:
