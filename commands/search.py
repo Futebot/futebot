@@ -1,7 +1,9 @@
+from io import BytesIO
 import logging as puts
 import random
 import requests
 import urllib
+
 from discord.ext import commands
 
 from util.helpers import (
@@ -10,18 +12,21 @@ from util.helpers import (
 )
 
 from .config import (
+    AVAILABLE_SPOILER_ACTIONS,
     YT_RESULTS_ENDPOINT,
     YT_WATCH_ENDPOINT,
 )
 
 
 @commands.command()
-async def imgme(ctx, *search_query):
+async def imgme(ctx, search_query, spoiler=None):
     try:
         url = generate_image_search_url(search_query)
         res = requests.get(url)
         image_link = res.json()["items"][0]["link"]
-        await ctx.send(image_link)
+
+        f = create_discord_file_object(image_link, spoiler)
+        await ctx.send(file=f)
 
     except Exception as e:
         puts.info(e)
@@ -29,12 +34,14 @@ async def imgme(ctx, *search_query):
 
 
 @commands.command()
-async def gifme(ctx, *search_query):
+async def gifme(ctx, search_query, spoiler=None):
     try:
         url = generate_image_search_url(search_query, gif=True)
         res = requests.get(url)
         image_link = res.json()["items"][0]["link"]
-        await ctx.send(image_link)
+
+        f = create_discord_file_object(image_link, spoiler)
+        await ctx.send(file=f)
 
     except Exception as e:
         puts.info(e)
