@@ -6,7 +6,7 @@ import requests
 from discord.ext import commands
 
 from exception.exceptions import FutebotException, TooManyCharsException
-from service.img_card_service import generate_card, generate_card_img
+from service.img_card_service import generate_card, generate_card_img, generate_card_img_title_description
 from util.helpers import generate_image_search_url
 
 
@@ -49,10 +49,37 @@ async def tano(ctx, *args):
 
 
 @commands.command()
+async def magic(ctx, *args):
+    try:
+        string = args[0].split()
+        description = args[1]
+
+        img = None
+        img_index = 0
+        while img is None:
+            url = generate_image_search_url(string)
+            res = requests.get(url)
+            image_link = res.json()["items"][img_index]["link"]
+
+            img = generate_card_img_title_description(args[0], "templates/imgs/magic.png", "magic", 30, 40, 33, (0, 0, 0), 15,
+                                              image_link, 40, 70, 240, 240,
+                                              description, 40, 370, 20, "magic")
+            img_index += 1
+
+            if img is not None:
+                await ctx.send(file=img)
+
+
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+
+@commands.command()
 async def buemo(ctx, *args):
     try:
         string = ' '.join(args)
-        await ctx.send(file=generate_card(string, "templates/imgs/buemo.png", "buemo", 35, 20, 100, (0, 0, 0), 30,
+        await ctx.send(file=generate_card(string, "templates/imgs/buemo.png", "buemo", 35, 20, 100, (0, 0, 0), 40,
                                           "helvetica"))
     except FutebotException as e:
         puts.info(e)

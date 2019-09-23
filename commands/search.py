@@ -1,5 +1,7 @@
 import logging as puts
 import random
+
+import re
 import requests
 import urllib
 from discord.ext import commands
@@ -50,5 +52,5 @@ async def youtube(ctx, *args):
             r"href=\"\/watch\?v=(.{11})", html_content.read().decode()
         )
         await ctx.send("{}{}".format(YT_WATCH_ENDPOINT, search_results[0]))
-    except BaseException:
+    except BaseException as e:
         await ctx.send("Are you dumb?")

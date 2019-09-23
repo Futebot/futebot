@@ -22,7 +22,8 @@ from commands.meme import (
     tomacu,
     feijoada,
     book,
-    buemo
+    buemo,
+    magic
 )
 from commands.misc import (
     ping,
@@ -56,5 +57,6 @@ bot.add_command(moji)
 bot.add_command(decide)
 bot.add_command(book)
 bot.add_command(buemo)
+bot.add_command(magic)
 
 bot.run(os.environ["DISCORD_APP_TOKEN"])
