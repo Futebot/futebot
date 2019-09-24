@@ -11,7 +11,7 @@ from discord.ext import commands
 from util.helpers import (
     generate_image_search_url,
     RANDOM_EXCEPTION_COMEBACKS as rec,
-)
+    create_discord_file_object)
 
 from .config import (
     AVAILABLE_SPOILER_ACTIONS,

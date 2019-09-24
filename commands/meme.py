@@ -139,3 +139,15 @@ async def tomacu(ctx, *args):
     except FutebotException as e:
         puts.info(e)
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+
+@commands.command()
+async def gordo(ctx, *args):
+    try:
+        string = ' '.join(args)
+        await ctx.send(file=generate_card(string, "templates/imgs/gordo.png", "gordo", 40, 200, 525, (255, 0, 0), 10))
+
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+

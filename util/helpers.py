@@ -3,6 +3,12 @@ import os
 import requests
 import uuid
 
+from PIL import Image
+from discord import File
+from io import BytesIO
+
+from commands.config import AVAILABLE_SPOILER_ACTIONS
+
 RANDOM_EXCEPTION_COMEBACKS = ["Are you dumb?", "No, I don't think I will."]
 
 
@@ -51,7 +57,7 @@ def mention(ctx, criteria):
     return mentioned
 
 
-def _save_image():
+def _save_image(image_link):
     response = requests.get(image_link, stream=True)
     image = Image.open(BytesIO(response.content))
     filename = "{}.{}".format(uuid.uuid1(), image.format)
