@@ -34,4 +34,3 @@ async def moji(ctx, *args):
         await ctx.send(text)
     except Exception as e:
         await ctx.send("Tenta esses moji aqui, fera: https://github.com/sepandhaghighi/art/blob/master/art/art_dic.py")
-

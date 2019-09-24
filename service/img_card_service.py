@@ -60,6 +60,7 @@ def generate_card_img(string: str, img_path: str, filename: str, font_size: int,
         puts.info(e)
         return None
 
+
 def generate_card_img_title_description(string: str, img_path: str, filename: str, font_size: int, x: int, y: int,
                                         color, char_limit, img_url, img_x, img_y, img_width, img_height,
                                         description: str, desc_x: int, desc_y: int, desc_font_size: int,

@@ -61,14 +61,13 @@ async def magic(ctx, *args):
             res = requests.get(url)
             image_link = res.json()["items"][img_index]["link"]
 
-            img = generate_card_img_title_description(args[0], "templates/imgs/magic.png", "magic", 30, 40, 33, (0, 0, 0), 15,
-                                              image_link, 40, 70, 240, 240,
-                                              description, 40, 370, 20, "magic")
+            img = generate_card_img_title_description(args[0], "templates/imgs/magic.png", "magic", 30, 40, 33,
+                                                      (0, 0, 0), 15, image_link, 40, 70, 240, 240,
+                                                      description, 40, 370, 20, "magic")
             img_index += 1
 
             if img is not None:
                 await ctx.send(file=img)
-
 
     except FutebotException as e:
         puts.info(e)
@@ -119,13 +118,12 @@ async def book(ctx, *args):
             res = requests.get(url)
             image_link = res.json()["items"][img_index]["link"]
 
-            img = generate_card_img(string, "templates/imgs/oreilly.png", "book", font_size, 50, 150, (255, 255, 255), 30,
-                                   image_link, 30, 285, 300, 300, "garamond")
+            img = generate_card_img(string, "templates/imgs/oreilly.png", "book", font_size, 50, 150, (255, 255, 255),
+                                    30, image_link, 30, 285, 300, 300, "garamond")
             img_index += 1
 
             if img is not None:
                 await ctx.send(file=img)
-
 
     except FutebotException as e:
         puts.info(e)
@@ -141,4 +139,3 @@ async def tomacu(ctx, *args):
     except FutebotException as e:
         puts.info(e)
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
-
