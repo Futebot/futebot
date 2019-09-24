@@ -1,6 +1,7 @@
-import os
 import logging as puts
+import os
 import requests
+import uuid
 
 RANDOM_EXCEPTION_COMEBACKS = ["Are you dumb?", "No, I don't think I will."]
 
@@ -48,3 +49,21 @@ def mention(ctx, criteria):
         if criteria.lower() in member.name.lower():
             mentioned += member.mention + " "
     return mentioned
+
+
+def _save_image():
+    response = requests.get(image_link, stream=True)
+    image = Image.open(BytesIO(response.content))
+    filename = "{}.{}".format(uuid.uuid1(), image.format)
+    image.save(filename)
+
+    return filename
+
+
+def create_discord_file_object(image_link, spoiler):
+    filename = _save_image(image_link)
+    f = File(open(filename, "rb"))
+    if spoiler and spoiler in AVAILABLE_SPOILER_ACTIONS:
+        setattr(f, 'filename', "{}{}".format("SPOILER_", f.filename))
+
+    return f
