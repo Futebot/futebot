@@ -150,4 +150,3 @@ async def gordo(ctx, *args):
     except FutebotException as e:
         puts.info(e)
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
-
