@@ -18,7 +18,7 @@ async def ping(ctx, arg=""):
 async def banner(ctx, *args):
     string = ' '.join(args)
 
-    if len(string) >= 12:
+    if len(string) > 20:
         await ctx.send("Diminue esse textão aí, pfv.")
         return
 

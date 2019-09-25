@@ -19,7 +19,8 @@ from commands.meme import (
     soniko,
     speech,
     tano,
-    tomacu
+    tomacu,
+    twit
 
 )
 from commands.hope import (
@@ -61,5 +62,6 @@ bot.add_command(book)
 bot.add_command(buemo)
 bot.add_command(magic)
 bot.add_command(gordo)
+bot.add_command(twit)
 
 bot.run(os.environ["DISCORD_APP_TOKEN"])

@@ -1,12 +1,15 @@
 import logging as puts
 import random
 
+import discord
+
 from util.helpers import RANDOM_EXCEPTION_COMEBACKS as rec
 import requests
 from discord.ext import commands
 
 from exception.exceptions import FutebotException, TooManyCharsException
-from service.img_card_service import generate_card, generate_card_img, generate_card_img_title_description
+from service.img_card_service import generate_card, generate_card_img, generate_card_img_title_description, \
+    generate_card_twit
 from util.helpers import generate_image_search_url
 
 
@@ -83,6 +86,23 @@ async def buemo(ctx, *args):
     except FutebotException as e:
         puts.info(e)
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+
+@commands.command()
+async def twit(ctx, user: discord.User, *args):
+    try:
+        img_url = user.avatar_url._url
+        user_display_name = '@'+user.display_name
+        user_name = user.name
+        string = ' '.join(args)
+
+        await ctx.send(file=generate_card_twit(user_name, user_display_name,
+                                                "templates/imgs/twit.png", "twit",
+                                                img_url, string))
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
 
 
 @commands.command()
