@@ -1,7 +1,7 @@
 from io import BytesIO
 import logging as puts
 import os
-from PIL import Image 
+from PIL import Image
 import requests
 import uuid
 
