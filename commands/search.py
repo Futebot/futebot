@@ -1,5 +1,7 @@
 import logging as puts
 import random
+
+import re
 import requests
 import urllib
 
@@ -9,7 +11,7 @@ from util.helpers import (
     create_discord_file_object,
     generate_image_search_url,
     RANDOM_EXCEPTION_COMEBACKS as rec,
-)
+    create_discord_file_object)
 
 from .config import (
     AVAILABLE_SPOILER_ACTIONS,
@@ -57,5 +59,5 @@ async def youtube(ctx, *args):
             r"href=\"\/watch\?v=(.{11})", html_content.read().decode()
         )
         await ctx.send("{}{}".format(YT_WATCH_ENDPOINT, search_results[0]))
-    except BaseException:
+    except BaseException as e:
         await ctx.send("Are you dumb?")

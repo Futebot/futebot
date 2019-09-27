@@ -26,3 +26,12 @@ async def horoscopo(ctx, arg):
             HOROSCOPO_ENDPOINT.format(arg), "texto"
         )
     )
+
+
+@commands.command()
+async def decide(ctx, arg):
+    await ctx.send(
+        get_json_field_from_url(
+            "https://yesno.wtf/api", "image"
+        )
+    )

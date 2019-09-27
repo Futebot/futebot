@@ -5,7 +5,10 @@ from PIL import Image
 import requests
 import uuid
 
+from PIL import Image
 from discord import File
+from io import BytesIO
+
 
 RANDOM_EXCEPTION_COMEBACKS = ["Are you dumb?", "No, I don't think I will."]
 
@@ -65,6 +68,8 @@ def _save_image(image_link):
 
 
 def create_discord_file_object(image_link, spoiler):
+    from commands.config import AVAILABLE_SPOILER_ACTIONS
+
     filename = _save_image(image_link)
     f = File(open(filename, "rb"))
     if spoiler and spoiler in AVAILABLE_SPOILER_ACTIONS:

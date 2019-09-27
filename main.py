@@ -10,16 +10,27 @@ from commands.games import (
     charada,
     roll,
 )
+from commands.meme import (
+    book,
+    buemo,
+    feijoada,
+    gordo,
+    magic,
+    soniko,
+    speech,
+    tano,
+    tomacu
+
+)
 from commands.hope import (
     coach,
     horoscopo,
-)
-from commands.meme import (
-    soniko,
-    speech,
+    decide
 )
 from commands.misc import (
-    ping,
+    banner,
+    moji,
+    ping
 )
 from commands.search import (
     imgme,
@@ -40,5 +51,15 @@ bot.add_command(ping)
 bot.add_command(imgme)
 bot.add_command(gifme)
 bot.add_command(youtube)
+bot.add_command(tano)
+bot.add_command(tomacu)
+bot.add_command(feijoada)
+bot.add_command(banner)
+bot.add_command(moji)
+bot.add_command(decide)
+bot.add_command(book)
+bot.add_command(buemo)
+bot.add_command(magic)
+bot.add_command(gordo)
 
 bot.run(os.environ["DISCORD_APP_TOKEN"])
