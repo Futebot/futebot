@@ -1,4 +1,3 @@
-from io import BytesIO
 import logging as puts
 import random
 
@@ -9,6 +8,7 @@ import urllib
 from discord.ext import commands
 
 from util.helpers import (
+    create_discord_file_object,
     generate_image_search_url,
     RANDOM_EXCEPTION_COMEBACKS as rec,
     create_discord_file_object)
