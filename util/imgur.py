@@ -13,7 +13,6 @@ class Imgur:
         }
         self.upload_endpoint = 'https://api.imgur.com/3/image'
 
-
     def upload(self, image):
         payload = {
             'image': image

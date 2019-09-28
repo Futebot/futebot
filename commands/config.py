@@ -6,5 +6,5 @@ COACH_ENDPOINT = "http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&
 YT_RESULTS_ENDPOINT = "http://www.youtube.com/results?"
 YT_WATCH_ENDPOINT = "http://www.youtube.com/watch?v="
 HOROSCOPO_ENDPOINT = "http://babi.hefesto.io/signo/{}/dia"
-IMGUR_CLIENT_ID=os.getenv('IMGUR_CLIENT_ID')
-IMGUR_CLIENT_SECRET=os.getenv('IMGUR_CLIENT_SECRET')
+IMGUR_CLIENT_ID = os.getenv('IMGUR_CLIENT_ID')
+IMGUR_CLIENT_SECRET = os.getenv('IMGUR_CLIENT_SECRET')
