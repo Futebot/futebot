@@ -96,6 +96,7 @@ def generate_card_img_title_description(string: str, img_path: str, filename: st
         puts.info(e)
         return None
 
+
 def generate_card_twit(name: str, display_name: str, img_path: str, filename: str, img_url, description: str):
     try:
 
@@ -114,7 +115,6 @@ def generate_card_twit(name: str, display_name: str, img_path: str, filename: st
                         font=ImageFont.truetype(font='templates/fonts/helvetica.ttf', size=18),
                         fill=(150, 150, 150))
 
-
             drawer.text((20, 100), description,
                         font=ImageFont.truetype(font='templates/fonts/helvetica.ttf', size=35),
                         fill=(0, 0, 0))
@@ -125,7 +125,6 @@ def generate_card_twit(name: str, display_name: str, img_path: str, filename: st
             img2 = mask_circle_transparent(img2, 0)
             img2.thumbnail((60, 60), Image.ANTIALIAS)
 
-
             img.paste(img2, (20, 20), img2)
 
             img.save(filename + ".png")
@@ -134,6 +133,7 @@ def generate_card_twit(name: str, display_name: str, img_path: str, filename: st
     except Exception as e:
         puts.info(e)
         return None
+
 
 def mask_circle_transparent(pil_img, blur_radius, offset=0):
     offset = blur_radius * 2 + offset
