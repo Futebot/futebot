@@ -52,7 +52,6 @@ def generate_image_search_url(search_terms, **kwargs):
 def mention(ctx, criteria):
     if len(criteria) < 3:
         return "Don't be evil."
-        return
     mentioned = ""
     for member in ctx.message.channel.members:
         if criteria.lower() in member.name.lower():
