@@ -1,6 +1,6 @@
 import requests
 
-from ..commands.config import (
+from commands.config import (
     IMGUR_CLIENT_ID,
     IMGUR_CLIENT_SECRET,
 )
