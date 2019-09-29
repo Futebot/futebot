@@ -2,7 +2,7 @@ import re
 
 import pytest
 
-from ..service.roll_service import *
+from service.roll_service import *
 
 
 def test_roll_command():

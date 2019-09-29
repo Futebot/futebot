@@ -25,6 +25,8 @@ The step above expects a file `keys.env` in the root directory with the followin
 DISCORD_APP_TOKEN=<HUETOKEN>
 GOOGLE_CUSTOM_SEARCH_API_TOKEN=<HUEAPITOKEN>
 GOOGLE_CUSTOM_SEARCH_API_ID=<HUEAPIID>
+IMGUR_CLIENT_ID=<CLIENTID>
+IMGUR_CLIENT_SECRET=<CLIENTSECRET>
 ```
 
 ## Testing
