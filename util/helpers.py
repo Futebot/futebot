@@ -9,8 +9,8 @@ from PIL import Image
 from discord import File
 from io import BytesIO
 
-from commands.config import AVAILABLE_SPOILER_ACTIONS
 from .imgur import Imgur
+from ..commands.config import AVAILABLE_SPOILER_ACTIONS
 
 RANDOM_EXCEPTION_COMEBACKS = ["Are you dumb?", "No, I don't think I will."]
 
