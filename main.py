@@ -40,7 +40,7 @@ from commands.search import (
 )
 
 from commands.custom import (
-    addurl,
+    add,
     c
 )
 
@@ -68,7 +68,7 @@ bot.add_command(buemo)
 bot.add_command(magic)
 bot.add_command(gordo)
 bot.add_command(twit)
-bot.add_command(addurl)
+bot.add_command(add)
 bot.add_command(c)
 
 bot.run(os.environ["DISCORD_APP_TOKEN"])

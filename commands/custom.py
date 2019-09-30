@@ -1,12 +1,10 @@
 import os
-
-from discord import client, Client
 from discord.ext import commands
 import yaml
 
 
 @commands.command()
-async def addurl(ctx, *args):
+async def add(ctx, *args):
 
     command_name = args[0]
     command_url = args[1]
