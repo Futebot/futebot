@@ -90,7 +90,6 @@ async def hospital(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-
 @commands.command()
 async def buemo(ctx, *args):
     try:
@@ -111,12 +110,11 @@ async def twit(ctx, user: discord.User, *args):
         string = ' '.join(args)
 
         await ctx.send(file=generate_card_twit(user_name, user_display_name,
-                                                "templates/imgs/twit.png", "twit",
-                                                img_url, string))
+                                               "templates/imgs/twit.png", "twit",
+                                               img_url, string))
     except FutebotException as e:
         puts.info(e)
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
-
 
 
 @commands.command()
