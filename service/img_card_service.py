@@ -35,6 +35,41 @@ def generate_card(string: str, img_path: str, filename: str, font_size: int, x: 
         raise FutebotException(e)
 
 
+def generate_card_multiple_texts(img_path: str, filename: str, *texts: tuple):
+    try:
+
+        img = Image.open(img_path)
+        drawer = ImageDraw.Draw(img)
+
+        for text in texts:
+            string = text[0]
+            font_size = text[1]
+            x = text[2]
+            y = text[3]
+            color = text[4]
+            char_limit = text[5]
+            font = text[6]
+
+            if len(string) >= char_limit:  # 23 or bigger string would cut the text out, for now just avoid it.
+                raise TooManyCharsException("Diminue esse textão aí, pfv.")
+
+            else:
+                position = (x, y)
+
+                drawer.text(position, string,
+                            font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
+                            fill=color)
+
+        img.save(filename+".png")
+        return File(open(filename+".png", "rb"))
+
+    except Exception as e:
+        puts.info(e)
+        raise FutebotException(e)
+
+
+
+
 def generate_card_img(string: str, img_path: str, filename: str, font_size: int, x: int, y: int, color, char_limit,
                       img_url, img_x, img_y, img_width, img_height, font="opensans"):
     try:

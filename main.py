@@ -15,6 +15,7 @@ from commands.meme import (
     buemo,
     feijoada,
     gordo,
+    hospital,
     magic,
     soniko,
     speech,
@@ -63,5 +64,6 @@ bot.add_command(buemo)
 bot.add_command(magic)
 bot.add_command(gordo)
 bot.add_command(twit)
+bot.add_command(hospital)
 
 bot.run(os.environ["DISCORD_APP_TOKEN"])

@@ -9,7 +9,7 @@ from discord.ext import commands
 
 from exception.exceptions import FutebotException, TooManyCharsException
 from service.img_card_service import generate_card, generate_card_img, generate_card_img_title_description, \
-    generate_card_twit
+    generate_card_twit, generate_card_multiple_texts
 from util.helpers import generate_image_search_url
 
 
@@ -65,7 +65,7 @@ async def magic(ctx, *args):
             image_link = res.json()["items"][img_index]["link"]
 
             img = generate_card_img_title_description(args[0], "templates/imgs/magic.png", "magic", 30, 40, 33,
-                                                      (0, 0, 0), 15, image_link, 40, 70, 240, 240,
+                                                      (0, 0, 0), 25, image_link, 40, 70, 240, 240,
                                                       description, 40, 370, 20, "magic")
             img_index += 1
 
@@ -75,6 +75,20 @@ async def magic(ctx, *args):
     except FutebotException as e:
         puts.info(e)
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+
+@commands.command()
+async def hospital(ctx, *args):
+    try:
+        name = args[0]
+        reason = args[1]
+        await ctx.send(file=generate_card_multiple_texts("templates/imgs/hospital.png", "hospital",
+                                                         (reason, 35, 400, 927, (0, 0, 0), 30, "helveticamedium"),
+                                                         (name, 35, 590, 188, (0, 0, 0), 30, "helveticamedium")))
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
 
 
 @commands.command()
