@@ -1,5 +1,7 @@
+from io import BytesIO
 import logging as puts
 import os
+from PIL import Image
 import requests
 import uuid
 
@@ -7,6 +9,7 @@ from PIL import Image
 from discord import File
 from io import BytesIO
 
+from util.imgur import Imgur
 from commands.config import AVAILABLE_SPOILER_ACTIONS
 
 RANDOM_EXCEPTION_COMEBACKS = ["Are you dumb?", "No, I don't think I will."]
@@ -49,7 +52,6 @@ def generate_image_search_url(search_terms, **kwargs):
 def mention(ctx, criteria):
     if len(criteria) < 3:
         return "Don't be evil."
-        return
     mentioned = ""
     for member in ctx.message.channel.members:
         if criteria.lower() in member.name.lower():
@@ -57,19 +59,25 @@ def mention(ctx, criteria):
     return mentioned
 
 
-def _save_image(image_link):
-    response = requests.get(image_link, stream=True)
-    image = Image.open(BytesIO(response.content))
-    filename = "{}.{}".format(uuid.uuid1(), image.format)
-    image.save(filename)
+def save_image_to_imgur(image):
+    imgur = Imgur()
+    imgur_link = imgur.upload(image)
 
-    return filename
+    return imgur_link
 
 
-def create_discord_file_object(image_link, spoiler):
-    filename = _save_image(image_link)
-    f = File(open(filename, "rb"))
+def create_discord_file_object(image_link, spoiler=None):
+    response = requests.get(image_link)
+    filename = "{}.{}".format(uuid.uuid1(), 'png')
+    discord_file = File(BytesIO(response.content), filename=filename)
     if spoiler and spoiler in AVAILABLE_SPOILER_ACTIONS:
-        setattr(f, 'filename', "{}{}".format("SPOILER_", f.filename))
+        setattr(discord_file, 'filename', "{}{}".format("SPOILER_", discord_file.filename))
 
-    return f
+    return discord_file
+
+
+def image_to_byte_array(image):
+    imgByteArr = BytesIO()
+    image.save(imgByteArr, format=image.format)
+    imgByteArr = imgByteArr.getvalue()
+    return imgByteArr

@@ -11,6 +11,12 @@ import logging as puts
 
 from exception.exceptions import TooManyCharsException, FutebotException
 
+from util.helpers import (
+    create_discord_file_object,
+    image_to_byte_array,
+    save_image_to_imgur,
+)
+
 
 def generate_card(string: str, img_path: str, filename: str, font_size: int, x: int, y: int, color, char_limit,
                   font="opensans"):
@@ -23,12 +29,15 @@ def generate_card(string: str, img_path: str, filename: str, font_size: int, x: 
             position = (x, y)
             img = Image.open(img_path)
             drawer = ImageDraw.Draw(img)
-            drawer.text(position, string,
-                        font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
-                        fill=color)
-
-            img.save(filename+".png")
-            return File(open(filename+".png", "rb"))
+            drawer.text(
+                position,
+                string,
+                font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
+                fill=color
+            )
+            img_url = save_image_to_imgur(image_to_byte_array(img))
+            f = create_discord_file_object(img_url, False)
+            return f
 
     except Exception as e:
         puts.info(e)
