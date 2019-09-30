@@ -12,7 +12,7 @@ Export a discord bot token and run:
 ```
 $ docker build . -t futebot:latest
 
-$ docker run -it -e DISCORD_APP_TOKEN=${DISCORD_APP_TOKEN} -e GOOGLE_CUSTOM_SEARCH_API_TOKEN=${GOOGLE_CUSTOM_SEARCH_API_TOKEN} -e GOOGLE_CUSTOM_SEARCH_API_ID=${GOOGLE_CUSTOM_SEARCH_API_ID} --name futebot futebot:latest
+$ docker run -it -e DISCORD_APP_TOKEN=${DISCORD_APP_TOKEN} -e GOOGLE_CUSTOM_SEARCH_API_TOKEN=${GOOGLE_CUSTOM_SEARCH_API_TOKEN} -e GOOGLE_CUSTOM_SEARCH_API_ID=${GOOGLE_CUSTOM_SEARCH_API_ID} COMMANDS_DATA_FILE=${COMMANDS_DATA_FILE} --name futebot futebot:latest
 ```
 
 Or
@@ -25,6 +25,7 @@ The step above expects a file `keys.env` in the root directory with the followin
 DISCORD_APP_TOKEN=<HUETOKEN>
 GOOGLE_CUSTOM_SEARCH_API_TOKEN=<HUEAPITOKEN>
 GOOGLE_CUSTOM_SEARCH_API_ID=<HUEAPIID>
+COMMANDS_DATA_FILE=<COMMANDS_DATA_FILE>
 ```
 
 ## Testing

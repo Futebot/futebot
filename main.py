@@ -39,6 +39,11 @@ from commands.search import (
     youtube,
 )
 
+from commands.custom import (
+    addurl,
+    c
+)
+
 puts.basicConfig(format="%(asctime)s - %(message)s", level=puts.INFO)
 
 bot.add_command(listall)
@@ -63,5 +68,7 @@ bot.add_command(buemo)
 bot.add_command(magic)
 bot.add_command(gordo)
 bot.add_command(twit)
+bot.add_command(addurl)
+bot.add_command(c)
 
 bot.run(os.environ["DISCORD_APP_TOKEN"])
