@@ -22,6 +22,18 @@ async def add(ctx, *args):
 
 
 @commands.command()
+async def list(ctx):
+    list = '```'
+    with open(os.environ["COMMANDS_DATA_FILE"]) as f:
+        data = yaml.load(f, Loader=yaml.FullLoader)
+        for cmd in data:
+            list += ".c " + cmd + " -> " + data[cmd] + "\n"
+
+        list += "```"
+        await ctx.send(list)
+
+
+@commands.command()
 async def c(ctx, arg):
     with open(os.environ["COMMANDS_DATA_FILE"]) as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
