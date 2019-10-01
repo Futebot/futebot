@@ -42,7 +42,8 @@ from commands.search import (
 
 from commands.custom import (
     add,
-    c
+    c,
+    list
 )
 
 puts.basicConfig(format="%(asctime)s - %(message)s", level=puts.INFO)
@@ -72,5 +73,6 @@ bot.add_command(twit)
 bot.add_command(add)
 bot.add_command(c)
 bot.add_command(hospital)
+bot.add_command(list)
 
 bot.run(os.environ["DISCORD_APP_TOKEN"])
