@@ -1,5 +1,6 @@
 from discord.ext import commands
 
+from annotation.futebot import command
 from util.helpers import (
     get_json_field_from_url,
 )
@@ -9,6 +10,7 @@ from .config import (
 )
 
 
+@command
 @commands.command()
 async def coach(ctx):
     await ctx.send(
@@ -19,6 +21,7 @@ async def coach(ctx):
     )
 
 
+@command
 @commands.command()
 async def horoscopo(ctx, arg):
     await ctx.send(
@@ -28,6 +31,7 @@ async def horoscopo(ctx, arg):
     )
 
 
+@command
 @commands.command()
 async def decide(ctx, arg):
     await ctx.send(

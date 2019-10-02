@@ -7,6 +7,7 @@ import urllib
 
 from discord.ext import commands
 
+from annotation.futebot import command
 from util.helpers import (
     create_discord_file_object,
     generate_image_search_url,
@@ -22,6 +23,7 @@ from .config import (
 )
 
 
+@command
 @commands.command()
 async def imgme(ctx, search_query, spoiler=None):
     try:
@@ -37,6 +39,7 @@ async def imgme(ctx, search_query, spoiler=None):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
+@command
 @commands.command()
 async def gifme(ctx, search_query, spoiler=None):
     try:
@@ -52,6 +55,7 @@ async def gifme(ctx, search_query, spoiler=None):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
+@command
 @commands.command()
 async def youtube(ctx, *args):
     try:
