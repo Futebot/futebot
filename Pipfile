@@ -9,6 +9,7 @@ ipython = "==7.8.0"
 pycodestyle = "==2.5.0"
 coverage = "==4.5.1"
 pytest-cov = "==2.7.1"
+black = "*"
 
 [packages]
 "discord.py" = "==1.2.3"
@@ -20,3 +21,6 @@ pyyaml = "==5.1.2"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
