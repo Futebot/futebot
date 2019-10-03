@@ -16,6 +16,7 @@ from util.helpers import (
 
 from .config import (
     AVAILABLE_SPOILER_ACTIONS,
+    DICTIONARY_PTBR_ENDPOINT,
     IMGUR_CLIENT_ID,
     YT_RESULTS_ENDPOINT,
     YT_WATCH_ENDPOINT,
@@ -79,5 +80,17 @@ async def youtube(ctx, *args):
             r"href=\"\/watch\?v=(.{11})", html_content.read().decode()
         )
         await ctx.send("{}{}".format(YT_WATCH_ENDPOINT, search_results[0]))
+    except BaseException as e:
+        await ctx.send("Are you dumb?")
+
+
+@commands.command()
+async def dictionary(ctx, term, *args):
+    try:
+        endpoint = DICTIONARY_PTBR_ENDPOINT.format(term)
+        r = requests.get(endpoint)
+        result = r.json()
+        print(result)
+
     except BaseException as e:
         await ctx.send("Are you dumb?")
