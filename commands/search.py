@@ -7,6 +7,7 @@ import urllib
 
 from discord.ext import commands
 
+from annotation.futebot import command
 from util.helpers import (
     clean_html,
     create_discord_file_object,
@@ -24,6 +25,7 @@ from .config import (
 )
 
 
+@command
 @commands.command()
 async def imgme(ctx, search_query, spoiler=None):
     try:
@@ -48,6 +50,7 @@ async def imgme(ctx, search_query, spoiler=None):
         await ctx.send(e)
 
 
+@command
 @commands.command()
 async def gifme(ctx, search_query, spoiler=None):
     try:
@@ -72,6 +75,7 @@ async def gifme(ctx, search_query, spoiler=None):
         await ctx.send(e)
 
 
+@command
 @commands.command()
 async def youtube(ctx, *args):
     try:
@@ -85,6 +89,7 @@ async def youtube(ctx, *args):
         await ctx.send("Are you dumb?")
 
 
+@command
 @commands.command()
 async def dictionary(ctx, term, *args):
     try:

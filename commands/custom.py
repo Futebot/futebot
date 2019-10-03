@@ -1,8 +1,10 @@
 import os
 from discord.ext import commands
 import yaml
+from annotation.futebot import command
 
 
+@command
 @commands.command()
 async def add(ctx, *args):
 
@@ -21,6 +23,7 @@ async def add(ctx, *args):
         yaml.dump(data, f, default_flow_style=False)
 
 
+@command
 @commands.command()
 async def list(ctx):
     list = '```'
@@ -33,6 +36,7 @@ async def list(ctx):
         await ctx.send(list)
 
 
+@command
 @commands.command()
 async def c(ctx, arg):
     with open(os.environ["COMMANDS_DATA_FILE"]) as f:

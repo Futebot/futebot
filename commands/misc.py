@@ -1,11 +1,12 @@
 import time
 from art import *
-from discord.ext.commands import CommandInvokeError
 
+from annotation.futebot import command
 from util.helpers import mention
 from discord.ext import commands
 
 
+@command
 @commands.command()
 async def ping(ctx, arg=""):
     if arg == "":
@@ -14,6 +15,7 @@ async def ping(ctx, arg=""):
         await ctx.send("Pinging " + mention(ctx, arg) + " 🏓")
 
 
+@command
 @commands.command()
 async def banner(ctx, *args):
     string = ' '.join(args)
@@ -26,6 +28,7 @@ async def banner(ctx, *args):
     await ctx.send("```" + art + "```")
 
 
+@command
 @commands.command()
 async def moji(ctx, *args):
     try:

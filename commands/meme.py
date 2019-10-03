@@ -3,6 +3,7 @@ import random
 
 import discord
 
+from annotation.futebot import command
 from util.helpers import RANDOM_EXCEPTION_COMEBACKS as rec
 import requests
 from discord.ext import commands
@@ -13,6 +14,7 @@ from service.img_card_service import generate_card, generate_card_img, generate_
 from util.helpers import generate_image_search_url
 
 
+@command
 @commands.command()
 async def soniko(ctx, *args):
     try:
@@ -24,6 +26,7 @@ async def soniko(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
+@command
 @commands.command()
 async def speech(ctx, *args):
     try:
@@ -40,6 +43,7 @@ async def speech(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
+@command
 @commands.command()
 async def tano(ctx, *args):
     try:
@@ -51,6 +55,7 @@ async def tano(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
+@command
 @commands.command()
 async def magic(ctx, *args):
     try:
@@ -77,6 +82,7 @@ async def magic(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
+@command
 @commands.command()
 async def hospital(ctx, *args):
     try:
@@ -90,6 +96,7 @@ async def hospital(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
+@command
 @commands.command()
 async def buemo(ctx, *args):
     try:
@@ -101,6 +108,7 @@ async def buemo(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
+@command
 @commands.command()
 async def twit(ctx, user: discord.User, *args):
     try:
@@ -117,6 +125,7 @@ async def twit(ctx, user: discord.User, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
+@command
 @commands.command()
 async def feijoada(ctx, *args):
     try:
@@ -134,6 +143,7 @@ async def feijoada(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
+@command
 @commands.command()
 async def book(ctx, *args):
     try:
@@ -162,6 +172,7 @@ async def book(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
+@command
 @commands.command()
 async def tomacu(ctx, *args):
     try:
@@ -173,6 +184,7 @@ async def tomacu(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
+@command
 @commands.command()
 async def gordo(ctx, *args):
     try:

@@ -3,15 +3,12 @@ import mimetypes
 from io import BytesIO
 import logging as puts
 import os
-from PIL import Image
 import requests
 import uuid
 
 from discord import File
 from io import BytesIO
 
-from util.imgur import Imgur
-from commands.config import AVAILABLE_SPOILER_ACTIONS
 
 RANDOM_EXCEPTION_COMEBACKS = ["Are you dumb?", "No, I don't think I will."]
 
@@ -55,12 +52,13 @@ def mention(ctx, criteria):
         return "Don't be evil."
     mentioned = ""
     for member in ctx.message.channel.members:
-        if criteria.lower() in member.name.lower():
+        if (criteria.lower() in member.display_name.lower()) or (criteria.lower() in member.name.lower()):
             mentioned += member.mention + " "
     return mentioned
 
 
 def save_image_to_imgur(image):
+    from util.imgur import Imgur
     imgur = Imgur()
     imgur_link = imgur.upload(image)
 
@@ -68,6 +66,8 @@ def save_image_to_imgur(image):
 
 
 def create_discord_file_object(file_bytes, file_extension=".jpg", spoiler=None):
+    from commands.config import AVAILABLE_SPOILER_ACTIONS
+
     filename = "{}{}".format(uuid.uuid1(), file_extension)
     discord_file = File(file_bytes, filename=filename)
     if spoiler and spoiler in AVAILABLE_SPOILER_ACTIONS:

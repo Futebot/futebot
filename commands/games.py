@@ -2,6 +2,7 @@ import logging as puts
 import random
 from discord.ext import commands
 
+from annotation.futebot import command
 from service import roll_service
 from util.helpers import (
     get_json_fields_from_url,
@@ -11,6 +12,7 @@ from util.helpers import (
 from .config import CHARADA_ENDPOINT
 
 
+@command
 @commands.command()
 async def charada(ctx):
     fields = get_json_fields_from_url(
@@ -22,6 +24,7 @@ async def charada(ctx):
         await ctx.send(field)
 
 
+@command
 @commands.command()
 async def roll(ctx, arg):
     try:

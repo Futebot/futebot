@@ -1,6 +1,8 @@
 from discord.ext import commands
+from annotation.futebot import command
 
 
+@command
 @commands.command()
 async def listall(ctx):
     await ctx.send("```--- Commands List --- \n"
