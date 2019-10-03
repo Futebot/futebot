@@ -15,6 +15,7 @@ from util.helpers import (
     create_discord_file_object,
     image_to_byte_array,
     save_image_to_imgur,
+    validate_image,
 )
 
 
@@ -36,8 +37,9 @@ def generate_card(string: str, img_path: str, filename: str, font_size: int, x: 
                 fill=color
             )
             img_url = save_image_to_imgur(image_to_byte_array(img))
-            f = create_discord_file_object(img_url, False)
-            return f
+            image_is_valid, file_bytes = validate_image(img_url)
+            discord_file = create_discord_file_object(file_bytes, ".png")
+            return discord_file
 
     except Exception as e:
         puts.info(e)
@@ -69,8 +71,10 @@ def generate_card_multiple_texts(img_path: str, filename: str, *texts: tuple):
                             font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
                             fill=color)
 
-        img.save(filename+".png")
-        return File(open(filename+".png", "rb"))
+        img_url = save_image_to_imgur(image_to_byte_array(img))
+        image_is_valid, file_bytes = validate_image(img_url)
+        discord_file = create_discord_file_object(file_bytes, ".png")
+        return discord_file
 
     except Exception as e:
         puts.info(e)
@@ -97,8 +101,10 @@ def generate_card_img(string: str, img_path: str, filename: str, font_size: int,
             img2.thumbnail((img_width, img_height), Image.ANTIALIAS)
             img.paste(img2, (img_x, img_y))
 
-            img.save(filename+".png")
-            return File(open(filename+".png", "rb"))
+            img_url = save_image_to_imgur(image_to_byte_array(img))
+            image_is_valid, file_bytes = validate_image(img_url)
+            discord_file = create_discord_file_object(file_bytes, ".png")
+            return discord_file
 
     except Exception as e:
         puts.info(e)
@@ -131,8 +137,10 @@ def generate_card_img_title_description(string: str, img_path: str, filename: st
             img2.thumbnail((img_width, img_height), Image.ANTIALIAS)
             img.paste(img2, (img_x, img_y))
 
-            img.save(filename + ".png")
-            return File(open(filename + ".png", "rb"))
+            img_url = save_image_to_imgur(image_to_byte_array(img))
+            image_is_valid, file_bytes = validate_image(img_url)
+            discord_file = create_discord_file_object(file_bytes, ".png")
+            return discord_file
 
     except Exception as e:
         puts.info(e)
@@ -169,8 +177,10 @@ def generate_card_twit(name: str, display_name: str, img_path: str, filename: st
 
             img.paste(img2, (20, 20), img2)
 
-            img.save(filename + ".png")
-            return File(open(filename + ".png", "rb"))
+            img_url = save_image_to_imgur(image_to_byte_array(img))
+            image_is_valid, file_bytes = validate_image(img_url)
+            discord_file = create_discord_file_object(file_bytes, ".png")
+            return discord_file
 
     except Exception as e:
         puts.info(e)
