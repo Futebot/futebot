@@ -1,4 +1,5 @@
 import logging as puts
+import os
 import random
 
 import re
@@ -22,7 +23,7 @@ from .config import (
     IMGUR_CLIENT_ID,
     YT_RESULTS_ENDPOINT,
     YT_WATCH_ENDPOINT,
-)
+    WEATHER_ENDPOINT)
 
 
 @command
@@ -116,3 +117,48 @@ async def dictionary(ctx, term, *args):
     except Exception as e:
         puts.info(e)
         await ctx.send(e)
+
+
+@command
+@commands.command()
+async def weather(ctx, arg):
+    try:
+        endpoint = WEATHER_ENDPOINT.format(arg,os.getenv("OPENWEATHER_KEY"))
+        r = requests.get(endpoint)
+        if r.status_code == 404:
+            raise Exception("Place not found, coleguinha.")
+        result = r.json()
+
+
+
+        weather = "**\n\nWeather in {} {}** \n\n".format(result["name"], switch_weather(result["weather"][0]["icon"]))
+        weather += "**Now:** {}°C\n".format(result["main"]["temp"])
+        # weather += "**Max:** {}°C\n".format(result["main"]["temp_max"])
+        # weather += "**Min: ** {}°C\n".format(result["main"]["temp_min"])
+
+
+
+        await ctx.send(weather)
+
+    except Exception as e:
+        puts.info(e)
+        await ctx.send(e)
+
+
+
+def switch_weather(code):
+    if "10" in code:
+        return ":cloud_rain:"
+    if "11" in code:
+        return ":cloud_rain:"
+    if "09" in code:
+        return ":cloud_rain:"
+    if "13" in code:
+        return ":snowflake:"
+    if "01" in code:
+        return ":sunny:"
+    if "02" in code:
+        return ":white_sun_small_cloud:"
+    if "03" in code or "04" in code:
+        return ":cloud:"
+
