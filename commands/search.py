@@ -12,7 +12,7 @@ from util.helpers import (
     create_discord_file_object,
     generate_image_search_url,
     RANDOM_EXCEPTION_COMEBACKS as rec,
-    create_discord_file_object
+    validate_image,
 )
 
 from .config import (
@@ -29,14 +29,23 @@ async def imgme(ctx, search_query, spoiler=None):
     try:
         url = generate_image_search_url(search_query)
         res = requests.get(url)
-        image_link = res.json()["items"][0]["link"]
+        search_result = res.json()
+        if "items" not in search_result:
+            raise Exception("We couldn't find any images for your search")
 
-        f = create_discord_file_object(image_link, spoiler)
-        await ctx.send(file=f)
+        image_is_valid = False
+
+        for item in search_result["items"]:
+            image_link = item["link"]
+            image_is_valid, file_bytes = validate_image(image_link)
+            if image_is_valid:
+                f = create_discord_file_object(file_bytes, ".jpg", spoiler)
+                await ctx.send(file=f)
+                break
 
     except Exception as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)
 
 
 @command
@@ -45,14 +54,23 @@ async def gifme(ctx, search_query, spoiler=None):
     try:
         url = generate_image_search_url(search_query, gif=True)
         res = requests.get(url)
-        image_link = res.json()["items"][0]["link"]
+        search_result = res.json()
+        if "items" not in search_result:
+            raise Exception("We couldn't find any images for your search")
 
-        f = create_discord_file_object(image_link, spoiler)
-        await ctx.send(file=f)
+        image_is_valid = False
+
+        for item in search_result["items"]:
+            image_link = item["link"]
+            image_is_valid, file_bytes = validate_image(image_link)
+            if image_is_valid:
+                f = create_discord_file_object(file_bytes, ".jpg", spoiler)
+                await ctx.send(file=f)
+                break
 
     except Exception as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)
 
 
 @command
