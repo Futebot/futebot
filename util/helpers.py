@@ -1,3 +1,4 @@
+import re
 import mimetypes
 from io import BytesIO
 import logging as puts
@@ -89,3 +90,9 @@ def validate_image(image_link):
     file_bytes = BytesIO(response.content)
 
     return (True, file_bytes)
+
+
+def clean_html(raw_html):
+    cleanr = re.compile('<.*?>')
+    cleantext = re.sub(cleanr, '', raw_html)
+    return cleantext

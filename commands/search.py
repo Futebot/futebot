@@ -8,6 +8,7 @@ import urllib
 from discord.ext import commands
 
 from util.helpers import (
+    clean_html,
     create_discord_file_object,
     generate_image_search_url,
     RANDOM_EXCEPTION_COMEBACKS as rec,
@@ -16,6 +17,7 @@ from util.helpers import (
 
 from .config import (
     AVAILABLE_SPOILER_ACTIONS,
+    DICTIONARY_PTBR_ENDPOINT,
     IMGUR_CLIENT_ID,
     YT_RESULTS_ENDPOINT,
     YT_WATCH_ENDPOINT,
@@ -81,3 +83,31 @@ async def youtube(ctx, *args):
         await ctx.send("{}{}".format(YT_WATCH_ENDPOINT, search_results[0]))
     except BaseException as e:
         await ctx.send("Are you dumb?")
+
+
+@commands.command()
+async def dictionary(ctx, term, *args):
+    try:
+        endpoint = DICTIONARY_PTBR_ENDPOINT.format(term)
+        r = requests.get(endpoint)
+        if r.status_code == 404:
+            raise Exception("Word not found, coleguinha.")
+        result = r.json()
+        definition = "**{}**\n\n".format(term)
+        first_entry = None
+        if "superEntry" in result:
+            first_entry = result["superEntry"][0]["entry"]
+        if "entry" in result:
+            first_entry = result["entry"]
+
+        if "sense" in first_entry:
+            for entry_def in first_entry["sense"]:
+                definition += "{}\n".format(
+                    clean_html(entry_def["def"].replace("<br/>", "\n"))
+                )
+
+        await ctx.send(definition)
+
+    except Exception as e:
+        puts.info(e)
+        await ctx.send(e)

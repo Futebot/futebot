@@ -35,6 +35,7 @@ from commands.misc import (
     ping
 )
 from commands.search import (
+    dictionary,
     imgme,
     gifme,
     youtube,
@@ -74,5 +75,6 @@ bot.add_command(add)
 bot.add_command(c)
 bot.add_command(hospital)
 bot.add_command(list)
+bot.add_command(dictionary)
 
 bot.run(os.environ["DISCORD_APP_TOKEN"])
