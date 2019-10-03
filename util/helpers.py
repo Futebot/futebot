@@ -54,7 +54,7 @@ def mention(ctx, criteria):
         return "Don't be evil."
     mentioned = ""
     for member in ctx.message.channel.members:
-        if criteria.lower() in member.name.lower():
+        if (criteria.lower() in member.display_name.lower()) or (criteria.lower() in member.name.lower()):
             mentioned += member.mention + " "
     return mentioned
 

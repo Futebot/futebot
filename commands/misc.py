@@ -1,7 +1,7 @@
 import time
 from art import *
-from discord.ext.commands import CommandInvokeError, command
 
+from annotation.futebot import command
 from util.helpers import mention
 from discord.ext import commands
 
