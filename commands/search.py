@@ -8,6 +8,7 @@ import urllib
 from discord.ext import commands
 
 from util.helpers import (
+    clean_html,
     create_discord_file_object,
     generate_image_search_url,
     RANDOM_EXCEPTION_COMEBACKS as rec,
@@ -90,7 +91,20 @@ async def dictionary(ctx, term, *args):
         endpoint = DICTIONARY_PTBR_ENDPOINT.format(term)
         r = requests.get(endpoint)
         result = r.json()
-        print(result)
+        definition = "**{}**\n\n".format(term)
+        first_entry = None
+        if "superEntry" in result:
+            first_entry = result["superEntry"][0]["entry"]
+        if "entry" in result:
+            first_entry = result["entry"]
+
+        if "sense" in first_entry:
+            for entry_def in first_entry["sense"]:
+                definition += "{}\n".format(
+                    clean_html(entry_def["def"].replace("<br/>", "\n"))
+                )
+
+        await ctx.send(definition)
 
     except BaseException as e:
         await ctx.send("Are you dumb?")
