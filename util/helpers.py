@@ -1,16 +1,10 @@
-from io import BytesIO
 import logging as puts
 import os
-from PIL import Image
 import requests
 import uuid
-
-from PIL import Image
 from discord import File
 from io import BytesIO
 
-from util.imgur import Imgur
-from commands.config import AVAILABLE_SPOILER_ACTIONS
 
 RANDOM_EXCEPTION_COMEBACKS = ["Are you dumb?", "No, I don't think I will."]
 
@@ -60,6 +54,7 @@ def mention(ctx, criteria):
 
 
 def save_image_to_imgur(image):
+    from util.imgur import Imgur
     imgur = Imgur()
     imgur_link = imgur.upload(image)
 
@@ -67,6 +62,8 @@ def save_image_to_imgur(image):
 
 
 def create_discord_file_object(image_link, spoiler=None):
+    from commands.config import AVAILABLE_SPOILER_ACTIONS
+
     response = requests.get(image_link)
     filename = "{}.{}".format(uuid.uuid1(), 'png')
     discord_file = File(BytesIO(response.content), filename=filename)
