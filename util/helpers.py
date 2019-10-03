@@ -1,3 +1,4 @@
+import mimetypes
 from io import BytesIO
 import logging as puts
 import os
@@ -5,7 +6,6 @@ from PIL import Image
 import requests
 import uuid
 
-from PIL import Image
 from discord import File
 from io import BytesIO
 
@@ -66,12 +66,11 @@ def save_image_to_imgur(image):
     return imgur_link
 
 
-def create_discord_file_object(image_link, spoiler=None):
-    response = requests.get(image_link)
-    filename = "{}.{}".format(uuid.uuid1(), 'png')
-    discord_file = File(BytesIO(response.content), filename=filename)
+def create_discord_file_object(file_bytes, file_extension=".jpg", spoiler=None):
+    filename = "{}{}".format(uuid.uuid1(), file_extension)
+    discord_file = File(file_bytes, filename=filename)
     if spoiler and spoiler in AVAILABLE_SPOILER_ACTIONS:
-        setattr(discord_file, 'filename', "{}{}".format("SPOILER_", discord_file.filename))
+        setattr(discord_file, "filename", "{}{}".format("SPOILER_", discord_file.filename))
 
     return discord_file
 
@@ -81,3 +80,12 @@ def image_to_byte_array(image):
     image.save(imgByteArr, format=image.format)
     imgByteArr = imgByteArr.getvalue()
     return imgByteArr
+
+
+def validate_image(image_link):
+    response = requests.get(image_link)
+    if "image" not in response.headers["Content-Type"]:
+        return (False, None)
+    file_bytes = BytesIO(response.content)
+
+    return (True, file_bytes)
