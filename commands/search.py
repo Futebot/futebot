@@ -90,6 +90,8 @@ async def dictionary(ctx, term, *args):
     try:
         endpoint = DICTIONARY_PTBR_ENDPOINT.format(term)
         r = requests.get(endpoint)
+        if r.status_code == 404:
+            raise Exception("Word not found, coleguinha.")
         result = r.json()
         definition = "**{}**\n\n".format(term)
         first_entry = None
@@ -106,5 +108,6 @@ async def dictionary(ctx, term, *args):
 
         await ctx.send(definition)
 
-    except BaseException as e:
-        await ctx.send("Are you dumb?")
+    except Exception as e:
+        puts.info(e)
+        await ctx.send(e)
