@@ -63,7 +63,7 @@ async def gifme(ctx, search_query, spoiler=None):
             image_link = item["link"]
             image_is_valid, file_bytes = validate_image(image_link)
             if image_is_valid:
-                f = create_discord_file_object(file_bytes, ".jpg", spoiler)
+                f = create_discord_file_object(file_bytes, ".gif", spoiler)
                 await ctx.send(file=f)
                 break
 
