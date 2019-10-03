@@ -10,6 +10,7 @@ from util.helpers import (
     get_json_field_from_url,
     get_json_fields_from_url,
     mention,
+    validate_image,
 )
 
 
@@ -45,7 +46,8 @@ def test_generate_image_search_url_gif():
 def test_create_discord_file_object():
     """Test create discord file object"""
     img_link = "https://media.discordapp.net/attachments/615527031148642334/627764848821796864/tano.png"
-    discord_file = create_discord_file_object(img_link)
+    image_is_valid, file_bytes = validate_image(img_link)
+    discord_file = create_discord_file_object(file_bytes, ".jpg")
 
     assert type(discord_file) is File
     assert "SPOILER_" not in discord_file.filename
@@ -54,7 +56,9 @@ def test_create_discord_file_object():
 def test_create_discord_file_object_as_spoiler():
     """Test create discord file object"""
     img_link = "https://media.discordapp.net/attachments/615527031148642334/627764848821796864/tano.png"
-    discord_file = create_discord_file_object(img_link, "--spoiler")
+    spoiler = True
+    image_is_valid, file_bytes = validate_image(img_link)
+    discord_file = create_discord_file_object(file_bytes, ".jpg",  "--spoiler")
 
     assert type(discord_file) is File
     assert "SPOILER_" in discord_file.filename
