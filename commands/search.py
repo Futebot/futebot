@@ -1,4 +1,5 @@
 import logging as puts
+import os
 import random
 
 import re
@@ -14,7 +15,7 @@ from util.helpers import (
     generate_image_search_url,
     RANDOM_EXCEPTION_COMEBACKS as rec,
     validate_image,
-)
+    get_weather_icon)
 
 from .config import (
     AVAILABLE_SPOILER_ACTIONS,
@@ -22,7 +23,7 @@ from .config import (
     IMGUR_CLIENT_ID,
     YT_RESULTS_ENDPOINT,
     YT_WATCH_ENDPOINT,
-)
+    WEATHER_ENDPOINT)
 
 
 @command
@@ -112,6 +113,27 @@ async def dictionary(ctx, term, *args):
                 )
 
         await ctx.send(definition)
+
+    except Exception as e:
+        puts.info(e)
+        await ctx.send(e)
+
+
+@command
+@commands.command()
+async def weather(ctx, arg):
+    try:
+        endpoint = WEATHER_ENDPOINT.format(arg, os.getenv("OPENWEATHER_KEY"))
+        r = requests.get(endpoint)
+        if r.status_code == 404:
+            raise Exception("Place not found, coleguinha.")
+        result = r.json()
+
+        weather_result = "**checked the temperature in {}:**\n{} {}\n:thermometer: {}°C"\
+            .format(result["name"], get_weather_icon(result["weather"][0]["icon"]),
+                    result["weather"][0]["main"], result["main"]["temp"])
+
+        await ctx.send(weather_result)
 
     except Exception as e:
         puts.info(e)

@@ -118,3 +118,36 @@ def test_mention_less_than_3_chars(ctx_object):
 def test_mention(ctx_object):
     """Test mention using magic mock object"""
     assert mention(ctx_object, "def") == "@def "
+
+
+def test_get_icon_cloud_rain():
+    """Test that weather icon will be :cloud_rain: for code 09 and 10"""
+    assert get_weather_icon("10d") == ":cloud_rain:"
+    assert get_weather_icon("09d") == ":cloud_rain:"
+
+
+def test_get_icon_cloud_lightning():
+    """Test that weather icon will be :cloud_lightning: for code 11"""
+    assert get_weather_icon("11d") == ":cloud_lightning:"
+
+
+def test_get_icon_snowflake():
+    """Test that weather icon will be :snowflake: for code 13"""
+    assert get_weather_icon("13d") == ":snowflake:"
+
+
+def test_get_icon_sunny():
+    """Test that weather icon will be :sunny: for code 01"""
+    assert get_weather_icon("01d") == ":sunny:"
+
+
+def test_get_icon_white_sun_small_cloud():
+    """Test that weather icon will be :white_sun_small_cloud: for code 02"""
+    assert get_weather_icon("02d") == ":white_sun_small_cloud:"
+
+
+def test_get_icon_cloud():
+    """Test that weather icon will be :cloud: for code 03 and 04 and 50"""
+    assert get_weather_icon("03d") == ":cloud:"
+    assert get_weather_icon("04d") == ":cloud:"
+    assert get_weather_icon("50d") == ":cloud:"
