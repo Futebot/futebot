@@ -96,3 +96,17 @@ def clean_html(raw_html):
     cleanr = re.compile('<.*?>')
     cleantext = re.sub(cleanr, '', raw_html)
     return cleantext
+
+def get_weather_icon(code):
+    if "10" in code or "09" in code:
+        return ":cloud_rain:"
+    if "11" in code:
+        return ":cloud_lightning:"
+    if "13" in code:
+        return ":snowflake:"
+    if "01" in code:
+        return ":sunny:"
+    if "02" in code:
+        return ":white_sun_small_cloud:"
+    if "03" in code or "04" in code:
+        return ":cloud:"
