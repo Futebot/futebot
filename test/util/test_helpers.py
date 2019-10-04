@@ -147,6 +147,7 @@ def test_get_icon_white_sun_small_cloud():
 
 
 def test_get_icon_cloud():
-    """Test that weather icon will be :cloud: for code 03 and 04"""
+    """Test that weather icon will be :cloud: for code 03 and 04 and 50"""
     assert get_weather_icon("03d") == ":cloud:"
     assert get_weather_icon("04d") == ":cloud:"
+    assert get_weather_icon("50d") == ":cloud:"

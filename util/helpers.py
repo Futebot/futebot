@@ -109,5 +109,5 @@ def get_weather_icon(code):
         return ":sunny:"
     if "02" in code:
         return ":white_sun_small_cloud:"
-    if "03" in code or "04" in code:
+    if "03" in code or "04" in code or "50" in code:
         return ":cloud:"
