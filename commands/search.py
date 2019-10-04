@@ -123,7 +123,7 @@ async def dictionary(ctx, term, *args):
 @commands.command()
 async def weather(ctx, arg):
     try:
-        endpoint = WEATHER_ENDPOINT.format(arg,os.getenv("OPENWEATHER_KEY"))
+        endpoint = WEATHER_ENDPOINT.format(arg, os.getenv("OPENWEATHER_KEY"))
         r = requests.get(endpoint)
         if r.status_code == 404:
             raise Exception("Place not found, coleguinha.")
@@ -132,7 +132,6 @@ async def weather(ctx, arg):
         weather_result = "**checked the temperature in {}:**\n{} {}\n:thermometer: {}°C"\
             .format(result["name"], get_weather_icon(result["weather"][0]["icon"]),
                     result["weather"][0]["main"], result["main"]["temp"])
-
 
         await ctx.send(weather_result)
 

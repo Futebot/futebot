@@ -131,11 +131,9 @@ def test_get_icon_cloud_lightning():
     assert get_weather_icon("11d") == ":cloud_lightning:"
 
 
-
 def test_get_icon_snowflake():
     """Test that weather icon will be :snowflake: for code 13"""
     assert get_weather_icon("13d") == ":snowflake:"
-
 
 
 def test_get_icon_sunny():
@@ -143,11 +141,9 @@ def test_get_icon_sunny():
     assert get_weather_icon("01d") == ":sunny:"
 
 
-
 def test_get_icon_white_sun_small_cloud():
     """Test that weather icon will be :white_sun_small_cloud: for code 02"""
     assert get_weather_icon("02d") == ":white_sun_small_cloud:"
-
 
 
 def test_get_icon_cloud():

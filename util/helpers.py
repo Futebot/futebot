@@ -97,6 +97,7 @@ def clean_html(raw_html):
     cleantext = re.sub(cleanr, '', raw_html)
     return cleantext
 
+
 def get_weather_icon(code):
     if "10" in code or "09" in code:
         return ":cloud_rain:"
