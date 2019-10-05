@@ -1,15 +1,6 @@
 from annotation.futebot import command
 from util.commands import Commands
-
-
-def format_params(params):
-    if params is None:
-        return ""
-    else:
-        params_response = ""
-        for param in params:
-            params_response += "[{}] ".format(param)
-        return params_response
+from util.helpers import format_params
 
 
 @command(desc="List all commands")
