@@ -3,11 +3,9 @@ from art import *
 
 from annotation.futebot import command
 from util.helpers import mention
-from discord.ext import commands
 
 
-@command
-@commands.command()
+@command(desc="Pings", params=["part_of_username"])
 async def ping(ctx, arg=""):
     if arg == "":
         await ctx.send("pong")
@@ -15,8 +13,7 @@ async def ping(ctx, arg=""):
         await ctx.send("Pinging " + mention(ctx, arg) + " 🏓")
 
 
-@command
-@commands.command()
+@command(desc="Generates an ASCII banner", params=["word"])
 async def banner(ctx, *args):
     string = ' '.join(args)
 
@@ -28,8 +25,7 @@ async def banner(ctx, *args):
     await ctx.send("```" + art + "```")
 
 
-@command
-@commands.command()
+@command(desc="Generates a one liner emoji", params=["emoji_name"])
 async def moji(ctx, *args):
     try:
         string = ' '.join(args)

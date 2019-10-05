@@ -1,19 +1,25 @@
-from discord.ext import commands
 from annotation.futebot import command
+from util.commands import Commands
 
 
-@command
-@commands.command()
+def format_params(params):
+    if params is None:
+        return ""
+    else:
+        params_response = ""
+        for param in params:
+            params_response += "[{}] ".format(param)
+        return params_response
+
+
+@command(desc="List all commands")
 async def listall(ctx):
-    await ctx.send("```--- Commands List --- \n"
-                   ".coach                                       - Returns a random motivational quote\n"
-                   ".dictionary {term}                           - Returns a defintion of a single word in pt-br\n"
-                   ".gifme      {search_term}                    - Search for a Gif\n"
-                   ".horoscopo  {horoscopo}                      - Search for you daily horoscope\""
-                   ".ping       {optional_name}                  - Check if bot is Alive with optional mention\""
-                   ".youtube    {search_term}                    - Search for a Youtube Video\n"
-                   ".imgme      \"{search_term}\" {--spoiler}    - Search for an image in Google\n"
-                   ".gifme      \"{search_term}\" {--spoiler}    - Search for an gif in Google\n"
-                   ".soniko     {caption}                        - Create a Soniko meme\n"
-                   ".speech     {caption}                        - Speech Meme\n"
-                   "```")
+
+    commands = Commands.get_instance().dictionary
+    commands_response = ":robot: \n\n Commands List:\n\n"
+
+    for cmd in sorted(commands.keys()):
+        commands_response += "**.{} {}** -> *{}*\n".format(cmd, format_params(commands[cmd]['params']),
+                                                           commands[cmd]['description'])
+
+    await ctx.send(commands_response)

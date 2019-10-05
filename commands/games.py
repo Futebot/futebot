@@ -1,6 +1,5 @@
 import logging as puts
 import random
-from discord.ext import commands
 
 from annotation.futebot import command
 from service import roll_service
@@ -12,8 +11,7 @@ from util.helpers import (
 from .config import CHARADA_ENDPOINT
 
 
-@command
-@commands.command()
+@command(desc="Sends a random charade")
 async def charada(ctx):
     fields = get_json_fields_from_url(
         CHARADA_ENDPOINT,
@@ -24,8 +22,7 @@ async def charada(ctx):
         await ctx.send(field)
 
 
-@command
-@commands.command()
+@command(desc="Rolls the dice", params=["1d6"])
 async def roll(ctx, arg):
     try:
         response = roll_service.roll(arg)
