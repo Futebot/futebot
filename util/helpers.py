@@ -111,3 +111,13 @@ def get_weather_icon(code):
         return ":white_sun_small_cloud:"
     if "03" in code or "04" in code or "50" in code:
         return ":cloud:"
+
+
+def format_params(params):
+    if params is None:
+        return ""
+    else:
+        params_response = ""
+        for param in params:
+            params_response += "[{}] ".format(param)
+        return params_response

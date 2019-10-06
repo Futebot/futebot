@@ -6,7 +6,6 @@ import discord
 from annotation.futebot import command
 from util.helpers import RANDOM_EXCEPTION_COMEBACKS as rec
 import requests
-from discord.ext import commands
 
 from exception.exceptions import FutebotException, TooManyCharsException
 from service.img_card_service import generate_card, generate_card_img, generate_card_img_title_description, \
@@ -14,8 +13,7 @@ from service.img_card_service import generate_card, generate_card_img, generate_
 from util.helpers import generate_image_search_url
 
 
-@command
-@commands.command()
+@command(desc="Generates a Soniko image", params=["caption"])
 async def soniko(ctx, *args):
     try:
         string = ' '.join(args)
@@ -26,8 +24,7 @@ async def soniko(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-@command
-@commands.command()
+@command(desc="Generates a Speech image", params=["grade_0_to_100"])
 async def speech(ctx, *args):
     try:
         string = " ".join(args)
@@ -43,8 +40,7 @@ async def speech(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-@command
-@commands.command()
+@command(desc="Generates a Tano facebook conversation", params=["place"])
 async def tano(ctx, *args):
     try:
         string = ' '.join(args)
@@ -55,8 +51,7 @@ async def tano(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-@command
-@commands.command()
+@command(desc="Generates a Magic Card with a title and description", params=["title", "description"])
 async def magic(ctx, *args):
     try:
         string = args[0].split()
@@ -82,8 +77,7 @@ async def magic(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-@command
-@commands.command()
+@command(desc="Generates a whatsapp hospital conversation image", params=["reason", "person_name"])
 async def hospital(ctx, *args):
     try:
         name = args[0]
@@ -96,8 +90,7 @@ async def hospital(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-@command
-@commands.command()
+@command(desc="Generates a Buemo Tweet", params=["tweet"])
 async def buemo(ctx, *args):
     try:
         string = ' '.join(args)
@@ -108,8 +101,7 @@ async def buemo(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-@command
-@commands.command()
+@command(desc="Generates a @User tweet", params=["user", "tweet"])
 async def twit(ctx, user: discord.User, *args):
     try:
         img_url = user.avatar_url._url
@@ -125,8 +117,7 @@ async def twit(ctx, user: discord.User, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-@command
-@commands.command()
+@command(desc="Generates a Feijoada image", params=["name"])
 async def feijoada(ctx, *args):
     try:
         string = ' '.join(args)
@@ -143,8 +134,7 @@ async def feijoada(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-@command
-@commands.command()
+@command(desc="Generates an Oreilly book cover", params=["book_name"])
 async def book(ctx, *args):
     try:
         if len(args) > 3:
@@ -172,8 +162,7 @@ async def book(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-@command
-@commands.command()
+@command(desc="Generates a Tomacu image", params=["name"])
 async def tomacu(ctx, *args):
     try:
         string = ' '.join(args)
@@ -184,8 +173,7 @@ async def tomacu(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
-@command
-@commands.command()
+@command(desc="Generates a Sou Gordo shirt image", params=["adjective"])
 async def gordo(ctx, *args):
     try:
         string = ' '.join(args)

@@ -1,5 +1,3 @@
-from discord.ext import commands
-
 from annotation.futebot import command
 from util.helpers import (
     get_json_field_from_url,
@@ -10,8 +8,7 @@ from .config import (
 )
 
 
-@command
-@commands.command()
+@command(desc="Returns a random coach message")
 async def coach(ctx):
     await ctx.send(
         get_json_field_from_url(
@@ -21,8 +18,7 @@ async def coach(ctx):
     )
 
 
-@command
-@commands.command()
+@command(desc="Returns the horoscope of the day.", params=["horoscope"])
 async def horoscopo(ctx, arg):
     await ctx.send(
         get_json_field_from_url(
@@ -31,8 +27,7 @@ async def horoscopo(ctx, arg):
     )
 
 
-@command
-@commands.command()
+@command(desc="Sends a Yes or No GIF for a question.")
 async def decide(ctx, arg):
     await ctx.send(
         get_json_field_from_url(

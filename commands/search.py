@@ -6,7 +6,6 @@ import re
 import requests
 import urllib
 
-from discord.ext import commands
 
 from annotation.futebot import command
 from util.helpers import (
@@ -26,8 +25,7 @@ from .config import (
     WEATHER_ENDPOINT)
 
 
-@command
-@commands.command()
+@command(desc="Returns an image", params=["search_term"])
 async def imgme(ctx, search_query, spoiler=None):
     try:
         url = generate_image_search_url(search_query)
@@ -51,8 +49,7 @@ async def imgme(ctx, search_query, spoiler=None):
         await ctx.send(e)
 
 
-@command
-@commands.command()
+@command(desc="Rertuns a GIF", params=["search_term"])
 async def gifme(ctx, search_query, spoiler=None):
     try:
         url = generate_image_search_url(search_query, gif=True)
@@ -76,8 +73,7 @@ async def gifme(ctx, search_query, spoiler=None):
         await ctx.send(e)
 
 
-@command
-@commands.command()
+@command(desc="Returns an Youtube Video", params=["search_term"])
 async def youtube(ctx, *args):
     try:
         query_string = urllib.parse.urlencode({"search_query": " ".join(args)})
@@ -90,8 +86,7 @@ async def youtube(ctx, *args):
         await ctx.send("Are you dumb?")
 
 
-@command
-@commands.command()
+@command(desc="Returns the meaning of a word", params=["word"])
 async def dictionary(ctx, term, *args):
     try:
         endpoint = DICTIONARY_PTBR_ENDPOINT.format(term)
@@ -119,8 +114,7 @@ async def dictionary(ctx, term, *args):
         await ctx.send(e)
 
 
-@command
-@commands.command()
+@command(desc="Returns the Weather", params=["city"])
 async def weather(ctx, arg):
     try:
         endpoint = WEATHER_ENDPOINT.format(arg, os.getenv("OPENWEATHER_KEY"))

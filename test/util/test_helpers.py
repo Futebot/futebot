@@ -151,3 +151,18 @@ def test_get_icon_cloud():
     assert get_weather_icon("03d") == ":cloud:"
     assert get_weather_icon("04d") == ":cloud:"
     assert get_weather_icon("50d") == ":cloud:"
+
+
+def test_format_params_none():
+    """Test that params will be blank when None"""
+    assert format_params(None) == ""
+
+
+def test_format_params_oneparam():
+    """Test that params will be blank when None"""
+    assert format_params(["one_param"]) == "[one_param] "
+
+
+def test_format_params_oneparam_twoparam():
+    """Test that params will be blank when None"""
+    assert format_params(["one_param", "two_param"]) == "[one_param] [two_param] "
