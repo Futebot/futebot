@@ -116,9 +116,10 @@ async def dictionary(ctx, term, *args):
 
 
 @command(desc="Returns the Weather", params=["city"])
-async def weather(ctx, arg):
+async def weather(ctx, *args):
     try:
-        endpoint = WEATHER_ENDPOINT.format(arg, os.getenv("OPENWEATHER_KEY"))
+        location = " ".join(args)
+        endpoint = WEATHER_ENDPOINT.format(location, os.getenv("OPENWEATHER_KEY"))
         r = requests.get(endpoint)
         if r.status_code == 404:
             raise Exception("Place not found, coleguinha.")
