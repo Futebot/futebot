@@ -1,5 +1,7 @@
 import os
 import yaml
+from discord import Embed
+
 from annotation.futebot import command
 
 
@@ -23,14 +25,15 @@ async def add(ctx, *args):
 
 @command(desc="List Custom Commands")
 async def listcustom(ctx):
-    list = '```'
     with open(os.environ["COMMANDS_DATA_FILE"]) as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-        for cmd in data:
-            list += ".c " + cmd + " -> " + data[cmd] + "\n"
+        embed = Embed(title="Custom Commands list", color=0x00ff75)
 
-        list += "```"
-        await ctx.send(list)
+        for cmd in data:
+            embed.add_field(name=".c {}".format(cmd),
+                            value=data[cmd], inline=False)
+
+        await ctx.send(embed=embed)
 
 
 @command(desc="Returns a command", params=["command_name"])

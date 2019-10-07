@@ -1,3 +1,5 @@
+from discord import Embed
+
 from annotation.futebot import command
 from util.commands import Commands
 from util.helpers import format_params
@@ -7,10 +9,10 @@ from util.helpers import format_params
 async def listall(ctx):
 
     commands = Commands.get_instance().dictionary
-    commands_response = ":robot: \n\n Commands List:\n\n"
+    embed = Embed(title="Commands list", color=0x00ff75)
 
     for cmd in sorted(commands.keys()):
-        commands_response += "**.{} {}** -> *{}*\n".format(cmd, format_params(commands[cmd]['params']),
-                                                           commands[cmd]['description'])
+        embed.add_field(name=".{} {}".format(cmd, format_params(commands[cmd]['params'])),
+                        value=commands[cmd]['description'], inline=False)
 
-    await ctx.send(commands_response)
+    await ctx.send(embed=embed)
