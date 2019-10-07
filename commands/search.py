@@ -6,6 +6,7 @@ import re
 import requests
 import urllib
 
+from discord import Embed
 
 from annotation.futebot import command
 from util.helpers import (
@@ -115,19 +116,31 @@ async def dictionary(ctx, term, *args):
 
 
 @command(desc="Returns the Weather", params=["city"])
-async def weather(ctx, arg):
+async def weather(ctx, *args):
     try:
-        endpoint = WEATHER_ENDPOINT.format(arg, os.getenv("OPENWEATHER_KEY"))
+        location = " ".join(args)
+        endpoint = WEATHER_ENDPOINT.format(location, os.getenv("OPENWEATHER_KEY"))
         r = requests.get(endpoint)
         if r.status_code == 404:
             raise Exception("Place not found, coleguinha.")
         result = r.json()
 
-        weather_result = "**checked the temperature in {}:**\n{} {}\n:thermometer: {}°C"\
-            .format(result["name"], get_weather_icon(result["weather"][0]["icon"]),
-                    result["weather"][0]["main"], result["main"]["temp"])
+        weather_conditions = "{} {}".format(get_weather_icon(result["weather"][0]["icon"]),
+                                            result["weather"][0]["main"])
 
-        await ctx.send(weather_result)
+        temperature = ":thermometer: {}°C".format(result["main"]["temp"])
+
+        humidity = ":droplet: {}%".format(result["main"]["humidity"])
+
+        embed = Embed(title="Temperature in {}".format(result["name"],
+                      description=weather_conditions,
+                      color=0x0B5394))
+
+        embed.add_field(name="Conditions", value=weather_conditions, inline=True)
+        embed.add_field(name="Temperature", value=temperature, inline=True)
+        embed.add_field(name="Humidity", value=humidity, inline=True)
+
+        await ctx.send(embed=embed)
 
     except Exception as e:
         puts.info(e)
