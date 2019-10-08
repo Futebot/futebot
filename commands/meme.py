@@ -90,6 +90,19 @@ async def hospital(ctx, *args):
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
 
+@command(desc="Generates an Antagonista headline image", params=["reason", "person_name"])
+async def antagonista(ctx, *args):
+    try:
+        headline = "\"" + args[0] + "\""
+        text = args[1]
+        await ctx.send(file=generate_card_multiple_texts("templates/imgs/anta.png", "anta",
+                                                         (headline, 50, 40, 250, (0, 0, 0), 30, "times-new-roman"),
+                                                         (text, 30, 50, 580, (0, 0, 0), 60, "times-new-roman")))
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+
 @command(desc="Generates a Buemo Tweet", params=["tweet"])
 async def buemo(ctx, *args):
     try:
