@@ -30,13 +30,12 @@ async def listcustom(ctx):
         embed = Embed(title="Custom Commands list", color=0x00ff75)
 
         for cmd in data:
-            embed.add_field(name=".c {}".format(cmd),
+            embed.add_field(name=".{}".format(cmd),
                             value=data[cmd], inline=False)
 
         await ctx.send(embed=embed)
 
 
-@command(desc="Returns a command", params=["command_name"])
 async def c(ctx, arg):
     with open(os.environ["COMMANDS_DATA_FILE"]) as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
