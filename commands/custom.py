@@ -36,7 +36,6 @@ async def listcustom(ctx):
         await ctx.send(embed=embed)
 
 
-@command(desc="Returns a command", params=["command_name"])
 async def c(ctx, arg):
     with open(os.environ["COMMANDS_DATA_FILE"]) as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
