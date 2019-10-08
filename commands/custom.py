@@ -40,5 +40,4 @@ async def listcustom(ctx):
 async def c(ctx, arg):
     with open(os.environ["COMMANDS_DATA_FILE"]) as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
-        await ctx.message.delete()
         await ctx.send(data[arg])
