@@ -6,12 +6,21 @@ verify_ssl = true
 [dev-packages]
 pudb = "==2019.1"
 ipython = "==7.8.0"
+pycodestyle = "==2.5.0"
+coverage = "==4.5.1"
+pytest-cov = "==2.7.1"
+black = "*"
 
 [packages]
 "discord.py" = "==1.2.3"
 requests = "==2.22.0"
 Pillow = "==6.1.0"
 pytest = "==5.1.2"
+art = "==4.0"
+pyyaml = "==5.1.2"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true

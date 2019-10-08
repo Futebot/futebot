@@ -1,9 +1,13 @@
-version: 2
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/python:3.7.4
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.5
 jobs:
   build:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/python:3.7.4
+    <<: *defaults
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
@@ -20,11 +24,43 @@ jobs:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
+      - persist_to_workspace:
+          root: /home/circleci
+          paths:
+            - .local
+            - repo
+  lint:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /home/circleci
       - run:
+          name: run linter
           command: |
-            pipenv run pytest
+            pipenv run pycodestyle .
+  test:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /home/circleci
+      - run:
+          name: run tests
+          command: |
+            pipenv run pytest --cov-report xml:cov.xml --cov=./
       - store_test_results:
-          path: test-results
+          path: .coverage
       - store_artifacts:
-          path: test-results
-          destination: test-reports
+          path: .coverage
+      - codecov/upload:
+          file: cov.xml
+
+workflows:
+  build_and_test:
+    jobs:
+    - build
+    - lint:
+        requires:
+          - build
+    - test:
+        requires:
+          - lint
