@@ -8,6 +8,7 @@ from commands.utils import bot
 
 puts.basicConfig(format="%(asctime)s - %(message)s", level=puts.INFO)
 
+
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, CommandNotFound):
