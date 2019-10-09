@@ -122,6 +122,7 @@ def format_params(params):
             params_response += "[{}] ".format(param)
         return params_response
 
+
 def embed_commands(commands, source="Commands list"):
     embed = Embed(title=source, color=0x00ff75)
 
@@ -134,5 +135,4 @@ def embed_commands(commands, source="Commands list"):
             embed.add_field(name=".{} {}".format(cmd, format_params(commands[cmd]['params'])),
                             value=commands[cmd]['description'], inline=False)
     
-    return embed
-    
+    return embed 
