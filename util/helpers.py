@@ -134,5 +134,5 @@ def embed_commands(commands, source="Commands list"):
         for cmd in sorted(commands.keys()):
             embed.add_field(name=".{} {}".format(cmd, format_params(commands[cmd]['params'])),
                             value=commands[cmd]['description'], inline=False)
-    
-    return embed 
+
+    return embed
