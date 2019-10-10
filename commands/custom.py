@@ -3,6 +3,7 @@ import yaml
 from discord import Embed
 
 from annotation.futebot import command
+from service.command_suggestion_service import get_custom_dict
 
 
 @command(desc="Adds a new custom command", params=["command_name", "command_content"])
@@ -11,8 +12,7 @@ async def add(ctx, *args):
     command_name = args[0]
     command_url = args[1]
     try:
-        with open(os.environ["COMMANDS_DATA_FILE"]) as f:
-            data = yaml.load(f, Loader=yaml.FullLoader)
+        data = get_custom_dict()
     except FileNotFoundError as e:
         print("creating file")
         data = dict()
@@ -25,18 +25,16 @@ async def add(ctx, *args):
 
 @command(desc="List Custom Commands")
 async def listcustom(ctx):
-    with open(os.environ["COMMANDS_DATA_FILE"]) as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-        embed = Embed(title="Custom Commands list", color=0x00ff75)
+    data = get_custom_dict()
+    embed = Embed(title="Custom Commands list", color=0x00ff75)
 
-        for cmd in data:
-            embed.add_field(name=".{}".format(cmd),
-                            value=data[cmd], inline=False)
+    for cmd in data:
+        embed.add_field(name=".{}".format(cmd),
+                        value=data[cmd], inline=False)
 
-        await ctx.send(embed=embed)
+    await ctx.send(embed=embed)
 
 
 async def c(ctx, arg):
-    with open(os.environ["COMMANDS_DATA_FILE"]) as f:
-        data = yaml.load(f, Loader=yaml.FullLoader)
-        await ctx.send(data[arg])
+    data = get_custom_dict()
+    await ctx.send(data[arg])
