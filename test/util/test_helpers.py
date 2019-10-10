@@ -90,8 +90,7 @@ def test_get_json_field_from_url():
 
 def test_get_json_fields_from_url_failing():
     """Test failling get json fields from url"""
-    with pytest.raises(Exception) as e:
-        assert get_json_fields_from_url()
+    assert get_json_fields_from_url(None, None) == ["Are you dumb?"]
 
 
 @pytest.fixture
@@ -166,3 +165,9 @@ def test_format_params_oneparam():
 def test_format_params_oneparam_twoparam():
     """Test that params will be blank when None"""
     assert format_params(["one_param", "two_param"]) == "[one_param] [two_param] "
+
+
+def test_clean_html():
+    """Test cleaning HTML tags from text"""
+    html = "<div><p>Hello world!</p></div>"
+    assert clean_html(html) == "Hello world!"
