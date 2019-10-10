@@ -25,16 +25,16 @@ async def add(ctx, *args):
 
 @command(desc="List Custom Commands")
 async def listcustom(ctx):
-        data = get_custom_dict()
-        embed = Embed(title="Custom Commands list", color=0x00ff75)
+    data = get_custom_dict()
+    embed = Embed(title="Custom Commands list", color=0x00ff75)
 
-        for cmd in data:
-            embed.add_field(name=".{}".format(cmd),
-                            value=data[cmd], inline=False)
+    for cmd in data:
+        embed.add_field(name=".{}".format(cmd),
+                        value=data[cmd], inline=False)
 
-        await ctx.send(embed=embed)
+    await ctx.send(embed=embed)
 
 
 async def c(ctx, arg):
-        data = get_custom_dict()
-        await ctx.send(data[arg])
+    data = get_custom_dict()
+    await ctx.send(data[arg])
