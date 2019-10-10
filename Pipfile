@@ -18,6 +18,7 @@ Pillow = "==6.1.0"
 pytest = "==5.1.2"
 art = "==4.0"
 pyyaml = "==5.1.2"
+fuzzywuzzy = "==0.17.0"
 
 [requires]
 python_version = "3.7"

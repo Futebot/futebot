@@ -9,7 +9,8 @@ def command(*args, **kwargs):
         cls = Command(func)
         bot.add_command(cls)
 
-        Commands.get_instance().register(cls.qualified_name, kwargs['desc'], kwargs.get('params'))
+        Commands.get_instance().register(cls.qualified_name, kwargs['desc'], kwargs.get('params'),
+                                         cls.module.rsplit('.', 1)[1])
 
         return func
     return inner
