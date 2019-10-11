@@ -57,6 +57,12 @@ def test_create_discord_file_object_as_spoiler():
     assert "SPOILER_" in discord_file.filename
 
 
+def test_validate_image_failing():
+    not_img_link = "https://reqres.in/api/products/1"
+    image_is_valid, _ = validate_image(not_img_link)
+    assert image_is_valid is False
+
+
 def test_get_json_fields_from_url():
     """Test get json fields from url"""
     expected_json_data = [
