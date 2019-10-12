@@ -15,6 +15,7 @@ from spotipy import oauth2
 
 RANDOM_EXCEPTION_COMEBACKS = ["Are you dumb?", "No, I don't think I will."]
 
+
 def get_json_field_from_url(url: str, field: str):
     return get_json_fields_from_url(url, field)[0]
 
