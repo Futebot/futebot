@@ -7,4 +7,4 @@ from asyncmock import AsyncMock
 async def test_ping():
     ctx = AsyncMock()
     await ping(ctx)
-    ctx.send.assert_called_with("pong")    
+    ctx.send.assert_called_with("pong")
