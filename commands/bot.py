@@ -10,11 +10,12 @@ async def listall(ctx, grep=None):
 
     commands = Commands.get_instance().dictionary
 
-    if grep == None:
-       embed = embed_commands(commands)
-    
-    else:
-        filtered_commands = {key:value for key, value in commands.items() if str.lower(grep) in key.lower()}
-        embed = embed_commands(filtered_commands)
+    if grep:
+        embed = embed_commands(commands)
+        ctx.send(embed=embed)
+        return None
+
+    filtered_commands = {key: value for key, value in commands.items() if str.lower(grep) in key.lower()}
+    embed = embed_commands(filtered_commands)
 
     await ctx.send(embed=embed)

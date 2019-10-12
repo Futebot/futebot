@@ -122,17 +122,16 @@ def format_params(params):
             params_response += "[{}] ".format(param)
         return params_response
 
+
 def embed_commands(commands, source="Commands list"):
     embed = Embed(title=source, color=0x00ff75)
 
-    if len(commands) < 1:
-        embed.add_field(name="achei óh",
-                        value="varios nadas...", inline=False)
+    if commands:
+        embed.add_field(name="achei óh", value="varios nadas...", inline=False)
+        return embed
 
-    else:
-        for cmd in sorted(commands.keys()):
-            embed.add_field(name=".{} {}".format(cmd, format_params(commands[cmd]['params'])),
-                            value=commands[cmd]['description'], inline=False)
-    
+    for cmd in sorted(commands.keys()):
+        embed.add_field(name=".{} {}".format(cmd, format_params(commands[cmd]['params'])),
+                        value=commands[cmd]['description'], inline=False)
+
     return embed
-    
