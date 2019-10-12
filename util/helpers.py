@@ -5,13 +5,15 @@ import logging as puts
 import os
 import requests
 import uuid
+import spotipy
 
 from discord import File
 from io import BytesIO
 
+from spotipy import oauth2
+
 
 RANDOM_EXCEPTION_COMEBACKS = ["Are you dumb?", "No, I don't think I will."]
-
 
 def get_json_field_from_url(url: str, field: str):
     return get_json_fields_from_url(url, field)[0]
@@ -121,3 +123,11 @@ def format_params(params):
         for param in params:
             params_response += "[{}] ".format(param)
         return params_response
+
+
+def spotify_auth():
+    credentials = spotipy.oauth2.SpotifyClientCredentials(client_id=os.environ["SPOTIFY_CLIENT_ID"],
+                                                          client_secret=os.environ["SPOTIFY_CLIENT_SECRET"])
+    spot_token = credentials.get_access_token()
+
+    return spotipy.Spotify(auth=spot_token)
