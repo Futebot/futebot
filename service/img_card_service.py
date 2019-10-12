@@ -45,6 +45,24 @@ def generate_card(string: str, img_path: str, filename: str, font_size: int, x: 
         puts.info(e)
         raise FutebotException(e)
 
+def generate_card_without_string(img_path: str, filename: str, img_url, img_x, img_y, img_width, img_height):
+    try:
+
+        img = Image.open(img_path)
+        response = requests.get(img_url, stream=True)
+        img2 = Image.open(BytesIO(response.content))
+        img2 = mask_circle_transparent(img2, 0)
+        img2.thumbnail((img_width, img_height), Image.ANTIALIAS)
+        img.paste(img2, (img_x, img_y), img2)
+
+        img_url = save_image_to_imgur(image_to_byte_array(img))
+        image_is_valid, file_bytes = validate_image(img_url)
+        discord_file = create_discord_file_object(file_bytes, ".png")
+        return discord_file
+
+    except Exception as e:
+        puts.info(e)
+        raise FutebotException(e)
 
 def generate_card_multiple_texts(img_path: str, filename: str, *texts: tuple):
     try:

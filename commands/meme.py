@@ -9,7 +9,7 @@ import requests
 
 from exception.exceptions import FutebotException, TooManyCharsException
 from service.img_card_service import generate_card, generate_card_img, generate_card_img_title_description, \
-    generate_card_twit, generate_card_multiple_texts
+    generate_card_twit, generate_card_multiple_texts, generate_card_without_string
 from util.helpers import generate_image_search_url
 
 
@@ -191,6 +191,17 @@ async def gordo(ctx, *args):
     try:
         string = ' '.join(args)
         await ctx.send(file=generate_card(string, "templates/imgs/gordo.png", "gordo", 40, 200, 525, (255, 0, 0), 10))
+
+    except FutebotException as e:
+        puts.info(e)
+        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+
+@command(desc="Generates a To Cagando image", params=["user"])
+async def tocagando(ctx, user: discord.User, *args):
+    try:
+        img_url = user.avatar_url._url
+
+        await ctx.send(file=generate_card_without_string("templates/imgs/cagando.png", "cagando", img_url, 227, 48, 90, 90))
 
     except FutebotException as e:
         puts.info(e)
