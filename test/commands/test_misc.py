@@ -1,4 +1,4 @@
-from commands.misc import ping, banner
+from commands.misc import ping, banner, moji
 
 import pytest
 from asyncmock import AsyncMock
@@ -35,3 +35,18 @@ async def test_banner_with_more_than_20_chars(ctx):
     long_string = "A" * 21
     await banner(ctx, long_string)
     ctx.send.assert_called_with("Diminue esse textão aí, pfv.")
+
+
+@pytest.mark.asyncio
+async def test_moji(ctx):
+    expected_art_string = "¯\\_(ツ)_/¯ "
+    await moji(ctx, "shrug")
+    ctx.send.assert_called_with(expected_art_string)
+
+
+@pytest.mark.asyncio
+async def test_moji_failing(ctx):
+    expected_str = (
+        "Tenta esses moji aqui, fera: https://github.com/sepandhaghighi/art/blob/master/art/art_dic.py")
+    await moji(ctx, "HUEHUEHUE")
+    ctx.send.assert_called_with(expected_str)
