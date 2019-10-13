@@ -45,6 +45,7 @@ def generate_card(string: str, img_path: str, filename: str, font_size: int, x: 
         puts.info(e)
         raise FutebotException(e)
 
+
 def generate_card_without_string(img_path: str, filename: str, img_url, img_x, img_y, img_width, img_height):
     try:
 
@@ -63,6 +64,7 @@ def generate_card_without_string(img_path: str, filename: str, img_url, img_x, i
     except Exception as e:
         puts.info(e)
         raise FutebotException(e)
+
 
 def generate_card_multiple_texts(img_path: str, filename: str, *texts: tuple):
     try:

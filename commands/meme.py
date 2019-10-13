@@ -196,12 +196,14 @@ async def gordo(ctx, *args):
         puts.info(e)
         await ctx.send(rec[random.randrange(0, len(rec) - 1)])
 
+
 @command(desc="Generates a To Cagando image", params=["user"])
 async def tocagando(ctx, user: discord.User, *args):
     try:
         img_url = user.avatar_url._url
 
-        await ctx.send(file=generate_card_without_string("templates/imgs/cagando.png", "cagando", img_url, 227, 48, 90, 90))
+        await ctx.send(file=generate_card_without_string("templates/imgs/cagando.png", "cagando", img_url,
+                                                         227, 48, 90, 90))
 
     except FutebotException as e:
         puts.info(e)
