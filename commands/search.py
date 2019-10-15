@@ -153,8 +153,8 @@ async def weather(ctx, *args):
 async def lmgtfy(ctx, *args):
     try:
         string = " ".join(args)
-        queryString = format_string_to_query(string)
-        endpoint = LMGTFY_ENDPOINT.format(queryString)
+        query_string = format_string_to_query(string)
+        endpoint = LMGTFY_ENDPOINT.format(query_string)
         r = requests.post(endpoint)
         result = r.text
 

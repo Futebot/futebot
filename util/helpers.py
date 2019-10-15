@@ -125,9 +125,11 @@ def format_params(params):
 
 def format_string_to_query(word: str):
     cleanword = word
-    cleanword = cleanword.replace('+', '%2B')
-    cleanword = cleanword.replace('%20', '+')
-    cleanword = cleanword.replace('*', '%2A')
-    cleanword = cleanword.replace('/', '%2F')
-    cleanword = cleanword.replace('@', '%40')
+    cleanword = (
+        cleanword.replace('+', '%2B')
+        .replace('%20', '+')
+        .replace('*', '%2A')
+        .replace('/', '%2F')
+        .replace('@', '%40')
+    )
     return cleanword
