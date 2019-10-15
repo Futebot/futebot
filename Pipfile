@@ -12,7 +12,6 @@ pytest-cov = "==2.7.1"
 black = "==19.3b0"
 asyncmock = "==0.4.0"
 pytest-asyncio = "==0.10.0"
-pytest = "*"
 
 [packages]
 "discord.py" = "==1.2.3"
