@@ -127,6 +127,7 @@ def format_string_to_query(word: str):
     cleanword = word
     cleanword = (
         cleanword.replace('+', '%2B')
+        .replace(' ', '+')
         .replace('%20', '+')
         .replace('*', '%2A')
         .replace('/', '%2F')
