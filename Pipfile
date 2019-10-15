@@ -12,6 +12,7 @@ pytest-cov = "==2.7.1"
 black = "==19.3b0"
 asyncmock = "==0.4.0"
 pytest-asyncio = "==0.10.0"
+pytest = "*"
 
 [packages]
 "discord.py" = "==1.2.3"
@@ -23,7 +24,6 @@ pyyaml = "==5.1.2"
 fuzzywuzzy = "==0.17.0"
 pyopenssl = "==19.0.0"
 python-levenshtein = "==0.12.0"
-
 
 [requires]
 python_version = "3.7"
