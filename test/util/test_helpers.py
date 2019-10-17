@@ -177,3 +177,9 @@ def test_clean_html():
     """Test cleaning HTML tags from text"""
     html = "<div><p>Hello world!</p></div>"
     assert clean_html(html) == "Hello world!"
+
+
+def test_format_string_to_query():
+    """Test formatting string to make query"""
+    string = "League of Legends"
+    assert format_string_to_query(string) == "League+of+Legends"

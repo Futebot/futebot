@@ -10,3 +10,4 @@ venv/
 .coverage
 cov.xml
 *.env
+.pytest_cache/
