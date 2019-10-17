@@ -15,7 +15,8 @@ from util.helpers import (
     generate_image_search_url,
     RANDOM_EXCEPTION_COMEBACKS as rec,
     validate_image,
-    get_weather_icon)
+    get_weather_icon,
+    format_string_to_query)
 
 from .config import (
     AVAILABLE_SPOILER_ACTIONS,
@@ -23,7 +24,8 @@ from .config import (
     IMGUR_CLIENT_ID,
     YT_RESULTS_ENDPOINT,
     YT_WATCH_ENDPOINT,
-    WEATHER_ENDPOINT)
+    WEATHER_ENDPOINT,
+    LMGTFY_ENDPOINT)
 
 
 @command(desc="Returns an image", params=["search_term"])
@@ -141,6 +143,22 @@ async def weather(ctx, *args):
         embed.add_field(name="Humidity", value=humidity, inline=True)
 
         await ctx.send(embed=embed)
+
+    except Exception as e:
+        puts.info(e)
+        await ctx.send(e)
+
+
+@command(desc="Returns search from LMGTFY", params=["word"])
+async def lmgtfy(ctx, *args):
+    try:
+        string = " ".join(args)
+        query_string = format_string_to_query(string)
+        endpoint = LMGTFY_ENDPOINT.format(query_string)
+        r = requests.post(endpoint)
+        result = r.text
+
+        await ctx.send(result)
 
     except Exception as e:
         puts.info(e)
