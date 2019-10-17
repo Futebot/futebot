@@ -1,4 +1,4 @@
-from commands.misc import ping, banner, moji
+from commands.misc import ping, banner, moji, scroll
 
 import pytest
 from asyncmock import AsyncMock
@@ -50,3 +50,9 @@ async def test_moji_failing(ctx):
         "Tenta esses moji aqui, fera: https://github.com/sepandhaghighi/art/blob/master/art/art_dic.py")
     await moji(ctx, "HUEHUEHUE")
     ctx.send.assert_called_with(expected_str)
+
+
+@pytest.mark.asyncio
+async def test_scroll(ctx):
+    await scroll(ctx)
+    ctx.send.assert_called()
