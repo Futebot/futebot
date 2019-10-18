@@ -1,6 +1,9 @@
+from collections import OrderedDict
+
+
 class Commands:
     __instance = None
-    dictionary = dict()
+    dictionary = OrderedDict()
 
     @staticmethod
     def get_instance():
