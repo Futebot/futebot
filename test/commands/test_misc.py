@@ -1,3 +1,5 @@
+import os
+
 from commands.misc import ping, banner, moji, scroll
 
 import pytest
@@ -24,8 +26,12 @@ async def test_ping_with_mention(ctx):
 
 @pytest.mark.asyncio
 async def test_banner(ctx):
-    expected_art_string = (
-        "```    _    \r\n   / \\   \r\n  / _ \\  \r\n / ___ \\ \r\n/_/   \\_\\\r\n         \r\n```")
+    if os.name == 'nt':
+        expected_art_string = (
+            "```    _    \n   / \\   \n  / _ \\  \n / ___ \\ \n/_/   \\_\\\n         \n```")
+    else:
+        expected_art_string = (
+            "```    _    \r\n   / \\   \r\n  / _ \\  \r\n / ___ \\ \r\n/_/   \\_\\\r\n         \r\n```")
     await banner(ctx, "A")
     ctx.send.assert_called_with(expected_art_string)
 
