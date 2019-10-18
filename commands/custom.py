@@ -4,6 +4,8 @@ from discord import Embed
 
 from annotation.futebot import command
 from service.command_suggestion_service import get_custom_dict
+from util.helpers import split_dict
+from .config import DISCORD_EMBED_LIMIT
 
 
 @command(desc="Adds a new custom command", params=["command_name", "command_content"])
@@ -25,14 +27,17 @@ async def add(ctx, *args):
 
 @command(desc="List Custom Commands")
 async def listcustom(ctx):
-    data = get_custom_dict()
-    embed = Embed(title="Custom Commands list", color=0x00ff75)
+    custom_commands = split_dict(get_custom_dict(), DISCORD_EMBED_LIMIT)
 
-    for cmd in data:
-        embed.add_field(name=".{}".format(cmd),
-                        value=data[cmd], inline=False)
+    for page in custom_commands:
+        embed = Embed(title="Custom Commands list", color=0x00ff75)
 
-    await ctx.send(embed=embed)
+        for line in page:
+            embed.add_field(name=".{}".format(line),
+                            value=page[line],
+                            inline=False)
+
+        await ctx.send(embed=embed)
 
 
 async def c(ctx, arg):
