@@ -11,3 +11,4 @@ venv/
 cov.xml
 *.env
 .pytest_cache/
+data_test_add.yml

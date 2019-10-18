@@ -29,3 +29,4 @@ async def test_add(ctx):
     await add(ctx, "a", "a")
     await c(ctx, "a")
     ctx.send.assert_called_with("a")
+    os.remove(os.environ["COMMANDS_DATA_FILE"])
