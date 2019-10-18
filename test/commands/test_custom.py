@@ -4,7 +4,6 @@ import pytest
 from asyncmock import AsyncMock
 
 from commands.custom import listcustom, add, c
-from commands.games import roll
 
 
 @pytest.fixture
