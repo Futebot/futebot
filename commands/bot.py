@@ -3,13 +3,12 @@ from discord import Embed
 from annotation.futebot import command
 from util.commands import Commands
 from util.helpers import format_params, split_dict
+from .config import DISCORD_EMBED_LIMIT
 
 
 @command(desc="List all commands")
 async def listall(ctx):
-
-    embed_limit = 25
-    commands = split_dict(Commands.get_instance().dictionary, embed_limit)
+    commands = split_dict(Commands.get_instance().dictionary, DISCORD_EMBED_LIMIT)
 
     for page in commands:
         embed = Embed(title="Commands list", color=0x00ff75)
