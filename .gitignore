@@ -1,0 +1,14 @@
+*.pyc
+.idea/
+*.egg-info/
+.DS_Store
+*/*.egg-info/**
+*.egg-info/**
+.vscode/
+__pycache__/
+venv/
+.coverage
+cov.xml
+*.env
+.pytest_cache/
+data_test_add.yml
