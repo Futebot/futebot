@@ -121,3 +121,16 @@ def format_params(params):
         for param in params:
             params_response += "[{}] ".format(param)
         return params_response
+
+
+def format_string_to_query(word: str):
+    cleanword = word
+    cleanword = (
+        cleanword.replace('+', '%2B')
+        .replace(' ', '+')
+        .replace('%20', '+')
+        .replace('*', '%2A')
+        .replace('/', '%2F')
+        .replace('@', '%40')
+    )
+    return cleanword

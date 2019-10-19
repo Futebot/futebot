@@ -33,3 +33,10 @@ async def moji(ctx, *args):
         await ctx.send(text)
     except Exception as e:
         await ctx.send("Tenta esses moji aqui, fera: https://github.com/sepandhaghighi/art/blob/master/art/art_dic.py")
+
+
+@command(desc="Scrooooooooooooooooll to remove that NSFW messages")
+async def scroll(ctx):
+    dump = ".\n" * 100
+    text = "eita fdp\n" + dump + "vou chamar o marreta :hammer:"
+    await ctx.send(text)

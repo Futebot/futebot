@@ -57,6 +57,12 @@ def test_create_discord_file_object_as_spoiler():
     assert "SPOILER_" in discord_file.filename
 
 
+def test_validate_image_failing():
+    not_img_link = "https://reqres.in/api/products/1"
+    image_is_valid, _ = validate_image(not_img_link)
+    assert image_is_valid is False
+
+
 def test_get_json_fields_from_url():
     """Test get json fields from url"""
     expected_json_data = [
@@ -90,8 +96,7 @@ def test_get_json_field_from_url():
 
 def test_get_json_fields_from_url_failing():
     """Test failling get json fields from url"""
-    with pytest.raises(Exception) as e:
-        assert get_json_fields_from_url()
+    assert get_json_fields_from_url(None, None) == ["Are you dumb?"]
 
 
 @pytest.fixture
@@ -166,3 +171,15 @@ def test_format_params_oneparam():
 def test_format_params_oneparam_twoparam():
     """Test that params will be blank when None"""
     assert format_params(["one_param", "two_param"]) == "[one_param] [two_param] "
+
+
+def test_clean_html():
+    """Test cleaning HTML tags from text"""
+    html = "<div><p>Hello world!</p></div>"
+    assert clean_html(html) == "Hello world!"
+
+
+def test_format_string_to_query():
+    """Test formatting string to make query"""
+    string = "League of Legends"
+    assert format_string_to_query(string) == "League+of+Legends"
