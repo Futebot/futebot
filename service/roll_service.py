@@ -10,7 +10,7 @@ def roll(arg: str):
     sum = 0
 
     for i in range(0, times):
-        rolled = random.randrange(1, int(sides))
+        rolled = random.randrange(1, int(sides)+1)
         sum += rolled
         response += str(rolled) + (" = " if i == times - 1 else " + ")
 

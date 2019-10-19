@@ -122,6 +122,19 @@ def format_params(params):
             params_response += "[{}] ".format(param)
         return params_response
 
+    return embed
+def format_string_to_query(word: str):
+    cleanword = word
+    cleanword = (
+        cleanword.replace('+', '%2B')
+        .replace(' ', '+')
+        .replace('%20', '+')
+        .replace('*', '%2A')
+        .replace('/', '%2F')
+        .replace('@', '%40')
+    )
+    return cleanword
+
 
 def embed_commands(commands, source="Commands list"):
     embed = Embed(title=source, color=0x00ff75)
@@ -133,5 +146,3 @@ def embed_commands(commands, source="Commands list"):
     for cmd in sorted(commands.keys()):
         embed.add_field(name=".{} {}".format(cmd, format_params(commands[cmd]['params'])),
                         value=commands[cmd]['description'], inline=False)
-
-    return embed
