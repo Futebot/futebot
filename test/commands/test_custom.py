@@ -18,8 +18,8 @@ async def test_list_custom(ctx):
 
     await listcustom(ctx)
     assert ctx.send.call_args[1]['embed'].title == "Custom Commands list"
-    assert ctx.send.call_args[1]['embed'].fields[0].name == ".test"
-    assert ctx.send.call_args[1]['embed'].fields[1].name == ".another"
+    assert ctx.send.call_args[1]['embed'].fields[0].name == ".another"
+    assert ctx.send.call_args[1]['embed'].fields[1].name == ".test"
 
 
 @pytest.mark.asyncio

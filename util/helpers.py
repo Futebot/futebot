@@ -5,6 +5,7 @@ import logging as puts
 import os
 import requests
 import uuid
+from collections import OrderedDict
 
 from discord import File
 from io import BytesIO
@@ -134,3 +135,16 @@ def format_string_to_query(word: str):
         .replace('@', '%40')
     )
     return cleanword
+
+
+def split_dict(input_dict, size):
+    return_dict = OrderedDict()
+
+    for k, v in sorted(input_dict.items()):
+        if len(return_dict) == size:
+            yield return_dict
+            return_dict = OrderedDict()
+
+        return_dict[k] = v
+
+    yield return_dict
