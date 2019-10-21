@@ -1,4 +1,4 @@
-from discord import Embed
+from discord import Embed, client
 
 from annotation.futebot import command
 from util.commands import Commands
@@ -19,4 +19,4 @@ async def listall(ctx):
                             value=command['description'],
                             inline=False)
 
-        await ctx.send(embed=embed)
+        await ctx.author.send(embed=embed)
