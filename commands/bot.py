@@ -1,4 +1,4 @@
-from discord import Embed, client
+from discord import Embed
 
 from annotation.futebot import command
 from util.commands import Commands
