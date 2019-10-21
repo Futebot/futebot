@@ -19,4 +19,4 @@ async def listall(ctx):
                             value=command['description'],
                             inline=False)
 
-        await ctx.send(embed=embed)
+        await ctx.author.send(embed=embed)

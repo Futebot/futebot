@@ -37,7 +37,7 @@ async def listcustom(ctx):
                             value=page[line],
                             inline=False)
 
-        await ctx.send(embed=embed)
+        await ctx.author.send(embed=embed)
 
 
 async def c(ctx, arg):
