@@ -5,3 +5,7 @@ class FutebotException(Exception):
 
 class TooManyCharsException(FutebotException):
     pass
+
+
+class NoArgumentException(FutebotException):
+    pass

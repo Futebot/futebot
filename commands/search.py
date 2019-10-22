@@ -1,7 +1,5 @@
 import logging as puts
 import os
-import random
-
 import re
 import requests
 import urllib
@@ -9,19 +7,14 @@ import urllib
 from discord import Embed
 
 from annotation.futebot import command
+from service.search_service import get_image
 from util.helpers import (
     clean_html,
-    create_discord_file_object,
-    generate_image_search_url,
-    RANDOM_EXCEPTION_COMEBACKS as rec,
-    validate_image,
     get_weather_icon,
     format_string_to_query)
 
 from .config import (
-    AVAILABLE_SPOILER_ACTIONS,
     DICTIONARY_PTBR_ENDPOINT,
-    IMGUR_CLIENT_ID,
     YT_RESULTS_ENDPOINT,
     YT_WATCH_ENDPOINT,
     WEATHER_ENDPOINT,
@@ -31,45 +24,17 @@ from .config import (
 @command(desc="Returns an image", params=["search_term"])
 async def imgme(ctx, search_query, spoiler=None):
     try:
-        url = generate_image_search_url(search_query)
-        res = requests.get(url)
-        search_result = res.json()
-        if "items" not in search_result:
-            raise Exception("We couldn't find any images for your search")
-
-        image_is_valid = False
-
-        for item in search_result["items"]:
-            image_link = item["link"]
-            image_is_valid, file_bytes = validate_image(image_link)
-            if image_is_valid:
-                f = create_discord_file_object(file_bytes, ".jpg", spoiler)
-                await ctx.send(file=f)
-                break
+        await ctx.send(file=get_image(ctx, search_query, spoiler))
 
     except Exception as e:
         puts.info(e)
         await ctx.send(e)
 
 
-@command(desc="Rertuns a GIF", params=["search_term"])
+@command(desc="Returns a GIF", params=["search_term"])
 async def gifme(ctx, search_query, spoiler=None):
     try:
-        url = generate_image_search_url(search_query, gif=True)
-        res = requests.get(url)
-        search_result = res.json()
-        if "items" not in search_result:
-            raise Exception("We couldn't find any images for your search")
-
-        image_is_valid = False
-
-        for item in search_result["items"]:
-            image_link = item["link"]
-            image_is_valid, file_bytes = validate_image(image_link)
-            if image_is_valid:
-                f = create_discord_file_object(file_bytes, ".gif", spoiler)
-                await ctx.send(file=f)
-                break
+        await ctx.send(file=get_image(ctx, search_query, spoiler, gif=True))
 
     except Exception as e:
         puts.info(e)

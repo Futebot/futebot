@@ -3,6 +3,7 @@ import yaml
 from discord import Embed
 
 from annotation.futebot import command
+from exception.exceptions import NoArgumentException
 from service.command_suggestion_service import get_custom_dict
 from util.helpers import split_dict
 from .config import DISCORD_EMBED_LIMIT
@@ -29,7 +30,7 @@ async def add(ctx, *args):
 async def rm(ctx, command_name=""):
     try:
         if command_name == "":
-            raise Exception("Are you dumb?")
+            raise NoArgumentException("Are you dumb?")
 
         data = get_custom_dict()
         data.pop(command_name)
