@@ -25,6 +25,26 @@ async def add(ctx, *args):
         yaml.dump(data, f, default_flow_style=False)
 
 
+@command(desc="Removes custom command", params=["command_name"])
+async def rm(ctx, command_name=""):
+    try:
+        if command_name == "":
+            raise Exception("Are you dumb?")
+
+        data = get_custom_dict()
+        data.pop(command_name)
+
+        with open(os.environ["COMMANDS_DATA_FILE"], 'w') as f:
+            yaml.dump(data, f, default_flow_style=False)
+
+    except FileNotFoundError as e:
+        await ctx.send("buguei")
+    except KeyError as e:
+        await ctx.send("Tem esse comando ai não")
+    except Exception as e:
+        await ctx.send(e)
+
+
 @command(desc="List Custom Commands")
 async def listcustom(ctx):
     custom_commands = split_dict(get_custom_dict(), DISCORD_EMBED_LIMIT)
