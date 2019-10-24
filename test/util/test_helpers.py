@@ -9,7 +9,7 @@ from util.helpers import *
 
 def test_generate_image_search_url():
     """Test url generator for google image queries"""
-    query = generate_image_search_url(("this", "is", "a", "test"))
+    query = generate_image_search_url(("this", "is", "a", "test"), ".jpg")
 
     google_image_query_url = (
         f"https://www.googleapis.com/customsearch/v1?"
@@ -23,7 +23,7 @@ def test_generate_image_search_url():
 
 def test_generate_image_search_url_gif():
     """Test url generator for google gif queries"""
-    query = generate_image_search_url(("this", "is", "a", "test"), gif=True)
+    query = generate_image_search_url(("this", "is", "a", "test"), ".gif")
 
     google_image_query_url = (
         f"https://www.googleapis.com/customsearch/v1?"
@@ -55,6 +55,12 @@ def test_create_discord_file_object_as_spoiler():
 
     assert type(discord_file) is File
     assert "SPOILER_" in discord_file.filename
+
+
+def test_validate_image_failing():
+    not_img_link = "https://reqres.in/api/products/1"
+    image_is_valid, _ = validate_image(not_img_link)
+    assert image_is_valid is False
 
 
 def test_get_json_fields_from_url():
@@ -90,8 +96,7 @@ def test_get_json_field_from_url():
 
 def test_get_json_fields_from_url_failing():
     """Test failling get json fields from url"""
-    with pytest.raises(Exception) as e:
-        assert get_json_fields_from_url()
+    assert get_json_fields_from_url(None, None) == ["Are you dumb?"]
 
 
 @pytest.fixture
@@ -166,3 +171,15 @@ def test_format_params_oneparam():
 def test_format_params_oneparam_twoparam():
     """Test that params will be blank when None"""
     assert format_params(["one_param", "two_param"]) == "[one_param] [two_param] "
+
+
+def test_clean_html():
+    """Test cleaning HTML tags from text"""
+    html = "<div><p>Hello world!</p></div>"
+    assert clean_html(html) == "Hello world!"
+
+
+def test_format_string_to_query():
+    """Test formatting string to make query"""
+    string = "League of Legends"
+    assert format_string_to_query(string) == "League+of+Legends"
