@@ -22,7 +22,7 @@ art = "==4.0"
 pyyaml = "==5.1.2"
 fuzzywuzzy = "==0.17.0"
 pyopenssl = "==19.0.0"
-python-levenshtein = "==0.12.0"
+clarifai = "*"
 
 [requires]
 python_version = "3.7"

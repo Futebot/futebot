@@ -31,7 +31,7 @@ def get_json_fields_from_url(url: str, *fields: str):
         return ["Are you dumb?"]
 
 
-def generate_image_search_url(search_terms, file_type):
+def generate_image_search_url(search_terms, file_type=".jpg"):
     search_terms = " ".join(search_terms)
 
     google_image_query_url = (
