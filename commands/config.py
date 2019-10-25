@@ -17,7 +17,7 @@ YT_WATCH_ENDPOINT = "http://www.youtube.com/watch?v="
 HOROSCOPO_ENDPOINT = "http://babi.hefesto.io/signo/{}/dia"
 DICTIONARY_PTBR_ENDPOINT = "http://dicionario-aberto.net/search-json/{}"
 WEATHER_ENDPOINT = "http://api.openweathermap.org/data/2.5/weather?units=metric&q={}&appid={}"
-LMGTFY_ENDPOINT = "http://tinyurl.com/api-create.php?url=http://letmegooglethatforyou.com/?q={}"
+LMGTFY_ENDPOINT = "https://lmgtfy.com/?q={}&s=g&iie=1"
 
 IMGUR_CLIENT_ID = os.getenv("IMGUR_CLIENT_ID")
 IMGUR_CLIENT_SECRET = os.getenv("IMGUR_CLIENT_SECRET")
