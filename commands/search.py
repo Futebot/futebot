@@ -120,10 +120,8 @@ async def lmgtfy(ctx, *args):
         string = " ".join(args)
         query_string = format_string_to_query(string)
         endpoint = LMGTFY_ENDPOINT.format(query_string)
-        r = requests.post(endpoint)
-        result = r.text
 
-        await ctx.send(result)
+        await ctx.send(endpoint)
 
     except Exception as e:
         puts.info(e)
