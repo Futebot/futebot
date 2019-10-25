@@ -23,7 +23,7 @@ def get_image(ctx, search_query, spoiler, **kwargs):
             model = app.models.get("moderation")
             response = model.predict_by_url(url=image_link)
 
-                if response['outputs'][0]['data']['concepts'][0]['name'] == 'explicit' \
+            if response['outputs'][0]['data']['concepts'][0]['name'] == 'explicit' \
                 or response['outputs'][0]['data']['concepts'][0]['name'] == 'suggestive'\
                 or response['outputs'][0]['data']['concepts'][0]['name'] == 'gore'\
                 or response['outputs'][0]['data']['concepts'][0]['name'] == 'drug'\
