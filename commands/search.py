@@ -116,15 +116,8 @@ async def weather(ctx, *args):
 
 @command(desc="Returns search from LMGTFY", params=["word"])
 async def lmgtfy(ctx, *args):
-    try:
         string = " ".join(args)
         query_string = format_string_to_query(string)
         endpoint = LMGTFY_ENDPOINT.format(query_string)
-        r = requests.post(endpoint)
-        result = r.text
+        await ctx.send(endpoint)
 
-        await ctx.send(result)
-
-    except Exception as e:
-        puts.info(e)
-        await ctx.send(e)
