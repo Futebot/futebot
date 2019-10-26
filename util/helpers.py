@@ -145,8 +145,9 @@ def spotify_auth():
                                                           client_secret=os.environ["SPOTIFY_CLIENT_SECRET"])
     spot_token = credentials.get_access_token()
 
-
     return spotipy.Spotify(auth=spot_token)
+
+
 def split_dict(input_dict, size):
     return_dict = OrderedDict()
 
