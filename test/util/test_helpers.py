@@ -183,3 +183,13 @@ def test_format_string_to_query():
     """Test formatting string to make query"""
     string = "League of Legends"
     assert format_string_to_query(string) == "League+of+Legends"
+
+
+def test_spotify_auth():
+    """Test auth spotify"""
+    artist_uri = 'spotify:artist:2ye2Wgw4gimLv2eAKyk1NB'
+    artist_name = "Metallica"
+
+    sp = spotify_auth()
+    result = sp.artist(artist_uri)
+    assert artist_name == result["name"]

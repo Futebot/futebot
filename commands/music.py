@@ -5,7 +5,7 @@ from annotation.futebot import command
 
 
 @command(desc="Pesquisa e retorna uma musica do spotify, usar '""' para pesquisas com mais de uma palavra ")
-async def music(ctx, musica):
+async def musica(ctx, musica):
     try:
         sp = spotify_auth()
         results = sp.search(musica, limit=1)
