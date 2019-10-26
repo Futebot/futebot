@@ -7,7 +7,7 @@ import requests
 import uuid
 from collections import OrderedDict
 
-from discord import File, Embed
+from discord import File
 from io import BytesIO
 
 
@@ -123,7 +123,7 @@ def format_params(params):
             params_response += "[{}] ".format(param)
         return params_response
 
-    return embed
+
 def format_string_to_query(word: str):
     cleanword = word
     cleanword = (
@@ -135,18 +135,6 @@ def format_string_to_query(word: str):
         .replace('@', '%40')
     )
     return cleanword
-
-
-def embed_commands(commands, source="Commands list"):
-    embed = Embed(title=source, color=0x00ff75)
-
-    if commands:
-        embed.add_field(name="achei óh", value="varios nadas...", inline=False)
-        return embed
-
-    for cmd in sorted(commands.keys()):
-        embed.add_field(name=".{} {}".format(cmd, format_params(commands[cmd]['params'])),
-                        value=commands[cmd]['description'], inline=False)
 
 
 def split_dict(input_dict, size):
