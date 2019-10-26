@@ -2,20 +2,21 @@ from discord import Embed
 
 from annotation.futebot import command
 from util.commands import Commands
-from util.helpers import embed_commands
+from util.helpers import format_params, split_dict
+from .config import DISCORD_EMBED_LIMIT
 
 
 @command(desc="List all commands")
-async def listall(ctx, grep=None):
+async def listall(ctx):
+    commands = split_dict(Commands.get_instance().dictionary, DISCORD_EMBED_LIMIT)
 
-    commands = Commands.get_instance().dictionary
+    for page in commands:
+        embed = Embed(title="Commands list", color=0x00ff75)
 
-    if grep:
-        embed = embed_commands(commands)
-        ctx.send(embed=embed)
-        return None
+        for line in page:
+            command = page[line]
+            embed.add_field(name=".{} {}".format(line, format_params(command['params'])),
+                            value=command['description'],
+                            inline=False)
 
-    filtered_commands = {key: value for key, value in commands.items() if str.lower(grep) in key.lower()}
-    embed = embed_commands(filtered_commands)
-
-    await ctx.send(embed=embed)
+        await ctx.author.send(embed=embed)

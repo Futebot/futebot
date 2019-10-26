@@ -21,7 +21,7 @@ async def soniko(ctx, *args):
 
     except FutebotException as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)
 
 
 @command(desc="Generates a Speech image", params=["grade_0_to_100"])
@@ -37,7 +37,7 @@ async def speech(ctx, *args):
 
     except FutebotException as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)
 
 
 @command(desc="Generates a Tano facebook conversation", params=["place"])
@@ -48,7 +48,7 @@ async def tano(ctx, *args):
 
     except FutebotException as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)
 
 
 @command(desc="Generates a Magic Card with a title and description", params=["title", "description"])
@@ -74,7 +74,7 @@ async def magic(ctx, *args):
 
     except FutebotException as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)
 
 
 @command(desc="Generates a whatsapp hospital conversation image", params=["reason", "person_name"])
@@ -87,7 +87,7 @@ async def hospital(ctx, *args):
                                                          (name, 35, 590, 188, (0, 0, 0), 30, "helveticamedium")))
     except FutebotException as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)
 
 
 @command(desc="Generates an Antagonista headline image", params=["reason", "person_name"])
@@ -100,7 +100,7 @@ async def antagonista(ctx, *args):
                                                          (text, 30, 50, 580, (0, 0, 0), 60, "times-new-roman")))
     except FutebotException as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)
 
 
 @command(desc="Generates a Buemo Tweet", params=["tweet"])
@@ -111,7 +111,7 @@ async def buemo(ctx, *args):
                                           "helvetica"))
     except FutebotException as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)
 
 
 @command(desc="Generates a @User tweet", params=["user", "tweet"])
@@ -127,7 +127,7 @@ async def twit(ctx, user: discord.User, *args):
                                                img_url, string))
     except FutebotException as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)
 
 
 @command(desc="Generates a Feijoada image", params=["name"])
@@ -144,7 +144,7 @@ async def feijoada(ctx, *args):
 
     except FutebotException as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)
 
 
 @command(desc="Generates an Oreilly book cover", params=["book_name"])
@@ -172,7 +172,7 @@ async def book(ctx, *args):
 
     except FutebotException as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)
 
 
 @command(desc="Generates a Tomacu image", params=["name"])
@@ -183,7 +183,7 @@ async def tomacu(ctx, *args):
 
     except FutebotException as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)
 
 
 @command(desc="Generates a Sou Gordo shirt image", params=["adjective"])
@@ -194,4 +194,4 @@ async def gordo(ctx, *args):
 
     except FutebotException as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        await ctx.send(e)

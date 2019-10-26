@@ -13,4 +13,4 @@ def ctx():
 @pytest.mark.asyncio
 async def test_listall(ctx):
     await listall(ctx)
-    ctx.send.assert_called()
+    ctx.author.send.assert_called()
