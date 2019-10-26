@@ -5,8 +5,6 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFilter
 from PIL import ImageFont
-from PIL import ImageOps
-from discord import File
 import logging as puts
 
 from exception.exceptions import TooManyCharsException, FutebotException
@@ -17,33 +15,32 @@ from util.helpers import (
     save_image_to_imgur,
     validate_image,
 )
+from util.validators import validate_chars_limit
 
 
 def generate_card(string: str, img_path: str, filename: str, font_size: int, x: int, y: int, color, char_limit,
                   font="opensans"):
     try:
-
-        if len(string) >= char_limit:  # 23 or bigger string would cut the text out, for now just avoid it.
-            raise TooManyCharsException("Diminue esse textão aí, pfv.")
-
-        else:
-            position = (x, y)
-            img = Image.open(img_path)
-            drawer = ImageDraw.Draw(img)
-            drawer.text(
-                position,
-                string,
-                font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
-                fill=color
-            )
-            img_url = save_image_to_imgur(image_to_byte_array(img))
-            image_is_valid, file_bytes = validate_image(img_url)
-            discord_file = create_discord_file_object(file_bytes, ".png")
-            return discord_file
+        validate_chars_limit(string, char_limit)
+        img = draw_text_on_image(color, font, font_size, img_path, string, x, y)
+        return parse_to_discord_file(img)
 
     except Exception as e:
         puts.info(e)
         raise FutebotException(e)
+
+
+def draw_text_on_image(color, font, font_size, img_path, string, x, y):
+    position = (x, y)
+    img = Image.open(img_path)
+    drawer = ImageDraw.Draw(img)
+    drawer.text(
+        position,
+        string,
+        font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
+        fill=color
+    )
+    return img
 
 
 def generate_card_multiple_texts(img_path: str, filename: str, *texts: tuple):
@@ -61,20 +58,15 @@ def generate_card_multiple_texts(img_path: str, filename: str, *texts: tuple):
             char_limit = text[5]
             font = text[6]
 
-            if len(string) >= char_limit:  # 23 or bigger string would cut the text out, for now just avoid it.
-                raise TooManyCharsException("Diminue esse textão aí, pfv.")
+            validate_chars_limit(string, char_limit)
 
-            else:
-                position = (x, y)
+            position = (x, y)
 
-                drawer.text(position, string,
-                            font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
-                            fill=color)
+            drawer.text(position, string,
+                        font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
+                        fill=color)
 
-        img_url = save_image_to_imgur(image_to_byte_array(img))
-        image_is_valid, file_bytes = validate_image(img_url)
-        discord_file = create_discord_file_object(file_bytes, ".png")
-        return discord_file
+        return parse_to_discord_file(img)
 
     except Exception as e:
         puts.info(e)
@@ -84,31 +76,15 @@ def generate_card_multiple_texts(img_path: str, filename: str, *texts: tuple):
 def generate_card_img(string: str, img_path: str, filename: str, font_size: int, x: int, y: int, color, char_limit,
                       img_url, img_x, img_y, img_width, img_height, font="opensans"):
     try:
+        validate_chars_limit(string, char_limit)
+        img = draw_text_on_image(color, font, font_size, img_path, string, x, y)
+        add_thumbnail_to_img(img, img_height, img_url, img_width, img_x, img_y)
 
-        if len(string) >= char_limit:  # 23 or bigger string would cut the text out, for now just avoid it.
-            raise TooManyCharsException("Diminue esse textão aí, pfv.")
-
-        else:
-            position = (x, y)
-            img = Image.open(img_path)
-            drawer = ImageDraw.Draw(img)
-            drawer.text(position, string,
-                        font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
-                        fill=color)
-
-            response = requests.get(img_url, stream=True)
-            img2 = Image.open(BytesIO(response.content))
-            img2.thumbnail((img_width, img_height), Image.ANTIALIAS)
-            img.paste(img2, (img_x, img_y))
-
-            img_url = save_image_to_imgur(image_to_byte_array(img))
-            image_is_valid, file_bytes = validate_image(img_url)
-            discord_file = create_discord_file_object(file_bytes, ".png")
-            return discord_file
+        return parse_to_discord_file(img)
 
     except Exception as e:
         puts.info(e)
-        return None
+        raise FutebotException(e)
 
 
 def generate_card_img_title_description(string: str, img_path: str, filename: str, font_size: int, x: int, y: int,
@@ -116,75 +92,73 @@ def generate_card_img_title_description(string: str, img_path: str, filename: st
                                         description: str, desc_x: int, desc_y: int, desc_font_size: int,
                                         font="opensans"):
     try:
+        validate_chars_limit(string, char_limit)
 
-        if len(string) >= char_limit:  # 23 or bigger string would cut the text out, for now just avoid it.
-            raise TooManyCharsException("Diminue esse textão aí, pfv.")
+        position = (x, y)
+        img = Image.open(img_path)
+        drawer = ImageDraw.Draw(img)
+        drawer.text(position, string,
+                    font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
+                    fill=color)
 
-        else:
-            position = (x, y)
-            img = Image.open(img_path)
-            drawer = ImageDraw.Draw(img)
-            drawer.text(position, string,
-                        font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
-                        fill=color)
+        drawer.text((desc_x, desc_y), description,
+                    font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=desc_font_size),
+                    fill=color)
 
-            drawer.text((desc_x, desc_y), description,
-                        font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=desc_font_size),
-                        fill=color)
+        add_thumbnail_to_img(img, img_height, img_url, img_width, img_x, img_y)
 
-            response = requests.get(img_url, stream=True)
-            img2 = Image.open(BytesIO(response.content))
-            img2.thumbnail((img_width, img_height), Image.ANTIALIAS)
-            img.paste(img2, (img_x, img_y))
-
-            img_url = save_image_to_imgur(image_to_byte_array(img))
-            image_is_valid, file_bytes = validate_image(img_url)
-            discord_file = create_discord_file_object(file_bytes, ".png")
-            return discord_file
+        return parse_to_discord_file(img)
 
     except Exception as e:
         puts.info(e)
-        return None
+        raise FutebotException(e)
+
+
+def add_thumbnail_to_img(img, img_height, img_url, img_width, img_x, img_y):
+    response = requests.get(img_url, stream=True)
+    img2 = Image.open(BytesIO(response.content))
+    img2.thumbnail((img_width, img_height), Image.ANTIALIAS)
+    img.paste(img2, (img_x, img_y))
 
 
 def generate_card_twit(name: str, display_name: str, img_path: str, filename: str, img_url, description: str):
     try:
+        validate_chars_limit(description, 50)
 
-        if len(description) >= 50:
-            raise TooManyCharsException("Diminue esse textão aí, pfv.")
+        img = Image.open(img_path)
+        drawer = ImageDraw.Draw(img)
+        drawer.text((95, 30), name,
+                    font=ImageFont.truetype(font='templates/fonts/helvetica.ttf', size=20),
+                    fill=(0, 0, 0))
 
-        else:
+        drawer.text((90, 55), display_name,
+                    font=ImageFont.truetype(font='templates/fonts/helvetica.ttf', size=18),
+                    fill=(150, 150, 150))
 
-            img = Image.open(img_path)
-            drawer = ImageDraw.Draw(img)
-            drawer.text((95, 30), name,
-                        font=ImageFont.truetype(font='templates/fonts/helvetica.ttf', size=20),
-                        fill=(0, 0, 0))
+        drawer.text((20, 100), description,
+                    font=ImageFont.truetype(font='templates/fonts/helvetica.ttf', size=35),
+                    fill=(0, 0, 0))
 
-            drawer.text((90, 55), display_name,
-                        font=ImageFont.truetype(font='templates/fonts/helvetica.ttf', size=18),
-                        fill=(150, 150, 150))
+        response = requests.get(img_url, stream=True)
 
-            drawer.text((20, 100), description,
-                        font=ImageFont.truetype(font='templates/fonts/helvetica.ttf', size=35),
-                        fill=(0, 0, 0))
+        img2 = Image.open(BytesIO(response.content))
+        img2 = mask_circle_transparent(img2, 0)
+        img2.thumbnail((60, 60), Image.ANTIALIAS)
 
-            response = requests.get(img_url, stream=True)
+        img.paste(img2, (20, 20), img2)
 
-            img2 = Image.open(BytesIO(response.content))
-            img2 = mask_circle_transparent(img2, 0)
-            img2.thumbnail((60, 60), Image.ANTIALIAS)
-
-            img.paste(img2, (20, 20), img2)
-
-            img_url = save_image_to_imgur(image_to_byte_array(img))
-            image_is_valid, file_bytes = validate_image(img_url)
-            discord_file = create_discord_file_object(file_bytes, ".png")
-            return discord_file
+        return parse_to_discord_file(img)
 
     except Exception as e:
         puts.info(e)
-        return None
+        raise FutebotException(e)
+
+
+def parse_to_discord_file(img):
+    img_url = save_image_to_imgur(image_to_byte_array(img))
+    image_is_valid, file_bytes = validate_image(img_url)
+    discord_file = create_discord_file_object(file_bytes, ".png")
+    return discord_file
 
 
 def mask_circle_transparent(pil_img, blur_radius, offset=0):

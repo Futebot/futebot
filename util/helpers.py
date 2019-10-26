@@ -6,6 +6,7 @@ import os
 import requests
 import uuid
 import spotipy
+from collections import OrderedDict
 
 from discord import File
 from io import BytesIO
@@ -33,7 +34,7 @@ def get_json_fields_from_url(url: str, *fields: str):
         return ["Are you dumb?"]
 
 
-def generate_image_search_url(search_terms, **kwargs):
+def generate_image_search_url(search_terms, file_type=".jpg"):
     search_terms = " ".join(search_terms)
 
     google_image_query_url = (
@@ -44,7 +45,7 @@ def generate_image_search_url(search_terms, **kwargs):
         f"searchType=image"
     )
 
-    if kwargs.get("gif", None):
+    if file_type == ".gif":
         return google_image_query_url + "&fileType=gif"
 
     return google_image_query_url
@@ -144,4 +145,16 @@ def spotify_auth():
                                                           client_secret=os.environ["SPOTIFY_CLIENT_SECRET"])
     spot_token = credentials.get_access_token()
 
+
     return spotipy.Spotify(auth=spot_token)
+def split_dict(input_dict, size):
+    return_dict = OrderedDict()
+
+    for k, v in sorted(input_dict.items()):
+        if len(return_dict) == size:
+            yield return_dict
+            return_dict = OrderedDict()
+
+        return_dict[k] = v
+
+    yield return_dict
