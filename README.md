@@ -27,11 +27,6 @@ Download pipenv:
 
 ```
 pip install pipenv
-```
-
-and install all libraries:
-
-```
 pipenv install
 ```
 
