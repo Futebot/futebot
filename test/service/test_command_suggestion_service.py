@@ -15,7 +15,7 @@ def test_is_custom_command():
     assert is_custom_command("nothere") is False
 
 
-def test_get_custom_dict():
+def test_get_command():
     os.environ["COMMANDS_DATA_FILE"] = os.path.dirname(os.path.abspath(__file__))+"/../data_test.yml"
     command = get_command("anther")
     assert command[1] == "another"
