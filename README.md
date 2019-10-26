@@ -7,7 +7,9 @@ Simple Discord Bot
 
 ## Installation
 
-Export a discord bot token and run:
+Export a discord bot token and run
+
+Docker Build:
 
 ```
 $ docker build . -t futebot:latest
@@ -17,13 +19,15 @@ $ docker run -it -e DISCORD_APP_TOKEN=${DISCORD_APP_TOKEN} -e GOOGLE_CUSTOM_SEAR
 
 Or
 
+Docker compose
+
 ```
 docker-compose up --build
 ```
 
 Or
 
-Download pipenv:
+Pipenv
 
 ```
 pip install pipenv
@@ -31,6 +35,7 @@ pipenv install
 ```
 
 The step above expects a file `keys.env` in the root directory with the following variables:
+
 ```.env
 DISCORD_APP_TOKEN=<HUETOKEN>
 GOOGLE_CUSTOM_SEARCH_API_TOKEN=<HUEAPITOKEN>
@@ -40,8 +45,8 @@ OPENWEATHER_KEY=<OPENWEATHER_KEY>
 CLARIFAI_API_KEY=<CLARIFAI_API_KEY>
 IMGUR_CLIENT_ID=<CLIENTID>
 IMGUR_CLIENT_SECRET=<CLIENTSECRET>
-SPOTIFY_CLIENT_ID = <SPOTIFY_CLIENT_ID>
-SPOTIFY_CLIENT_SECRET = <SPOTIFY_CLIENT_SECRET>
+SPOTIFY_CLIENT_ID=<SPOTIFY_CLIENT_ID>
+SPOTIFY_CLIENT_SECRET=<SPOTIFY_CLIENT_SECRET>
 BOT_ENV=dev
 ```
 
@@ -52,7 +57,6 @@ To run tests run:
 ```
 pipenv run pytest
 ```
-
 
 ## Lint check
 
