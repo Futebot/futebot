@@ -32,8 +32,6 @@ def get_json_fields_from_url(url: str, *fields: str):
 
 
 def generate_image_search_url(search_terms, file_type=".jpg"):
-    search_terms = " ".join(search_terms)
-
     google_image_query_url = (
         f"https://www.googleapis.com/customsearch/v1?"
         f"key={os.getenv('GOOGLE_CUSTOM_SEARCH_API_TOKEN')}&"
