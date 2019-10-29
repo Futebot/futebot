@@ -1,21 +1,13 @@
 version: '2'
 services:
   bot:
-    image: futebot/futebot
+    image: futebot/futebot:latest
     env_file: keys.env
     volumes:
       - .:/usr/src/app
-  ouroboros:
-    container_name: ouroboros
-    hostname: ouroboros
-    image: pyouroboros/ouroboros
-    environment:
-      - CLEANUP=true
-      - INTERVAL=300
-      - LOG_LEVEL=info
-      - SELF_UPDATE=true
-      - IGNORE=mongo influxdb postgres mariadb
-      - TZ=Europe/London
-    restart: unless-stopped
+  watchtower:
+    image: v2tec/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/config.json:/config.json
+    command: --interval 30
