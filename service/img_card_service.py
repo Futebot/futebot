@@ -1,3 +1,4 @@
+import os
 from io import BytesIO
 
 import requests
@@ -37,7 +38,7 @@ def draw_text_on_image(color, font, font_size, img_path, string, x, y):
     drawer.text(
         position,
         string,
-        font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
+        font=ImageFont.truetype(font=os.getcwd() + '/templates/fonts/' + font + '.ttf', size=font_size),
         fill=color
     )
     return img
@@ -63,7 +64,7 @@ def generate_card_multiple_texts(img_path: str, filename: str, *texts: tuple):
             position = (x, y)
 
             drawer.text(position, string,
-                        font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
+                        font=ImageFont.truetype(font=os.getcwd() + '/templates/fonts/' + font + '.ttf', size=font_size),
                         fill=color)
 
         return parse_to_discord_file(img)
@@ -98,11 +99,11 @@ def generate_card_img_title_description(string: str, img_path: str, filename: st
         img = Image.open(img_path)
         drawer = ImageDraw.Draw(img)
         drawer.text(position, string,
-                    font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
+                    font=ImageFont.truetype(font=os.getcwd() + '/templates/fonts/' + font + '.ttf', size=font_size),
                     fill=color)
 
         drawer.text((desc_x, desc_y), description,
-                    font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=desc_font_size),
+                    font=ImageFont.truetype(font=os.getcwd() + '/templates/fonts/' + font + '.ttf', size=desc_font_size),
                     fill=color)
 
         add_thumbnail_to_img(img, img_height, img_url, img_width, img_x, img_y)
@@ -128,15 +129,15 @@ def generate_card_twit(name: str, display_name: str, img_path: str, filename: st
         img = Image.open(img_path)
         drawer = ImageDraw.Draw(img)
         drawer.text((95, 30), name,
-                    font=ImageFont.truetype(font='templates/fonts/helvetica.ttf', size=20),
+                    font=ImageFont.truetype(font=os.getcwd() + '/templates/fonts/helvetica.ttf', size=20),
                     fill=(0, 0, 0))
 
         drawer.text((90, 55), display_name,
-                    font=ImageFont.truetype(font='templates/fonts/helvetica.ttf', size=18),
+                    font=ImageFont.truetype(font=os.getcwd() + '/templates/fonts/helvetica.ttf', size=18),
                     fill=(150, 150, 150))
 
         drawer.text((20, 100), description,
-                    font=ImageFont.truetype(font='templates/fonts/helvetica.ttf', size=35),
+                    font=ImageFont.truetype(font=os.getcwd() + '/templates/fonts/helvetica.ttf', size=35),
                     fill=(0, 0, 0))
 
         response = requests.get(img_url, stream=True)
