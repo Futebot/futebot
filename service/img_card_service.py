@@ -64,7 +64,8 @@ def generate_card_multiple_texts(img_path: str, filename: str, *texts: tuple):
             position = (x, y)
 
             drawer.text(position, string,
-                        font=ImageFont.truetype(font=os.getcwd() + '/templates/fonts/' + font + '.ttf', size=font_size),
+                        font=ImageFont.truetype(font=os.getcwd() + '/templates/fonts/' + font + '.ttf',
+                                                size=font_size),
                         fill=color)
 
         return parse_to_discord_file(img)
@@ -103,7 +104,8 @@ def generate_card_img_title_description(string: str, img_path: str, filename: st
                     fill=color)
 
         drawer.text((desc_x, desc_y), description,
-                    font=ImageFont.truetype(font=os.getcwd() + '/templates/fonts/' + font + '.ttf', size=desc_font_size),
+                    font=ImageFont.truetype(font=os.getcwd() + '/templates/fonts/' + font + '.ttf',
+                                            size=desc_font_size),
                     fill=color)
 
         add_thumbnail_to_img(img, img_height, img_url, img_width, img_x, img_y)
