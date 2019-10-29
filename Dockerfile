@@ -8,6 +8,4 @@ RUN cd futebot && \
     pip install pipenv && \
 	pipenv install --system
 
-
-
-CMD [ "python", "./futebot/main.py" ]
+CMD [ "python", "/usr/src/app/futebot/main.py" ]
