@@ -1,4 +1,4 @@
-# Futebot
+## Futebot
 
 [![CircleCI](https://circleci.com/gh/Futebot/futebot.svg?style=svg)](https://circleci.com/gh/Futebot/futebot)
 [![codecov](https://codecov.io/gh/Futebot/futebot/branch/master/graph/badge.svg)](https://codecov.io/gh/mrisoli/futebot)
