@@ -1,5 +1,6 @@
 ## Futebot
 
+[![Discord](https://img.shields.io/discord/560498115971645440.svg?colorB=7289da&label=discord&logo=Discord&logoColor=fff&style=flat)]()
 [![CircleCI](https://circleci.com/gh/Futebot/futebot.svg?style=svg)](https://circleci.com/gh/Futebot/futebot)
 [![codecov](https://codecov.io/gh/Futebot/futebot/branch/master/graph/badge.svg)](https://codecov.io/gh/mrisoli/futebot)
 
