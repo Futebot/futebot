@@ -2,14 +2,15 @@ import os
 import time
 import re
 
+import requests
 from art import text2art
 from slackclient import SlackClient
 # instantiate Slack client
 from commands.config import HOROSCOPO_ENDPOINT, COACH_ENDPOINT
 from service import roll_service
-from util.helpers import get_json_field_from_url
+from util.helpers import get_json_field_from_url, generate_image_search_url, validate_image
 
-slack_client = SlackClient('xoxb-890869960082-903310164100-YKEx5OuEGG9WkbEygL3tLrCh')
+slack_client = SlackClient('xoxb-890869960082-903310164100-aubIRjdgxxjSElMAuKWF5u2q')
 # starterbot's user ID in Slack: value is assigned after the bot starts up
 starterbot_id = None
 # constants
@@ -21,6 +22,7 @@ COACH_COMMAND = "coach"
 BANNER_COMMAND = "banner"
 SCROLL_COMMAND = "scroll"
 ROLL_COMMAND = 'roll'
+IMG_COMMAND = 'imgme'
 
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 
@@ -79,6 +81,20 @@ def handle_command(command, channel):
 
     if command.startswith(ROLL_COMMAND):
         response = roll_service.roll(command.split(' ', 1)[1])
+
+    if command.startswith(IMG_COMMAND):
+        url = generate_image_search_url(command.split(' ', 1)[1], 'jpg')
+        res = requests.get(url)
+        search_result = res.json()
+        if "items" not in search_result:
+            raise Exception("We couldn't find any images for your search")
+        image_is_valid = False
+
+        for item in search_result["items"]:
+            image_link = item["link"]
+            image_is_valid, file_bytes = validate_image(image_link)
+            response = image_link
+            break
 
     # Sends the response back to the channel
     slack_client.api_call(
