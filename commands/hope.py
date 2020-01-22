@@ -8,7 +8,7 @@ from .config import (
 )
 
 
-def coach(ctx):
+def coach():
     return get_json_field_from_url(
             COACH_ENDPOINT,
             "quoteText",
