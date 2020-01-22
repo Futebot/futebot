@@ -24,38 +24,35 @@ from .config import (
 @command(desc="Returns an image", params=["search_term"])
 async def imgme(ctx, search_query, spoiler=None):
     try:
-        await ctx.send(file=get_image(ctx, search_query, spoiler))
+        return get_image(ctx, search_query, spoiler)
 
     except Exception as e:
         puts.info(e)
-        await ctx.send(e)
+        return e
 
 
-@command(desc="Returns a GIF", params=["search_term"])
-async def gifme(ctx, search_query, spoiler=None):
+def gifme(ctx, search_query, spoiler=None):
     try:
-        await ctx.send(file=get_image(ctx, search_query, spoiler, gif=True))
+        return get_image(ctx, search_query, spoiler, gif=True)
 
     except Exception as e:
         puts.info(e)
-        await ctx.send(e)
+        return e
 
 
-@command(desc="Returns an Youtube Video", params=["search_term"])
-async def youtube(ctx, *args):
+def youtube(string):
     try:
-        query_string = urllib.parse.urlencode({"search_query": " ".join(args)})
+        query_string = urllib.parse.urlencode({"search_query": string})
         html_content = urllib.request.urlopen("{}{}".format(YT_RESULTS_ENDPOINT, query_string))
         search_results = re.findall(
             r"href=\"\/watch\?v=(.{11})", html_content.read().decode()
         )
-        await ctx.send("{}{}".format(YT_WATCH_ENDPOINT, search_results[0]))
+        return "{}{}".format(YT_WATCH_ENDPOINT, search_results[0])
     except BaseException as e:
-        await ctx.send("Are you dumb?")
+        return "Are you dumb?"
 
 
-@command(desc="Returns the meaning of a word", params=["word"])
-async def dictionary(ctx, term, *args):
+def dictionary(term):
     try:
         endpoint = DICTIONARY_PTBR_ENDPOINT.format(term)
         r = requests.get(endpoint)
@@ -75,17 +72,15 @@ async def dictionary(ctx, term, *args):
                     clean_html(entry_def["def"].replace("<br/>", "\n"))
                 )
 
-        await ctx.send(definition)
+        return definition
 
     except Exception as e:
         puts.info(e)
-        await ctx.send(e)
+        return e
 
 
-@command(desc="Returns the Weather", params=["city"])
-async def weather(ctx, *args):
+def weather(location):
     try:
-        location = " ".join(args)
         endpoint = WEATHER_ENDPOINT.format(location, os.getenv("OPENWEATHER_KEY"))
         r = requests.get(endpoint)
         if r.status_code == 404:
@@ -94,29 +89,19 @@ async def weather(ctx, *args):
 
         weather_conditions = "{} {}".format(get_weather_icon(result["weather"][0]["icon"]),
                                             result["weather"][0]["main"])
-
         temperature = ":thermometer: {}°C".format(result["main"]["temp"])
-
         humidity = ":droplet: {}%".format(result["main"]["humidity"])
+        title = "Temperature in {} :".format(result["name"])
+        response = title + "\n" + weather_conditions + "\n" + temperature + "\n" + humidity
 
-        embed = Embed(title="Temperature in {}".format(result["name"],
-                      description=weather_conditions,
-                      color=0x0B5394))
-
-        embed.add_field(name="Conditions", value=weather_conditions, inline=True)
-        embed.add_field(name="Temperature", value=temperature, inline=True)
-        embed.add_field(name="Humidity", value=humidity, inline=True)
-
-        await ctx.send(embed=embed)
+        return response
 
     except Exception as e:
         puts.info(e)
-        await ctx.send(e)
+        return e
 
 
-@command(desc="Returns search from LMGTFY", params=["word"])
-async def lmgtfy(ctx, *args):
-    string = " ".join(args)
+def lmgtfy(string):
     query_string = format_string_to_query(string)
     endpoint = LMGTFY_ENDPOINT.format(query_string)
-    await ctx.send(endpoint)
+    return endpoint

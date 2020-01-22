@@ -23,7 +23,7 @@ def generate_card(string: str, img_path: str, filename: str, font_size: int, x: 
     try:
         validate_chars_limit(string, char_limit)
         img = draw_text_on_image(color, font, font_size, img_path, string, x, y)
-        return parse_to_discord_file(img)
+        return parse_to_slack_file(img)
 
     except Exception as e:
         puts.info(e)
@@ -66,7 +66,7 @@ def generate_card_multiple_texts(img_path: str, filename: str, *texts: tuple):
                         font=ImageFont.truetype(font='templates/fonts/' + font + '.ttf', size=font_size),
                         fill=color)
 
-        return parse_to_discord_file(img)
+        return parse_to_slack_file(img)
 
     except Exception as e:
         puts.info(e)
@@ -80,7 +80,7 @@ def generate_card_img(string: str, img_path: str, filename: str, font_size: int,
         img = draw_text_on_image(color, font, font_size, img_path, string, x, y)
         add_thumbnail_to_img(img, img_height, img_url, img_width, img_x, img_y)
 
-        return parse_to_discord_file(img)
+        return parse_to_slack_file(img)
 
     except Exception as e:
         puts.info(e)
@@ -107,7 +107,7 @@ def generate_card_img_title_description(string: str, img_path: str, filename: st
 
         add_thumbnail_to_img(img, img_height, img_url, img_width, img_x, img_y)
 
-        return parse_to_discord_file(img)
+        return parse_to_slack_file(img)
 
     except Exception as e:
         puts.info(e)
@@ -147,18 +147,16 @@ def generate_card_twit(name: str, display_name: str, img_path: str, filename: st
 
         img.paste(img2, (20, 20), img2)
 
-        return parse_to_discord_file(img)
+        return parse_to_slack_file(img)
 
     except Exception as e:
         puts.info(e)
         raise FutebotException(e)
 
 
-def parse_to_discord_file(img):
+def parse_to_slack_file(img):
     img_url = save_image_to_imgur(image_to_byte_array(img))
-    image_is_valid, file_bytes = validate_image(img_url)
-    discord_file = create_discord_file_object(file_bytes, ".png")
-    return discord_file
+    return img_url
 
 
 def mask_circle_transparent(pil_img, blur_radius, offset=0):

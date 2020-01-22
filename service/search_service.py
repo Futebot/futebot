@@ -16,21 +16,4 @@ def get_image(ctx, search_query, spoiler, **kwargs):
 
     for item in search_result["items"]:
         image_link = item["link"]
-        image_is_valid, file_bytes = validate_image(image_link)
-        if image_is_valid:
-
-            app = ClarifaiApp()
-            model = app.models.get("moderation")
-            response = model.predict_by_url(url=image_link)
-
-            if response['outputs'][0]['data']['concepts'][0]['name'] == 'explicit' \
-                or response['outputs'][0]['data']['concepts'][0]['name'] == 'suggestive'\
-                or response['outputs'][0]['data']['concepts'][0]['name'] == 'gore'\
-                or response['outputs'][0]['data']['concepts'][0]['name'] == 'drug'\
-                or (response['outputs'][0]['data']['concepts'][0]['name'] == 'safe'
-                    and response['outputs'][0]['data']['concepts'][0]['value'] < 0.95):
-                spoiler = "--spoiler"
-
-            f = create_discord_file_object(file_bytes, file_type, spoiler)
-            return f
-            break
+        return image_link

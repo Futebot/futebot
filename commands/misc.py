@@ -5,38 +5,27 @@ from annotation.futebot import command
 from util.helpers import mention
 
 
-@command(desc="Pings", params=["part_of_username"])
-async def ping(ctx, arg=""):
+def ping(ctx, arg=""):
     if arg == "":
-        await ctx.send("pong")
+        return "pong"
     else:
-        await ctx.send("Pinging " + mention(ctx, arg) + " 🏓")
+        return "Pinging " + mention(ctx, arg) + " 🏓"
 
 
-@command(desc="Generates an ASCII banner", params=["word"])
-async def banner(ctx, *args):
-    string = ' '.join(args)
-
+def banner(string):
     if len(string) > 20:
-        await ctx.send("Diminue esse textão aí, pfv.")
-        return
+        return "Diminue esse textão aí, pfv."
 
-    art = text2art(string)
-    await ctx.send("```" + art + "```")
+    return text2art(string)
 
-
-@command(desc="Generates a one liner emoji", params=["emoji_name"])
-async def moji(ctx, *args):
+def moji(string):
     try:
-        string = ' '.join(args)
-        text = art(string)
-        await ctx.send(text)
+        return art(string)
     except Exception as e:
-        await ctx.send("Tenta esses moji aqui, fera: https://github.com/sepandhaghighi/art/blob/master/art/art_dic.py")
+        return "Tenta esses moji aqui, fera: https://github.com/sepandhaghighi/art/blob/master/art/art_dic.py"
 
 
-@command(desc="Scrooooooooooooooooll to remove that NSFW messages")
-async def scroll(ctx):
+def scroll():
     dump = ".\n" * 100
     text = "eita fdp\n" + dump + "vou chamar o marreta :hammer:"
-    await ctx.send(text)
+    return text

@@ -101,15 +101,15 @@ def clean_html(raw_html):
 
 def get_weather_icon(code):
     if "10" in code or "09" in code:
-        return ":cloud_rain:"
+        return ":rain_cloud:"
     if "11" in code:
-        return ":cloud_lightning:"
+        return ":lightning:"
     if "13" in code:
         return ":snowflake:"
     if "01" in code:
         return ":sunny:"
     if "02" in code:
-        return ":white_sun_small_cloud:"
+        return ":sun_small_cloud:"
     if "03" in code or "04" in code or "50" in code:
         return ":cloud:"
 

@@ -11,22 +11,23 @@ from util.helpers import (
 from .config import CHARADA_ENDPOINT
 
 
-@command(desc="Sends a random charade")
-async def charada(ctx):
+def charada():
     fields = get_json_fields_from_url(
         CHARADA_ENDPOINT,
         "pergunta",
         "resposta",
     )
+    response = ''
     for field in fields:
-        await ctx.send(field)
+        response += field + '\n'
+
+    return response
 
 
-@command(desc="Rolls the dice", params=["1d6"])
-async def roll(ctx, arg):
+def roll(arg):
     try:
         response = roll_service.roll(arg)
-        await ctx.send(response)
+        return response
     except Exception as e:
         puts.info(e)
-        await ctx.send(rec[random.randrange(0, len(rec) - 1)])
+        return rec[random.randrange(0, len(rec) - 1)]
