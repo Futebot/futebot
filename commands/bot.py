@@ -6,7 +6,7 @@ from .config import DISCORD_EMBED_LIMIT
 
 
 @command(name="listall", desc="List all commands")
-def listall():
+def listall(ctx):
     commands = split_dict(Commands.get_instance().dictionary, DISCORD_EMBED_LIMIT)
 
     embed = "Commands list:\n"

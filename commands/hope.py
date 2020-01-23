@@ -9,7 +9,7 @@ from .config import (
 
 
 @command(name="coach", desc="Returns a random coach message")
-def coach():
+def coach(ctx):
     return get_json_field_from_url(
             COACH_ENDPOINT,
             "quoteText",
@@ -17,14 +17,14 @@ def coach():
 
 
 @command(name="horoscopo", desc="Returns the horoscope of the day.", params=["horoscope"])
-def horoscopo(arg):
+def horoscopo(ctx, arg):
     return get_json_field_from_url(
             HOROSCOPO_ENDPOINT.format(arg), "texto"
         )
 
 
 @command(name="decide", desc="Sends a Yes or No GIF for a question.")
-def decide(arg):
+def decide(ctx, arg):
     return get_json_field_from_url(
             "https://yesno.wtf/api", "image"
         )

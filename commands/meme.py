@@ -14,7 +14,7 @@ from util.helpers import generate_image_search_url
 
 
 @command(name="soniko", desc="Generates a Soniko image", params=["caption"])
-def soniko(string):
+def soniko(ctx, string):
     try:
         print("trying: " + string)
         response = generate_card(string, "templates/imgs/soniko.png", "soniko", 25, 83, 274, (0, 0, 0), 23)
@@ -27,7 +27,7 @@ def soniko(string):
 
 
 @command(name="speech", desc="Generates a Speech image", params=["grade_0_to_100"])
-def speech(string):
+def speech(ctx, string):
     try:
         if not string.isdigit():
             return rec[random.randrange(0, len(rec) - 1)]
@@ -41,7 +41,7 @@ def speech(string):
 
 
 @command(name="tano", desc="Generates a Tano facebook conversation", params=["place"])
-def tano(string):
+def tano(ctx, string):
     try:
         return generate_card(string, "templates/imgs/tano.png", "tano", 35, 330, 115, (0, 0, 0), 15)
 
@@ -51,7 +51,7 @@ def tano(string):
 
 
 @command(name="magic", desc="Generates a Magic Card with a title and description", params=["title", "description"])
-def magic(string, description):
+def magic(ctx, string, description):
     try:
         c = None
         img_index = 0
@@ -74,7 +74,7 @@ def magic(string, description):
 
 
 @command(name="hospital", desc="Generates a whatsapp hospital conversation image", params=["reason", "person_name"])
-def hospital(name, reason):
+def hospital(ctx, name, reason):
     try:
         return generate_card_multiple_texts("templates/imgs/hospital.png", "hospital",
                                                          (reason, 35, 400, 927, (0, 0, 0), 30, "helveticamedium"),

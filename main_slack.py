@@ -11,6 +11,7 @@ from slackclient import SlackClient
 # instantiate Slack client
 from commands.config import HOROSCOPO_ENDPOINT, COACH_ENDPOINT, WEATHER_ENDPOINT, YT_RESULTS_ENDPOINT, \
     YT_WATCH_ENDPOINT, LMGTFY_ENDPOINT
+from commands.context import Context
 from commands.custom import c
 from commands.games import roll, charada
 from commands.hope import coach, horoscopo, decide
@@ -39,7 +40,7 @@ def parse_bot_commands(slack_events):
         if event["type"] == "message" and not "subtype" in event:
             user_id, message = parse_direct_mention(event["text"])
             if event['text'].startswith('.'):
-                handle_command(event['text'].replace('.', ''), event['channel'])
+                handle_command(event['text'].replace('.', ''), event['channel'], event['user'])
 
     return None, None
 
@@ -54,7 +55,7 @@ def parse_direct_mention(message_text):
     return (matches.group(1), matches.group(2).strip()) if matches else (None, None)
 
 
-def find_command(command):
+def find_command(context, command):
     command = command.replace(".", "")
     print(command)
 
@@ -72,30 +73,32 @@ def find_command(command):
         # params = Commands.get_instance().dictionary[command_prefix]['params']
         if func is not None:
             if command_params is None:
-                return func()
+                return func(context)
             elif len(command_params) == 1:
-                return func(command_params[0])
+                return func(context, command_params[0])
             elif len(command_params) == 2:
-                return func(command_params[0], command_params[1])
+                return func(context, command_params[0], command_params[1])
             elif len(command_params) == 3:
-                return func(command_params[0], command_params[1], command_params[2])
+                return func(context, command_params[0], command_params[1], command_params[2])
     except:
         return c(command_prefix)
 
 
-
-def handle_command(command, channel):
+def handle_command(command, channel, user):
     """
         Executes bot command if the command is known
     """
 
     try:
+        context = Context()
+        context.channel = channel
+        context.user = user
 
         # Default response is help text for the user
         default_response = "Not sure what you mean. Try to be smarter."
         # Finds and executes the given command, filling in response
         response = None
-        response = find_command(command)
+        response = find_command(context, command)
 
         slack_client.api_call(
             "chat.postMessage",

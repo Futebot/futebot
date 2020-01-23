@@ -12,7 +12,7 @@ from .config import CHARADA_ENDPOINT
 
 
 @command(name="charada", desc="Sends a random charade")
-def charada():
+def charada(ctx):
     fields = get_json_fields_from_url(
         CHARADA_ENDPOINT,
         "pergunta",
@@ -26,7 +26,7 @@ def charada():
 
 
 @command(name="roll", desc="Rolls the dice", params=["1d6"])
-def roll(arg):
+def roll(ctx, arg):
     try:
         response = roll_service.roll(arg)
         return response

@@ -6,7 +6,7 @@ from util.helpers import mention
 
 
 @command(name="ping", desc="Pings", params=["part_of_username"])
-def ping(arg=""):
+def ping(ctx, arg=""):
     if arg == "":
         return "pong"
     else:
@@ -14,7 +14,7 @@ def ping(arg=""):
 
 
 @command(name="banner", desc="Generates an ASCII banner", params=["word"])
-def banner(string):
+def banner(ctx, string):
     if len(string) > 20:
         return "Diminue esse textão aí, pfv."
 
@@ -22,7 +22,7 @@ def banner(string):
 
 
 @command(name="moji", desc="Generates a one liner emoji", params=["emoji_name"])
-def moji(string):
+def moji(ctx, string):
     try:
         return art(string)
     except Exception as e:
@@ -30,7 +30,7 @@ def moji(string):
 
 
 @command(name="scroll", desc="Scrooooooooooooooooll to remove that NSFW messages")
-def scroll():
+def scroll(ctx):
     dump = ".\n" * 100
     text = "eita fdp\n" + dump + "vou chamar o marreta :hammer:"
     return text

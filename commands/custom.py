@@ -10,10 +10,8 @@ from .config import DISCORD_EMBED_LIMIT
 
 
 @command(name="add", desc="Adds a new custom command", params=["command_name", "command_content"])
-def add(*args):
+def add(ctx, command_name, command_url):
 
-    command_name = args[0]
-    command_url = args[1]
     try:
         data = get_custom_dict()
     except FileNotFoundError as e:
@@ -27,7 +25,7 @@ def add(*args):
 
 
 @command(name="rm", desc="Removes custom command", params=["command_name"])
-def rm(command_name=""):
+def rm(ctx, command_name=""):
     try:
         if command_name == "":
             raise NoArgumentException("Are you dumb?")
@@ -47,7 +45,7 @@ def rm(command_name=""):
 
 
 @command(name="listcustom", desc="List Custom Commands")
-def listcustom():
+def listcustom(ctx):
     custom_commands = split_dict(get_custom_dict(), DISCORD_EMBED_LIMIT)
 
     embed = "```Custom Commands list\n"
@@ -59,6 +57,6 @@ def listcustom():
     return embed
 
 
-def c(arg):
+def c(ctx, arg):
     data = get_custom_dict()
     return data[arg]
