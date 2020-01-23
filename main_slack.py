@@ -1,5 +1,6 @@
 import os
 import random
+import shlex
 import time
 import re
 import urllib
@@ -62,8 +63,7 @@ def find_command(command):
     try:
         command_prefix = command.split(' ')[0]
         command_params = command.split(' ', 1)[1]
-        print("prefix: " + command_prefix)
-        print("params: " + command_params)
+        command_params = shlex.split(command_params)
     except:
         command_params = None
 
@@ -71,11 +71,13 @@ def find_command(command):
     # params = Commands.get_instance().dictionary[command_prefix]['params']
     if func is not None:
         if command_params is None:
-            print("Params is none")
             return func()
-        else:
-            print("Params is: " + str(command_params))
-            return func(command_params)
+        elif len(command_params) == 1:
+            return func(command_params[0])
+        elif len(command_params) == 2:
+            return func(command_params[0], command_params[1])
+        elif len(command_params) == 3:
+            return func(command_params[0], command_params[1], command_params[2])
 
     return "Not found"
 
