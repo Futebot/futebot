@@ -16,7 +16,9 @@ from util.helpers import generate_image_search_url
 @command(name="soniko", desc="Generates a Soniko image", params=["caption"])
 def soniko(string):
     try:
-        return generate_card(string, "templates/imgs/soniko.png", "soniko", 25, 83, 274, (0, 0, 0), 23)
+        response = generate_card(string, "templates/imgs/soniko.png", "soniko", 25, 83, 274, (0, 0, 0), 23)
+        print(response)
+        return response
 
     except FutebotException as e:
         puts.info(e)

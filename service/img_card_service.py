@@ -156,6 +156,7 @@ def generate_card_twit(name: str, display_name: str, img_path: str, filename: st
 
 def parse_to_slack_file(img):
     img_url = save_image_to_imgur(image_to_byte_array(img))
+    print("img url: " + img_url)
     return img_url
 
 
