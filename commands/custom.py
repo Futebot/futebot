@@ -50,11 +50,12 @@ def rm(command_name=""):
 def listcustom():
     custom_commands = split_dict(get_custom_dict(), DISCORD_EMBED_LIMIT)
 
-    embed = "Custom Commands list\n"
+    embed = "```Custom Commands list\n"
     for page in custom_commands:
 
         for line in page:
             embed += ".{}".format(line) + "\n" + page[line] + "\n\n"
+    embed += "```"
     return embed
 
 
