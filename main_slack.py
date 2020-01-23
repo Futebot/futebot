@@ -62,8 +62,8 @@ def find_command(command):
     try:
         command_prefix = command.split(' ')[0]
         command_params = command.split(' ', 1)[1]
-        print("prefix" + command_prefix)
-        print("paams" + command_params)
+        print("prefix: " + command_prefix)
+        print("params: " + command_params)
     except:
         command_params = ''
 
