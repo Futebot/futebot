@@ -9,13 +9,10 @@ from .config import DISCORD_EMBED_LIMIT
 def listall():
     commands = split_dict(Commands.get_instance().dictionary, DISCORD_EMBED_LIMIT)
 
-    list = []
+    embed = "Commands list:\n"
     for page in commands:
-        embed = "Commands list:\n"
 
         for line in page:
             command = page[line]
-            embed += "*.{} {}".format(line, format_params(command['params'])) + command['description'] + "*"
-        list.append(embed)
-
-    return list
+            embed += "*.{} {}*".format(line, format_params(command['params'])) + "\n" + command['description'] + "\n\n"
+    return embed
