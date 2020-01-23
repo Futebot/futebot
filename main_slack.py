@@ -75,7 +75,7 @@ def find_command(command):
         else:
             return func(command_params)
 
-    return c(command)
+    return "Not found"
 
 
 def handle_command(command, channel):
