@@ -21,7 +21,7 @@ from .config import (
 
 
 @command(name="imgme", desc="Returns an image", params=["search_term"])
-async def imgme(search_query, spoiler=None):
+def imgme(search_query, spoiler=None):
     try:
         return get_image(search_query, spoiler)
 
