@@ -31,6 +31,7 @@ async def imgme(ctx, search_query, spoiler=None):
         return e
 
 
+@command(name="gifme", desc="Returns a GIF", params=["search_term"])
 def gifme(ctx, search_query, spoiler=None):
     try:
         return get_image(ctx, search_query, spoiler, gif=True)
@@ -40,6 +41,7 @@ def gifme(ctx, search_query, spoiler=None):
         return e
 
 
+@command(name="youtube", desc="Returns an Youtube Video", params=["search_term"])
 def youtube(string):
     try:
         query_string = urllib.parse.urlencode({"search_query": string})
@@ -52,6 +54,7 @@ def youtube(string):
         return "Are you dumb?"
 
 
+@command(name="dictionary", desc="Returns the meaning of a word", params=["word"])
 def dictionary(term):
     try:
         endpoint = DICTIONARY_PTBR_ENDPOINT.format(term)
@@ -79,6 +82,7 @@ def dictionary(term):
         return e
 
 
+@command(name="weather", desc="Returns the Weather", params=["city"])
 def weather(location):
     try:
         endpoint = WEATHER_ENDPOINT.format(location, os.getenv("OPENWEATHER_KEY"))
@@ -101,6 +105,7 @@ def weather(location):
         return e
 
 
+@command(name="lmgtfy", desc="Returns search from LMGTFY", params=["word"])
 def lmgtfy(string):
     query_string = format_string_to_query(string)
     endpoint = LMGTFY_ENDPOINT.format(query_string)

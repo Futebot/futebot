@@ -13,6 +13,7 @@ from service.img_card_service import generate_card, generate_card_img, generate_
 from util.helpers import generate_image_search_url
 
 
+@command(name="decide", desc="Generates a Soniko image", params=["caption"])
 def soniko(string):
     try:
         return generate_card(string, "templates/imgs/soniko.png", "soniko", 25, 83, 274, (0, 0, 0), 23)
@@ -22,6 +23,7 @@ def soniko(string):
         return e
 
 
+@command(name="speech", desc="Generates a Speech image", params=["grade_0_to_100"])
 def speech(string):
     try:
         if not string.isdigit():
@@ -35,6 +37,7 @@ def speech(string):
         return e
 
 
+@command(name="tano", desc="Generates a Tano facebook conversation", params=["place"])
 def tano(string):
     try:
         return generate_card(string, "templates/imgs/tano.png", "tano", 35, 330, 115, (0, 0, 0), 15)
@@ -44,6 +47,7 @@ def tano(string):
         return e
 
 
+@command(name="magic", desc="Generates a Magic Card with a title and description", params=["title", "description"])
 def magic(string, description):
     try:
         c = None
@@ -66,6 +70,7 @@ def magic(string, description):
         return e
 
 
+@command(name="hospital", desc="Generates a whatsapp hospital conversation image", params=["reason", "person_name"])
 def hospital(name, reason):
     try:
         return generate_card_multiple_texts("templates/imgs/hospital.png", "hospital",
@@ -76,6 +81,7 @@ def hospital(name, reason):
         return e
 
 
+@command(name="antagonista", desc="Generates an Antagonista headline image", params=["reason", "person_name"])
 def antagonista(headline, text):
     try:
         headline = "\"" + headline + "\""
@@ -87,6 +93,7 @@ def antagonista(headline, text):
         return e
 
 
+@command(name="buemo", desc="Generates a Buemo Tweet", params=["tweet"])
 def buemo(string):
     try:
         return generate_card(string, "templates/imgs/buemo.png", "buemo", 35, 20, 100, (0, 0, 0), 40,
@@ -96,6 +103,7 @@ def buemo(string):
         return e
 
 
+@command(name="twit", desc="Generates a @User tweet", params=["user", "tweet"])
 def twit(ctx, user: discord.User, *args):
     try:
         img_url = user.avatar_url._url
@@ -111,6 +119,7 @@ def twit(ctx, user: discord.User, *args):
         return e
 
 
+@command(name="feijoada", desc="Generates a Feijoada image", params=["name"])
 def feijoada(string):
     try:
         url = generate_image_search_url(string)
@@ -125,6 +134,7 @@ def feijoada(string):
         return e
 
 
+@command(name="book", desc="Generates an Oreilly book cover", params=["book_name"])
 def book(string):
     try:
         if len(string.split(' ')) > 3:
@@ -152,6 +162,7 @@ def book(string):
         return e
 
 
+@command(name="tomacu", desc="Generates a Tomacu image", params=["name"])
 def tomacu(string):
     try:
         return generate_card(string, "templates/imgs/tomacu.png", "tomacu", 40, 560, 110, (0, 0, 0), 15)
@@ -161,6 +172,7 @@ def tomacu(string):
         return e
 
 
+@command(name="gordo", desc="Generates a Sou Gordo shirt image", params=["adjective"])
 def gordo(string):
     try:
         return generate_card(string, "templates/imgs/gordo.png", "gordo", 40, 200, 525, (255, 0, 0), 10)

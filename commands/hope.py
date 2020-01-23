@@ -8,6 +8,7 @@ from .config import (
 )
 
 
+@command(name="coach", desc="Returns a random coach message")
 def coach():
     return get_json_field_from_url(
             COACH_ENDPOINT,
@@ -15,12 +16,14 @@ def coach():
         )
 
 
+@command(name="horoscopo", desc="Returns the horoscope of the day.", params=["horoscope"])
 def horoscopo(arg):
     return get_json_field_from_url(
             HOROSCOPO_ENDPOINT.format(arg), "texto"
         )
 
 
+@command(name="decide", desc="Sends a Yes or No GIF for a question.")
 def decide(arg):
     return get_json_field_from_url(
             "https://yesno.wtf/api", "image"

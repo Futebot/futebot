@@ -11,6 +11,7 @@ from util.helpers import (
 from .config import CHARADA_ENDPOINT
 
 
+@command(name="charada", desc="Sends a random charade")
 def charada():
     fields = get_json_fields_from_url(
         CHARADA_ENDPOINT,
@@ -24,6 +25,7 @@ def charada():
     return response
 
 
+@command(name="roll", desc="Rolls the dice", params=["1d6"])
 def roll(arg):
     try:
         response = roll_service.roll(arg)
