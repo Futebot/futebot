@@ -5,11 +5,12 @@ from annotation.futebot import command
 from util.helpers import mention
 
 
-def ping(ctx, arg=""):
+@command(name="ping", desc="Pings", params=["part_of_username"])
+def ping(arg=""):
     if arg == "":
         return "pong"
     else:
-        return "Pinging " + mention(ctx, arg) + " 🏓"
+        return "Pinging " + mention(arg) + " 🏓"
 
 
 def banner(string):

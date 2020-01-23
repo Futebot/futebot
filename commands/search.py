@@ -21,7 +21,7 @@ from .config import (
     LMGTFY_ENDPOINT)
 
 
-@command(desc="Returns an image", params=["search_term"])
+@command(name="imgme", desc="Returns an image", params=["search_term"])
 async def imgme(ctx, search_query, spoiler=None):
     try:
         return get_image(ctx, search_query, spoiler)

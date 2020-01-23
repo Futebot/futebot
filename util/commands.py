@@ -17,7 +17,7 @@ class Commands:
         else:
             Commands.__instance = self
 
-    def register(self, command, description, params, module):
+    def register(self, func, command, description, params):
         self.dictionary[command] = {'description': description,
                                     'params': params,
-                                    'module': module}
+                                    'func': func}

@@ -10,17 +10,15 @@ from slackclient import SlackClient
 # instantiate Slack client
 from commands.config import HOROSCOPO_ENDPOINT, COACH_ENDPOINT, WEATHER_ENDPOINT, YT_RESULTS_ENDPOINT, \
     YT_WATCH_ENDPOINT, LMGTFY_ENDPOINT
+from commands.custom import c
 from commands.games import roll, charada
 from commands.hope import coach, horoscopo, decide
 from commands.meme import book, soniko, gordo, feijoada, tano, antagonista, tomacu, speech
 from commands.misc import scroll, banner
 from commands.search import youtube, weather, gifme, imgme, lmgtfy
-from service import roll_service
-from service.img_card_service import generate_card
-from util.helpers import get_json_field_from_url, generate_image_search_url, validate_image, get_weather_icon, \
-    format_string_to_query
+from util.commands import Commands
 
-slack_client = SlackClient('xoxb-890869960082-903310164100-61zcMRVqtpIjTHMPvxjCHYov')
+slack_client = SlackClient(os.getenv('SLACK_TOKEN'))
 # starterbot's user ID in Slack: value is assigned after the bot starts up
 starterbot_id = None
 # constants
@@ -78,73 +76,24 @@ def parse_direct_mention(message_text):
 
 
 def find_command(command):
+    command = command.replace(".", "")
+    print(command)
+
+    command_prefix = command
     command_params = ''
     try:
+        command_prefix = command.split(' ')[0]
         command_params = command.split(' ', 1)[1]
+        print("prefix" + command_prefix)
+        print("paams" + command_params)
     except:
         command_params = ''
 
-    if command.startswith(HOROSCOPO_COMMAND):
-        return horoscopo(command_params)
+    func = Commands.get_instance().dictionary[command_prefix]['func']
+    if func is not None:
+        return func(command_params)
 
-    if command.startswith(COACH_COMMAND):
-        return coach()
-
-    if command.startswith(BANNER_COMMAND):
-        return banner(command_params)
-
-    if command.startswith(SCROLL_COMMAND):
-        return scroll()
-
-    if command.startswith(ROLL_COMMAND):
-        return roll(command_params)
-
-    if command.startswith(IMG_COMMAND):
-        return imgme(command_params)
-
-    if command.startswith(GIF_COMMAND):
-        return gifme(command_params)
-
-    if command.startswith(WEATHER_COMMAND):
-        return weather(command_params)
-
-    if command.startswith(YOUTUBE_COMMAND):
-        return youtube(command_params)
-
-    if command.startswith(LMGTFY_COMMAND):
-        return lmgtfy(command_params)
-
-    if command.startswith(SPEECH_COMMAND):
-        return speech(command_params)
-
-    if command.startswith(BOOK_COMMAND):
-        return book(command_params)
-
-    if command.startswith(SONIKO_COMMAND):
-        return soniko(command_params)
-
-    if command.startswith(GORDO_COMMAND):
-        return gordo(command_params)
-
-    if command.startswith(FEIJOADA_COMMAND):
-        return feijoada(command_params)
-
-    if command.startswith(TANO_COMMAND):
-        return tano(command_params)
-
-    if command.startswith(ANTAGONISTA_COMMAND):
-        return antagonista(command_params)
-
-    if command.startswith(TOMACU_COMMAND):
-        return tomacu(command_params)
-
-    if command.startswith(CHARADA_COMMAND):
-        return charada()
-
-    if command.startswith(DECIDE_COMMAND):
-        return decide(command_params)
-
-    return None
+    return c(command)
 
 
 def handle_command(command, channel):

@@ -6,12 +6,20 @@ from fuzzywuzzy import process
 from util.commands import Commands
 
 
-async def execute_suggested_command(ctx):
+def execute_suggested_command(command):
+    prefix = command
+    suffix = ''
+    try:
+        prefix = command.split(' ')[0]
+        suffix = command.split(' ', 1)[1]
+    except:
+        suffix = ''
+
     from commands.custom import c
-    if is_custom_command(ctx.invoked_with):
-        await c(ctx, ctx.invoked_with)
+    if is_custom_command(command):
+        return c(command)
     else:
-        command_tuple = get_command(ctx.invoked_with)
+        command_tuple = get_command(command)
         command = command_tuple[1]
         if is_default_command(command):
             command_module = Commands.get_instance().dictionary[command]['module']
@@ -19,11 +27,9 @@ async def execute_suggested_command(ctx):
             module = getattr(__import__('commands'), command_module)
             method = getattr(module, command)
 
-            args = ctx.message.content.split(' ', 1)[1] if len(ctx.message.content.split(' ', 1)) > 1 else ''
-
-            await method(ctx, args)
+            return method(command)
         else:
-            await c(ctx, command)
+            return c(command)
 
 
 def is_custom_command(command):

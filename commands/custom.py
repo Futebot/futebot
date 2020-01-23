@@ -9,8 +9,8 @@ from util.helpers import split_dict
 from .config import DISCORD_EMBED_LIMIT
 
 
-@command(desc="Adds a new custom command", params=["command_name", "command_content"])
-async def add(ctx, *args):
+@command(name="add", desc="Adds a new custom command", params=["command_name", "command_content"])
+def add(*args):
 
     command_name = args[0]
     command_url = args[1]
@@ -26,8 +26,8 @@ async def add(ctx, *args):
         yaml.dump(data, f, default_flow_style=False)
 
 
-@command(desc="Removes custom command", params=["command_name"])
-async def rm(ctx, command_name=""):
+@command(name="rm", desc="Removes custom command", params=["command_name"])
+def rm(command_name=""):
     try:
         if command_name == "":
             raise NoArgumentException("Are you dumb?")
@@ -39,28 +39,25 @@ async def rm(ctx, command_name=""):
             yaml.dump(data, f, default_flow_style=False)
 
     except FileNotFoundError as e:
-        await ctx.send("buguei")
+        return "buguei"
     except KeyError as e:
-        await ctx.send("Tem esse comando ai não")
+        return "Tem esse comando ai não"
     except Exception as e:
-        await ctx.send(e)
+        return e
 
 
-@command(desc="List Custom Commands")
-async def listcustom(ctx):
+@command(name="listcustom", desc="List Custom Commands")
+def listcustom():
     custom_commands = split_dict(get_custom_dict(), DISCORD_EMBED_LIMIT)
 
+    embed = "Custom Commands list\n"
     for page in custom_commands:
-        embed = Embed(title="Custom Commands list", color=0x00ff75)
 
         for line in page:
-            embed.add_field(name=".{}".format(line),
-                            value=page[line],
-                            inline=False)
-
-        await ctx.author.send(embed=embed)
+            embed += ".{}".format(line) + "\n" + page[line] + "\n\n"
+    return embed
 
 
-async def c(ctx, arg):
+def c(arg):
     data = get_custom_dict()
-    await ctx.send(data[arg])
+    return data[arg]
