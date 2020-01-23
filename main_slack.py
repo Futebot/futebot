@@ -23,29 +23,7 @@ slack_client = SlackClient(os.getenv('SLACK_TOKEN'))
 starterbot_id = None
 # constants
 RTM_READ_DELAY = 1 # 1 second delay between reading from RTM
-rec = ["Are you dumb?", "No, I don't think I will."]
 
-
-HOROSCOPO_COMMAND = "horoscopo"
-COACH_COMMAND = "coach"
-BANNER_COMMAND = "banner"
-SCROLL_COMMAND = "scroll"
-ROLL_COMMAND = 'roll'
-IMG_COMMAND = 'imgme'
-GIF_COMMAND = 'gifme'
-YOUTUBE_COMMAND = 'youtube'
-LMGTFY_COMMAND = 'lmgtfy'
-WEATHER_COMMAND = 'weather'
-SPEECH_COMMAND = 'speech'
-BOOK_COMMAND = 'book'
-SONIKO_COMMAND = 'soniko'
-GORDO_COMMAND = 'gordo'
-FEIJOADA_COMMAND = 'feijoada'
-TANO_COMMAND = 'tano'
-ANTAGONISTA_COMMAND = 'antagonista'
-TOMACU_COMMAND = 'tomacu'
-CHARADA_COMMAND = 'charada'
-DECIDE_COMMAND = 'decide'
 
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 
@@ -100,17 +78,27 @@ def handle_command(command, channel):
     """
         Executes bot command if the command is known
     """
-    # Default response is help text for the user
-    default_response = "Not sure what you mean. Try to be smarter."
-    # Finds and executes the given command, filling in response
-    response = None
-    response = find_command(command)
 
-    slack_client.api_call(
-        "chat.postMessage",
-        channel=channel,
-        text=response or default_response
-    )
+    try:
+
+        # Default response is help text for the user
+        default_response = "Not sure what you mean. Try to be smarter."
+        # Finds and executes the given command, filling in response
+        response = None
+        response = find_command(command)
+
+        slack_client.api_call(
+            "chat.postMessage",
+            channel=channel,
+            text=response or default_response
+        )
+    except Exception as e:
+        error_response = "Ouch! It hurts, but I will recover."
+        slack_client.api_call(
+            "chat.postMessage",
+            channel=channel,
+            text=error_response
+        )
 
 
 if __name__ == "__main__":
