@@ -68,8 +68,12 @@ def find_command(command):
         command_params = ''
 
     func = Commands.get_instance().dictionary[command_prefix]['func']
+    params = Commands.get_instance().dictionary[command_prefix]['params']
     if func is not None:
-        return func(command_params)
+        if params is None:
+            return func()
+        else:
+            return func(command_params)
 
     return c(command)
 
