@@ -107,12 +107,11 @@ def buemo(string):
 
 
 @command(name="twit", desc="Generates a @User tweet", params=["user", "tweet"])
-def twit(ctx, user: discord.User, *args):
+def twit(user, string):
     try:
         img_url = user.avatar_url._url
         user_display_name = '@'+user.display_name
         user_name = user.name
-        string = ' '.join(args)
 
         return generate_card_twit(user_name, user_display_name,
                                                "templates/imgs/twit.png", "twit",
