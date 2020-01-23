@@ -23,4 +23,5 @@ class Imgur:
             headers=self.headers,
             data=payload
         )
+        print(response.json())
         return response.json()['data']['link']
