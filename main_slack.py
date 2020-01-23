@@ -58,24 +58,24 @@ def find_command(command):
     print(command)
 
     command_prefix = command
-    command_params = ''
+    command_params = None
     try:
         command_prefix = command.split(' ')[0]
         command_params = command.split(' ', 1)[1]
         print("prefix: " + command_prefix)
         print("params: " + command_params)
     except:
-        command_params = ''
+        command_params = None
 
     func = Commands.get_instance().dictionary[command_prefix]['func']
-    params = Commands.get_instance().dictionary[command_prefix]['params']
+    # params = Commands.get_instance().dictionary[command_prefix]['params']
     if func is not None:
-        if params is None:
+        if command_params is None:
             print("Params is none")
             return func()
         else:
-            print("Params is: " + str(params))
-            return func(command_params[0])
+            print("Params is: " + str(command_params))
+            return func(command_params)
 
     return "Not found"
 
