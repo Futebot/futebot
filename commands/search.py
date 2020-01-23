@@ -21,9 +21,9 @@ from .config import (
 
 
 @command(name="imgme", desc="Returns an image", params=["search_term"])
-async def imgme(ctx, search_query, spoiler=None):
+async def imgme(search_query, spoiler=None):
     try:
-        return get_image(ctx, search_query, spoiler)
+        return get_image(search_query, spoiler)
 
     except Exception as e:
         puts.info(e)
@@ -31,9 +31,9 @@ async def imgme(ctx, search_query, spoiler=None):
 
 
 @command(name="gifme", desc="Returns a GIF", params=["search_term"])
-def gifme(ctx, search_query, spoiler=None):
+def gifme(search_query, spoiler=None):
     try:
-        return get_image(ctx, search_query, spoiler, gif=True)
+        return get_image(search_query, spoiler, gif=True)
 
     except Exception as e:
         puts.info(e)
@@ -84,6 +84,7 @@ def dictionary(term):
 @command(name="weather", desc="Returns the Weather", params=["city"])
 def weather(location):
     try:
+        print(location)
         endpoint = WEATHER_ENDPOINT.format(location, os.getenv("OPENWEATHER_KEY"))
         r = requests.get(endpoint)
         if r.status_code == 404:
@@ -96,7 +97,7 @@ def weather(location):
         humidity = ":droplet: {}%".format(result["main"]["humidity"])
         title = "Temperature in {} :".format(result["name"])
         response = title + "\n" + weather_conditions + "\n" + temperature + "\n" + humidity
-
+        print(response)
         return response
 
     except Exception as e:

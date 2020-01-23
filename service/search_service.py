@@ -3,7 +3,7 @@ from clarifai.rest import ClarifaiApp
 from util.helpers import generate_image_search_url, validate_image, create_discord_file_object
 
 
-def get_image(ctx, search_query, spoiler, **kwargs):
+def get_image(search_query, spoiler, **kwargs):
 
     file_type = ".gif" if kwargs.get("gif", None) else ".jpg"
 
