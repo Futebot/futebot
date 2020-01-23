@@ -99,6 +99,7 @@ def handle_command(command, channel):
             channel=channel,
             text=error_response
         )
+        print(e)
 
 
 if __name__ == "__main__":
