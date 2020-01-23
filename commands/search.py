@@ -4,7 +4,6 @@ import re
 import requests
 import urllib
 
-from discord import Embed
 
 from annotation.futebot import command
 from service.search_service import get_image
