@@ -71,8 +71,10 @@ def find_command(command):
     params = Commands.get_instance().dictionary[command_prefix]['params']
     if func is not None:
         if params is None:
+            print("Params is none")
             return func()
         else:
+            print("Params is: " + str(params))
             return func(command_params[0])
 
     return "Not found"
