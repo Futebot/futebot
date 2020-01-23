@@ -79,7 +79,7 @@ def find_command(command):
         elif len(command_params) == 3:
             return func(command_params[0], command_params[1], command_params[2])
     else:
-        return c(command_params[0])
+        return c(command_prefix)
 
 
 
