@@ -42,7 +42,8 @@ def scroll(ctx):
 def scroll(ctx, *args):
     slack_client = SlackClient(os.getenv('SLACK_TOKEN'))
 
-    slack_client.reactions_add(
+    slack_client.api_call(
+        "reactions.add",
         channel=ctx.channel,
         name="thumbsup",
         timestamp=ctx.timestamp
