@@ -54,8 +54,8 @@ def tano(ctx, *args):
 @command(name="magic", desc="Generates a Magic Card with a title and description", params=["title", "description"])
 def magic(ctx, *args):
     try:
-        string = args[0]
-        description = args[1]
+        string = args[0][0]
+        description = args[0][1]
         c = None
         img_index = 0
         while img is None:
@@ -79,8 +79,8 @@ def magic(ctx, *args):
 @command(name="hospital", desc="Generates a whatsapp hospital conversation image", params=["reason", "person_name"])
 def hospital(ctx, *args):
     try:
-        reason = args[0]
-        name = args[1]
+        reason = args[0][0]
+        name = args[0][1]
         return generate_card_multiple_texts("templates/imgs/hospital.png", "hospital",
                                                          (reason, 35, 400, 927, (0, 0, 0), 30, "helveticamedium"),
                                                          (name, 35, 590, 188, (0, 0, 0), 30, "helveticamedium"))
@@ -92,8 +92,8 @@ def hospital(ctx, *args):
 @command(name="antagonista", desc="Generates an Antagonista headline image", params=["headline", "text"])
 def antagonista(ctx, *args):
     try:
-        headline = args[0]
-        text = args[1]
+        headline = args[0][0]
+        text = args[0][1]
         headline = "\"" + headline + "\""
         return generate_card_multiple_texts("templates/imgs/anta.png", "anta",
                                                          (headline, 50, 40, 250, (0, 0, 0), 30, "times-new-roman"),
