@@ -16,7 +16,7 @@ from util.helpers import generate_image_search_url
 @command(name="soniko", desc="Generates a Soniko image", params=["caption"])
 def soniko(ctx, *args):
     try:
-        string = ' '.join(args)
+        string = ' '.join(args[0])
         response = generate_card(string, "templates/imgs/soniko.png", "soniko", 25, 83, 274, (0, 0, 0), 23)
         return response
 
@@ -28,7 +28,7 @@ def soniko(ctx, *args):
 @command(name="speech", desc="Generates a Speech image", params=["grade_0_to_100"])
 def speech(ctx, *args):
     try:
-        string = ' '.join(args)
+        string = ' '.join(args[0])
         if not string.isdigit():
             return rec[random.randrange(0, len(rec) - 1)]
 
@@ -43,7 +43,7 @@ def speech(ctx, *args):
 @command(name="tano", desc="Generates a Tano facebook conversation", params=["place"])
 def tano(ctx, *args):
     try:
-        string = ' '.join(args)
+        string = ' '.join(args[0])
         return generate_card(string, "templates/imgs/tano.png", "tano", 35, 330, 115, (0, 0, 0), 15)
 
     except FutebotException as e:
@@ -100,7 +100,7 @@ def antagonista(headline, text):
 @command(name="buemo", desc="Generates a Buemo Tweet", params=["tweet"])
 def buemo(*args):
     try:
-        string = ' '.join(args)
+        string = ' '.join(args[0])
         return generate_card(string, "templates/imgs/buemo.png", "buemo", 35, 20, 100, (0, 0, 0), 40,
                                           "helvetica")
     except FutebotException as e:
@@ -126,7 +126,7 @@ def twit(user, string):
 @command(name="feijoada", desc="Generates a Feijoada image", params=["name"])
 def feijoada(*args):
     try:
-        string = ' '.join(args)
+        string = ' '.join(args[0])
         url = generate_image_search_url(string)
         res = requests.get(url)
         image_link = res.json()["items"][0]["link"]
@@ -141,7 +141,7 @@ def feijoada(*args):
 
 @command(name="book", desc="Generates an Oreilly book cover", params=["book_name"])
 def book(*args):
-    string = ' '.join(args)
+    string = ' '.join(args[0])
     try:
         if len(string.split(' ')) > 3:
             raise TooManyCharsException("Diminue esse textão, pfv")
@@ -171,7 +171,7 @@ def book(*args):
 @command(name="tomacu", desc="Generates a Tomacu image", params=["name"])
 def tomacu(*args):
     try:
-        string = ' '.join(args)
+        string = ' '.join(args[0])
         return generate_card(string, "templates/imgs/tomacu.png", "tomacu", 40, 560, 110, (0, 0, 0), 15)
 
     except FutebotException as e:
@@ -182,7 +182,7 @@ def tomacu(*args):
 @command(name="gordo", desc="Generates a Sou Gordo shirt image", params=["adjective"])
 def gordo(*args):
     try:
-        string = ' '.join(args)
+        string = ' '.join(args[0])
         return generate_card(string, "templates/imgs/gordo.png", "gordo", 40, 200, 525, (255, 0, 0), 10)
 
     except FutebotException as e:

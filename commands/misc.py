@@ -15,7 +15,7 @@ def ping(ctx, arg=""):
 
 @command(name="banner", desc="Generates an ASCII banner", params=["word"])
 def banner(ctx, *args):
-    string = ' '.join(args)
+    string = ' '.join(args[0])
     if len(string) > 20:
         return "Diminue esse textão aí, pfv."
 
@@ -25,7 +25,7 @@ def banner(ctx, *args):
 @command(name="moji", desc="Generates a one liner emoji", params=["emoji_name"])
 def moji(ctx, *args):
     try:
-        string = ' '.join(args)
+        string = ' '.join(args[0])
         return art(string)
     except Exception as e:
         return "Tenta esses moji aqui, fera: https://github.com/sepandhaghighi/art/blob/master/art/art_dic.py"

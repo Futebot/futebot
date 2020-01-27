@@ -22,8 +22,7 @@ from .config import (
 
 @command(name="imgme", desc="Returns an image", params=["search_term"])
 def imgme(ctx, *args, spoiler=None):
-    print(args)
-    search_query = ' '.join(args)
+    search_query = ' '.join(args[0])
     try:
         return get_image(search_query, spoiler)
 
@@ -34,7 +33,7 @@ def imgme(ctx, *args, spoiler=None):
 
 @command(name="gifme", desc="Returns a GIF", params=["search_term"])
 def gifme(ctx, *args, spoiler=None):
-    search_query = ' '.join(args)
+    search_query = ' '.join(args[0])
     try:
         return get_image(search_query, spoiler, gif=True)
 
@@ -45,7 +44,7 @@ def gifme(ctx, *args, spoiler=None):
 
 @command(name="youtube", desc="Returns an Youtube Video", params=["search_term"])
 def youtube(ctx, *args):
-    string = ' '.join(args)
+    string = ' '.join(args[0])
     try:
         query_string = urllib.parse.urlencode({"search_query": string})
         html_content = urllib.request.urlopen("{}{}".format(YT_RESULTS_ENDPOINT, query_string))
@@ -88,7 +87,7 @@ def dictionary(ctx, term):
 @command(name="weather", desc="Returns the Weather", params=["city"])
 def weather(ctx, *args):
     try:
-        string = ' '.join(args)
+        string = ' '.join(args[0])
         endpoint = WEATHER_ENDPOINT.format(location, os.getenv("OPENWEATHER_KEY"))
         r = requests.get(endpoint)
         if r.status_code == 404:
@@ -111,7 +110,7 @@ def weather(ctx, *args):
 
 @command(name="lmgtfy", desc="Returns search from LMGTFY", params=["word"])
 def lmgtfy(ctx, *args):
-    string = ' '.join(args)
+    string = ' '.join(args[0])
     query_string = format_string_to_query(string)
     endpoint = LMGTFY_ENDPOINT.format(query_string)
     return endpoint
