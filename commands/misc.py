@@ -51,6 +51,12 @@ def popcorn(ctx, *args):
     slack_client.api_call(
         "reactions.add",
         channel=ctx.channel,
+        name="zero",
+        timestamp=ctx.timestamp
+    )
+    slack_client.api_call(
+        "reactions.add",
+        channel=ctx.channel,
         name="one",
         timestamp=ctx.timestamp
     )
@@ -102,8 +108,12 @@ def popcorn(ctx, *args):
         name="nine",
         timestamp=ctx.timestamp
     )
-
-
+    slack_client.api_call(
+        "reactions.add",
+        channel=ctx.channel,
+        name="100",
+        timestamp=ctx.timestamp
+    )
 
     return None
 
