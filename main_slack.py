@@ -1,23 +1,10 @@
 import os
-import random
 import shlex
 import time
 import re
-import urllib
-
-import requests
-from art import text2art
 from slackclient import SlackClient
-# instantiate Slack client
-from commands.config import HOROSCOPO_ENDPOINT, COACH_ENDPOINT, WEATHER_ENDPOINT, YT_RESULTS_ENDPOINT, \
-    YT_WATCH_ENDPOINT, LMGTFY_ENDPOINT
 from commands.context import Context
 from commands.custom import c
-from commands.games import roll, charada
-from commands.hope import coach, horoscopo, decide
-from commands.meme import book, soniko, gordo, feijoada, tano, antagonista, tomacu, speech
-from commands.misc import scroll, banner
-from commands.search import youtube, weather, gifme, imgme, lmgtfy
 from util.commands import Commands
 
 slack_client = SlackClient(os.getenv('SLACK_TOKEN'))

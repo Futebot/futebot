@@ -1,6 +1,6 @@
 import time
 from art import *
-from slackclient import client
+from slackclient import client, SlackClient
 
 from annotation.futebot import command
 from util.helpers import mention
@@ -40,7 +40,9 @@ def scroll(ctx):
 
 @command(name="historia", desc="Add reactions to message, to rate a story.")
 def scroll(ctx, *args):
-    client.reactions_add(
+    slack_client = SlackClient(os.getenv('SLACK_TOKEN'))
+
+    slack_client.reactions_add(
         channel=ctx.channel,
         name="thumbsup",
         timestamp=ctx.timestamp
