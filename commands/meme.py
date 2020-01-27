@@ -137,7 +137,8 @@ def feijoada(string):
 
 
 @command(name="book", desc="Generates an Oreilly book cover", params=["book_name"])
-def book(string):
+def book(*args):
+    string = args.join(' ')
     try:
         if len(string.split(' ')) > 3:
             raise TooManyCharsException("Diminue esse textão, pfv")

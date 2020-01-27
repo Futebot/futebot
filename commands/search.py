@@ -21,7 +21,8 @@ from .config import (
 
 
 @command(name="imgme", desc="Returns an image", params=["search_term"])
-def imgme(ctx, search_query, spoiler=None):
+def imgme(ctx, *args, spoiler=None):
+    search_query = args.join(' ')
     try:
         return get_image(search_query, spoiler)
 
@@ -31,7 +32,8 @@ def imgme(ctx, search_query, spoiler=None):
 
 
 @command(name="gifme", desc="Returns a GIF", params=["search_term"])
-def gifme(ctx, search_query, spoiler=None):
+def gifme(ctx, *args, spoiler=None):
+    search_query = args.join(' ')
     try:
         return get_image(search_query, spoiler, gif=True)
 
@@ -41,7 +43,8 @@ def gifme(ctx, search_query, spoiler=None):
 
 
 @command(name="youtube", desc="Returns an Youtube Video", params=["search_term"])
-def youtube(ctx, string):
+def youtube(ctx, *args):
+    string = args.join(' ')
     try:
         query_string = urllib.parse.urlencode({"search_query": string})
         html_content = urllib.request.urlopen("{}{}".format(YT_RESULTS_ENDPOINT, query_string))
@@ -82,9 +85,9 @@ def dictionary(ctx, term):
 
 
 @command(name="weather", desc="Returns the Weather", params=["city"])
-def weather(ctx, location):
+def weather(ctx, *args):
     try:
-        print(location)
+        location = args.join(' ')
         endpoint = WEATHER_ENDPOINT.format(location, os.getenv("OPENWEATHER_KEY"))
         r = requests.get(endpoint)
         if r.status_code == 404:
@@ -97,7 +100,7 @@ def weather(ctx, location):
         humidity = ":droplet: {}%".format(result["main"]["humidity"])
         title = "Temperature in {} :".format(result["name"])
         response = title + "\n" + weather_conditions + "\n" + temperature + "\n" + humidity
-        print(response)
+
         return response
 
     except Exception as e:
@@ -106,7 +109,8 @@ def weather(ctx, location):
 
 
 @command(name="lmgtfy", desc="Returns search from LMGTFY", params=["word"])
-def lmgtfy(ctx, string):
+def lmgtfy(ctx, *args):
+    string = args.join(' ')
     query_string = format_string_to_query(string)
     endpoint = LMGTFY_ENDPOINT.format(query_string)
     return endpoint
