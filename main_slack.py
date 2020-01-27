@@ -40,7 +40,7 @@ def parse_bot_commands(slack_events):
         if event["type"] == "message" and not "subtype" in event:
             user_id, message = parse_direct_mention(event["text"])
             if event['text'].startswith('.'):
-                handle_command(event['text'].replace('.', ''), event['channel'], event['user'])
+                handle_command(event['text'].replace('.', ''), event['channel'], event['user'], event['timestamp'])
 
     return None, None
 
@@ -82,7 +82,7 @@ def find_command(context, command):
         return c(context, command_prefix)
 
 
-def handle_command(command, channel, user):
+def handle_command(command, channel, user, timestamp):
     """
         Executes bot command if the command is known
     """
@@ -91,18 +91,20 @@ def handle_command(command, channel, user):
         context = Context()
         context.channel = channel
         context.user = user
+        context.timestamp = timestamp
 
         # Default response is help text for the user
-        default_response = "Not sure what you mean. Try to be smarter."
+
         # Finds and executes the given command, filling in response
         response = None
         response = find_command(context, command)
 
-        slack_client.api_call(
-            "chat.postMessage",
-            channel=channel,
-            text=response or default_response
-        )
+        if response is not None:
+            slack_client.api_call(
+                "chat.postMessage",
+                channel=channel,
+                text=response
+            )
     except Exception as e:
         error_response = "Ouch! It hurts, but I will recover."
         slack_client.api_call(
