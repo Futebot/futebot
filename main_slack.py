@@ -75,6 +75,7 @@ def find_command(context, command):
             if command_params is None:
                 return func(context)
             else:
+                print(command_params)
                 return func(context, command_params)
     except Exception as e:
         print(e)
