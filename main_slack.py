@@ -76,7 +76,8 @@ def find_command(context, command):
                 return func(context)
             else:
                 return func(context, command_params)
-    except:
+    except Exception as e:
+        print(e)
         return c(command_prefix)
 
 
