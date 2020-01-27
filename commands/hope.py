@@ -17,7 +17,8 @@ def coach(ctx):
 
 
 @command(name="horoscopo", desc="Returns the horoscope of the day.", params=["horoscope"])
-def horoscopo(ctx, arg):
+def horoscopo(ctx, *args):
+    arg = ' '.join(args)
     return get_json_field_from_url(
             HOROSCOPO_ENDPOINT.format(arg), "texto"
         )

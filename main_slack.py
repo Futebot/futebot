@@ -74,12 +74,8 @@ def find_command(context, command):
         if func is not None:
             if command_params is None:
                 return func(context)
-            elif len(command_params) == 1:
-                return func(context, command_params[0])
-            elif len(command_params) == 2:
-                return func(context, command_params[0], command_params[1])
-            elif len(command_params) == 3:
-                return func(context, command_params[0], command_params[1], command_params[2])
+            else:
+                return func(context, command_params)
     except:
         return c(command_prefix)
 
