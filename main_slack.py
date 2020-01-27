@@ -66,7 +66,10 @@ def find_command(context, command):
                 return func(context, command_params)
     except Exception as e:
         print(e)
-        return c(context, command_prefix)
+        try:
+            return c(context, command_prefix)
+        except:
+            return None
 
 
 def handle_command(command, channel, user, timestamp):

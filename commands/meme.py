@@ -104,7 +104,7 @@ def antagonista(ctx, *args):
 
 
 @command(name="buemo", desc="Generates a Buemo Tweet", params=["tweet"])
-def buemo(*args):
+def buemo(ctx, *args):
     try:
         string = ' '.join(args[0])
         return generate_card(string, "templates/imgs/buemo.png", "buemo", 35, 20, 100, (0, 0, 0), 40,
@@ -115,7 +115,7 @@ def buemo(*args):
 
 
 @command(name="twit", desc="Generates a @User tweet", params=["user", "tweet"])
-def twit(user, string):
+def twit(ctx, user, string):
     try:
         img_url = user.avatar_url._url
         user_display_name = '@'+user.display_name
@@ -130,7 +130,7 @@ def twit(user, string):
 
 
 @command(name="feijoada", desc="Generates a Feijoada image", params=["name"])
-def feijoada(*args):
+def feijoada(ctx, *args):
     try:
         string = ' '.join(args[0])
         url = generate_image_search_url(string)
@@ -146,7 +146,7 @@ def feijoada(*args):
 
 
 @command(name="book", desc="Generates an Oreilly book cover", params=["book_name"])
-def book(*args):
+def book(ctx, *args):
     string = ' '.join(args[0])
     try:
         if len(string.split(' ')) > 3:
@@ -175,7 +175,7 @@ def book(*args):
 
 
 @command(name="tomacu", desc="Generates a Tomacu image", params=["name"])
-def tomacu(*args):
+def tomacu(ctx, *args):
     try:
         string = ' '.join(args[0])
         return generate_card(string, "templates/imgs/tomacu.png", "tomacu", 40, 560, 110, (0, 0, 0), 15)
@@ -186,7 +186,7 @@ def tomacu(*args):
 
 
 @command(name="gordo", desc="Generates a Sou Gordo shirt image", params=["adjective"])
-def gordo(*args):
+def gordo(ctx, *args):
     try:
         string = ' '.join(args[0])
         return generate_card(string, "templates/imgs/gordo.png", "gordo", 40, 200, 525, (255, 0, 0), 10)
