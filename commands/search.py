@@ -92,7 +92,7 @@ def weather(ctx, *args):
         r = requests.get(endpoint)
         if r.status_code == 404:
             raise Exception("Place not found, coleguinha.")
-        result = r.json()a
+        result = r.json()
 
         weather_conditions = "{} {}".format(get_weather_icon(result["weather"][0]["icon"]),
                                             result["weather"][0]["main"])
