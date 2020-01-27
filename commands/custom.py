@@ -12,8 +12,8 @@ from .config import DISCORD_EMBED_LIMIT
 @command(name="add", desc="Adds a new custom command", params=["command_name", "command_content"])
 def add(ctx, *args):
 
-    command_name = args[0]
-    command_url = args[1]
+    command_name = args[0][0]
+    command_url = args[0][1]
     try:
         data = get_custom_dict()
     except FileNotFoundError as e:
