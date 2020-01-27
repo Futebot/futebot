@@ -40,7 +40,7 @@ def parse_bot_commands(slack_events):
         if event["type"] == "message" and not "subtype" in event:
             user_id, message = parse_direct_mention(event["text"])
             if event['text'].startswith('.'):
-                handle_command(event['text'].replace('.', ''), event['channel'], event['user'], event['timestamp'])
+                handle_command(event['text'].replace('.', ''), event['channel'], event['user'], event['ts'])
 
     return None, None
 
