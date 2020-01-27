@@ -22,6 +22,7 @@ from .config import (
 
 @command(name="imgme", desc="Returns an image", params=["search_term"])
 def imgme(ctx, *args, spoiler=None):
+    print(args)
     search_query = ' '.join(args)
     try:
         return get_image(search_query, spoiler)
