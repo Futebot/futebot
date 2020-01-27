@@ -87,7 +87,7 @@ def dictionary(ctx, term):
 @command(name="weather", desc="Returns the Weather", params=["city"])
 def weather(ctx, *args):
     try:
-        string = ' '.join(args[0])
+        location = ' '.join(args[0])
         endpoint = WEATHER_ENDPOINT.format(location, os.getenv("OPENWEATHER_KEY"))
         r = requests.get(endpoint)
         if r.status_code == 404:
