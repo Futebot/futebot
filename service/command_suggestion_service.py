@@ -6,30 +6,15 @@ from fuzzywuzzy import process
 from util.commands import Commands
 
 
-def execute_suggested_command(command):
+def get_suggested_command(command):
     prefix = command
-    suffix = ''
-    try:
-        prefix = command.split(' ')[0]
-        suffix = command.split(' ', 1)[1]
-    except:
-        suffix = ''
 
-    from commands.custom import c
     if is_custom_command(command):
-        return c(command)
+        return command
     else:
         command_tuple = get_command(command)
         command = command_tuple[1]
-        if is_default_command(command):
-            command_module = Commands.get_instance().dictionary[command]['module']
-
-            module = getattr(__import__('commands'), command_module)
-            method = getattr(module, command)
-
-            return method(command)
-        else:
-            return c(command)
+        return command
 
 
 def is_custom_command(command):

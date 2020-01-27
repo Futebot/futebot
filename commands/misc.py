@@ -1,6 +1,8 @@
 import time
+
+import slack
 from art import *
-from slackclient import client, SlackClient
+# from slackclient import client, SlackClient
 
 from annotation.futebot import command
 from util.helpers import mention
@@ -40,76 +42,64 @@ def scroll(ctx):
 
 @command(name="popcorn", desc="Add reactions to message, to rate a story.")
 def popcorn(ctx, *args):
-    slack_client = SlackClient(os.getenv('SLACK_TOKEN'))
+    slack_client = slack.WebClient(token=os.getenv('SLACK_TOKEN'))
 
-    slack_client.api_call(
-        "reactions.add",
+    slack_client.reactions_add(
         channel=ctx.channel,
         name="popcorn",
         timestamp=ctx.timestamp
     )
-    slack_client.api_call(
-        "reactions.add",
+    slack_client.reactions_add(
         channel=ctx.channel,
         name="zero",
         timestamp=ctx.timestamp
     )
-    slack_client.api_call(
-        "reactions.add",
+    slack_client.reactions_add(
         channel=ctx.channel,
         name="one",
         timestamp=ctx.timestamp
     )
-    slack_client.api_call(
-        "reactions.add",
+    slack_client.reactions_add(
         channel=ctx.channel,
         name="two",
         timestamp=ctx.timestamp
     )
-    slack_client.api_call(
-        "reactions.add",
+    slack_client.reactions_add(
         channel=ctx.channel,
         name="three",
         timestamp=ctx.timestamp
     )
-    slack_client.api_call(
-        "reactions.add",
+    slack_client.reactions_add(
         channel=ctx.channel,
         name="four",
         timestamp=ctx.timestamp
     )
-    slack_client.api_call(
-        "reactions.add",
+    slack_client.reactions_add(
         channel=ctx.channel,
         name="five",
         timestamp=ctx.timestamp
     )
-    slack_client.api_call(
-        "reactions.add",
+    slack_client.reactions_add(
         channel=ctx.channel,
         name="six",
         timestamp=ctx.timestamp
     )
-    slack_client.api_call(
-        "reactions.add",
+    slack_client.reactions_add(
         channel=ctx.channel,
         name="seven",
         timestamp=ctx.timestamp
     )
-    slack_client.api_call(
-        "reactions.add",
+    slack_client.reactions_add(
         channel=ctx.channel,
         name="eight",
         timestamp=ctx.timestamp
     )
-    slack_client.api_call(
-        "reactions.add",
+    slack_client.reactions_add(
         channel=ctx.channel,
         name="nine",
         timestamp=ctx.timestamp
     )
-    slack_client.api_call(
-        "reactions.add",
+    slack_client.reactions_add(
         channel=ctx.channel,
         name="100",
         timestamp=ctx.timestamp
