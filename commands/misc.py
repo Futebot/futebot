@@ -38,16 +38,72 @@ def scroll(ctx):
     text = "eita fdp\n" + dump + "vou chamar o marreta :hammer:"
     return text
 
-@command(name="historia", desc="Add reactions to message, to rate a story.")
-def scroll(ctx, *args):
+@command(name="popcorn", desc="Add reactions to message, to rate a story.")
+def popcorn(ctx, *args):
     slack_client = SlackClient(os.getenv('SLACK_TOKEN'))
 
     slack_client.api_call(
         "reactions.add",
         channel=ctx.channel,
-        name="thumbsup",
+        name="popcorn",
         timestamp=ctx.timestamp
     )
+    slack_client.api_call(
+        "reactions.add",
+        channel=ctx.channel,
+        name="one",
+        timestamp=ctx.timestamp
+    )
+    slack_client.api_call(
+        "reactions.add",
+        channel=ctx.channel,
+        name="two",
+        timestamp=ctx.timestamp
+    )
+    slack_client.api_call(
+        "reactions.add",
+        channel=ctx.channel,
+        name="three",
+        timestamp=ctx.timestamp
+    )
+    slack_client.api_call(
+        "reactions.add",
+        channel=ctx.channel,
+        name="four",
+        timestamp=ctx.timestamp
+    )
+    slack_client.api_call(
+        "reactions.add",
+        channel=ctx.channel,
+        name="five",
+        timestamp=ctx.timestamp
+    )
+    slack_client.api_call(
+        "reactions.add",
+        channel=ctx.channel,
+        name="six",
+        timestamp=ctx.timestamp
+    )
+    slack_client.api_call(
+        "reactions.add",
+        channel=ctx.channel,
+        name="seven",
+        timestamp=ctx.timestamp
+    )
+    slack_client.api_call(
+        "reactions.add",
+        channel=ctx.channel,
+        name="eight",
+        timestamp=ctx.timestamp
+    )
+    slack_client.api_call(
+        "reactions.add",
+        channel=ctx.channel,
+        name="nine",
+        timestamp=ctx.timestamp
+    )
+
+
 
     return None
 
