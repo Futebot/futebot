@@ -55,7 +55,7 @@ def mention(members, criteria):
     for member in members:
         print(member)
         if (criteria.lower() in member["name"].lower()) or (criteria.lower() in member["name"].lower()):
-            mentioned += "@" + member["name"] + " "
+            mentioned += "@" + member["real_name"] + " "
     return mentioned
 
 
