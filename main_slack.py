@@ -76,4 +76,4 @@ def on_message(**payload):
 
 
 rtm_client = slack.RTMClient(token=os.getenv('SLACK_TOKEN'), connect_method='rtm.connect')
-rtm_client.connect()
+rtm_client.start()
