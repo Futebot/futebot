@@ -75,5 +75,5 @@ def on_message(**payload):
         handle_command(data['text'].replace(prefix, ''), data['channel'], data['user'], data['ts'])
 
 
-rtm_client = slack.RTMClient(token=os.getenv('SLACK_TOKEN'))
+rtm_client = slack.RTMClient(token=os.getenv('SLACK_TOKEN'), connect_method='rtm.connect')
 rtm_client.connect()
