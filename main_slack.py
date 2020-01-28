@@ -56,6 +56,7 @@ def handle_command(command, channel, user, timestamp):
         if response is not None:
             slack_client.chat_postMessage(
                 channel=channel,
+                link_names=1,
                 text=response
             )
     except Exception as e:
