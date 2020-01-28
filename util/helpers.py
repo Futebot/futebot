@@ -53,6 +53,7 @@ def mention(members, criteria):
         return "Don't be evil."
     mentioned = ""
     for member in members:
+        print(member)
         if (criteria.lower() in member.name.lower()) or (criteria.lower() in member.name.lower()):
             mentioned += "@" + member.name + " "
     return mentioned
