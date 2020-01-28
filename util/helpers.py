@@ -48,13 +48,13 @@ def generate_image_search_url(search_terms, file_type=".jpg"):
     return google_image_query_url
 
 
-def mention(ctx, criteria):
+def mention(members, criteria):
     if len(criteria) < 3:
         return "Don't be evil."
     mentioned = ""
-    for member in ctx.message.channel.members:
-        if (criteria.lower() in member.display_name.lower()) or (criteria.lower() in member.name.lower()):
-            mentioned += member.mention + " "
+    for member in members:
+        if (criteria.lower() in member.name.lower()) or (criteria.lower() in member.name.lower()):
+            mentioned += "@" + member.name + " "
     return mentioned
 
 

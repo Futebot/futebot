@@ -2,10 +2,10 @@ import time
 
 import slack
 from art import *
-# from slackclient import client, SlackClient
-
 from annotation.futebot import command
 from util.helpers import mention
+
+slack_client = slack.WebClient(token=os.getenv('SLACK_TOKEN'))
 
 
 @command(name="ping", desc="Pings", params=["part_of_username"])
@@ -13,7 +13,9 @@ def ping(ctx, arg=""):
     if arg == "":
         return "pong"
     else:
-        return "Pinging " + mention(arg) + " 🏓"
+        users_list = slack_client.users_list()["members"]
+
+        return "Pinging " + mention(users_list, arg) + " 🏓"
 
 
 @command(name="banner", desc="Generates an ASCII banner", params=["word"])
@@ -42,7 +44,6 @@ def scroll(ctx):
 
 @command(name="popcorn", desc="Add reactions to message, to rate a story.")
 def popcorn(ctx, *args):
-    slack_client = slack.WebClient(token=os.getenv('SLACK_TOKEN'))
 
     slack_client.reactions_add(
         channel=ctx.channel,
