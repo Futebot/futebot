@@ -58,6 +58,15 @@ def mention(members, criteria):
     return mentioned
 
 
+def get_user(members, criteria):
+    for member in members:
+        if (criteria.lower() in member["name"].lower()) or (criteria.lower() in member["name"].lower()):
+            return member
+    return None
+
+
+
+
 def save_image_to_imgur(image):
     from util.imgur import Imgur
     imgur = Imgur()
