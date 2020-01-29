@@ -10,4 +10,4 @@ RUN pip install pipenv && \
 
 COPY . .
 
-CMD [ "python", "./main_slack.py" ]
+CMD [ "python", "-u", "./main_slack.py" ]

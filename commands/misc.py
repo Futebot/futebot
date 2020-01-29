@@ -43,6 +43,7 @@ def scroll(ctx):
     text = "eita fdp\n" + dump + "vou chamar o marreta :hammer:"
     return text
 
+
 @command(name="popcorn", desc="Add reactions to message, to rate a story.")
 def popcorn(ctx, *args):
 
@@ -109,3 +110,14 @@ def popcorn(ctx, *args):
 
     return None
 
+
+@command(name="listPrivateChannels", desc="List all channels.")
+def listPrivateChannels(ctx, *args):
+    channels = "List of private channels: \n\n"
+    conversations = slack_client.conversations_list(
+        types="public_channel, private_channel"
+    )["channels"]
+    for channel in conversations:
+        if channel['is_private']:
+            channels += "#" + channel["name"] + "\n"
+    return channels
