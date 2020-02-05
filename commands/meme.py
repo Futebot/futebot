@@ -119,7 +119,7 @@ def buemo(ctx, *args):
 
 
 @command(name="twit", desc="Generates a @User tweet", params=["user", "tweet"])
-def twit(ctx, user, string):
+def twit(ctx, string):
     try:
         users_list = slack_client.users_list()["members"]
         user = get_user(users_list, user)

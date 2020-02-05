@@ -72,7 +72,7 @@ def handle_command(command, channel, user, timestamp):
 def on_message(**payload):
     data = payload['data']
     if data['text'].startswith(prefix):
-        handle_command(data['text'].replace(prefix, ''), data['channel'], data['user'], data['ts'])
+        handle_command(data['text'].replace(prefix, '', 1), data['channel'], data['user'], data['ts'])
 
 
 rtm_client = slack.RTMClient(token=os.getenv('SLACK_TOKEN'), connect_method='rtm.connect')
