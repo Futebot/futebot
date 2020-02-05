@@ -1,16 +1,20 @@
 import logging as puts
+import os
 import random
 
 import discord
+import slack
 
 from annotation.futebot import command
-from util.helpers import RANDOM_EXCEPTION_COMEBACKS as rec
+from util.helpers import RANDOM_EXCEPTION_COMEBACKS as rec, get_user
 import requests
 
 from exception.exceptions import FutebotException, TooManyCharsException
 from service.img_card_service import generate_card, generate_card_img, generate_card_img_title_description, \
     generate_card_twit, generate_card_multiple_texts
 from util.helpers import generate_image_search_url
+
+slack_client = slack.WebClient(token=os.getenv('SLACK_TOKEN'))
 
 
 @command(name="soniko", desc="Generates a Soniko image", params=["caption"])
@@ -117,6 +121,9 @@ def buemo(ctx, *args):
 @command(name="twit", desc="Generates a @User tweet", params=["user", "tweet"])
 def twit(ctx, user, string):
     try:
+        users_list = slack_client.users_list()["members"]
+        user = get_user(users_list, user)
+        print(user)
         img_url = user.avatar_url._url
         user_display_name = '@'+user.display_name
         user_name = user.name
