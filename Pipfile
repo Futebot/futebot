@@ -16,17 +16,22 @@ pytest-asyncio = "==0.10.0"
 [packages]
 "discord.py" = "==1.2.3"
 requests = "==2.22.0"
-Pillow = "==6.1.0"
 pytest = "==5.1.2"
 art = "==4.0"
 pyyaml = "==5.1.2"
 fuzzywuzzy = "==0.17.0"
-pyopenssl = "==19.0.0"
+pyopenssl = "*"
 clarifai = "*"
-slackclient = "==2.5.0"
+slackclient = "*"
+pillow = "*"
+aiohttp = "*"
+asyncio = "*"
+python-levenshtein = "*"
+python-dotenv = "*"
+slack-sdk = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.9"
 
 [pipenv]
 allow_prereleases = true

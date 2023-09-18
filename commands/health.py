@@ -11,7 +11,7 @@ from util.helpers import (
 from .config import CHARADA_ENDPOINT, COVID_ENDPOINT
 
 
-@command(name="covid", desc="Sends COVID info", params=["country"])
+# @command(name="covid", desc="Sends COVID info", params=["country"])
 def covid(ctx, *args):
     country = ' '.join(args[0]).capitalize()
 

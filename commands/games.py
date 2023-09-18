@@ -11,7 +11,7 @@ from util.helpers import (
 from .config import CHARADA_ENDPOINT
 
 
-@command(name="charada", desc="Sends a random charade")
+# @command(name="charada", desc="Sends a random charade")
 def charada(ctx):
     fields = get_json_fields_from_url(
         CHARADA_ENDPOINT,

@@ -55,7 +55,7 @@ def tano(ctx, *args):
         return e
 
 
-@command(name="magic", desc="Generates a Magic Card with a title and description", params=["title", "description"])
+# @command(name="magic", desc="Generates a Magic Card with a title and description", params=["title", "description"])
 def magic(ctx, *args):
     try:
         string = args[0][0]
@@ -118,7 +118,7 @@ def buemo(ctx, *args):
         return e
 
 
-@command(name="twit", desc="Generates a @User tweet", params=["user", "tweet"])
+# @command(name="twit", desc="Generates a @User tweet", params=["user", "tweet"])
 def twit(ctx, string):
     try:
         users_list = slack_client.users_list()["members"]

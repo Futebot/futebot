@@ -42,7 +42,7 @@ def gifme(ctx, *args, spoiler=None):
         return e
 
 
-@command(name="youtube", desc="Returns an Youtube Video", params=["search_term"])
+# @command(name="youtube", desc="Returns an Youtube Video", params=["search_term"])
 def youtube(ctx, *args):
     string = ' '.join(args[0])
     try:

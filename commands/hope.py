@@ -16,7 +16,7 @@ def coach(ctx):
         )
 
 
-@command(name="horoscopo", desc="Returns the horoscope of the day.", params=["horoscope"])
+# @command(name="horoscopo", desc="Returns the horoscope of the day.", params=["horoscope"])
 def horoscopo(ctx, *args):
     arg = ' '.join(args[0])
     return get_json_field_from_url(
