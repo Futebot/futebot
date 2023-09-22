@@ -11,6 +11,7 @@ class Imgur:
         self.headers = {
             'Authorization': 'Client-ID {}'.format(IMGUR_CLIENT_ID)
         }
+        print(self.headers)
         self.upload_endpoint = 'https://api.imgur.com/3/image'
 
     def upload(self, image):

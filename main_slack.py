@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 import os
 import shlex
 import slack
@@ -6,10 +9,9 @@ from commands.custom import c
 from commands.utils import prefix
 from service.command_suggestion_service import get_suggested_command
 from util.commands import Commands
-from dotenv import load_dotenv
 
 
-load_dotenv()
+
 
 from slack_sdk.rtm import RTMClient
 
@@ -33,7 +35,6 @@ def find_command(context, command):
             if command_params is None:
                 return func(context)
             else:
-                print(command_params)
                 return func(context, command_params)
     except Exception as e:
         print(e)
@@ -55,11 +56,8 @@ def handle_command(command, channel, user, timestamp, web_client):
         context.timestamp = timestamp
 
         response = None
-        print("finding command")
         response = find_command(context, command)
-        print("command found")
         if response is not None:
-            print(response)
             web_client.chat_postMessage(channel=channel, link_names=1, text=response)
     except Exception as e:
         error_response = "Ouch! It hurts, but I will recover."
@@ -78,8 +76,6 @@ def say_hello(**payload):
     print(payload)
     data = payload["data"]
     web_client = payload["web_client"]
-    print(data["text"])
-    print(prefix)
     if data["text"].startswith("."):
         print("entrou")
         channel_id = data["channel"]
