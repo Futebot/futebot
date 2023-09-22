@@ -117,7 +117,7 @@ def generate_card_img_title_description(string: str, img_path: str, filename: st
 def add_thumbnail_to_img(img, img_height, img_url, img_width, img_x, img_y):
     response = requests.get(img_url, stream=True)
     img2 = Image.open(BytesIO(response.content))
-    img2.thumbnail((img_width, img_height), Image.ANTIALIAS)
+    img2.thumbnail((img_width, img_height))
     img.paste(img2, (img_x, img_y))
 
 

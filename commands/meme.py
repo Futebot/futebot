@@ -55,12 +55,13 @@ def tano(ctx, *args):
         return e
 
 
-# @command(name="magic", desc="Generates a Magic Card with a title and description", params=["title", "description"])
+@command(name="magic", desc="Generates a Magic Card with a title and description", params=["title", "description"])
 def magic(ctx, *args):
     try:
         string = args[0][0]
         description = args[0][1]
         c = None
+        img = None
         img_index = 0
         while img is None:
             url = generate_image_search_url(string)
@@ -139,7 +140,7 @@ def twit(ctx, string):
 @command(name="feijoada", desc="Generates a Feijoada image", params=["name"])
 def feijoada(ctx, *args):
     try:
-        string = ' '.join(args[0])
+        string = args[0]
         url = generate_image_search_url(string)
         res = requests.get(url)
         image_link = res.json()["items"][0]["link"]
@@ -154,7 +155,7 @@ def feijoada(ctx, *args):
 
 @command(name="book", desc="Generates an Oreilly book cover", params=["book_name"])
 def book(ctx, *args):
-    string = ' '.join(args[0])
+    string = args[0]
     try:
         if len(string.split(' ')) > 3:
             raise TooManyCharsException("Diminue esse textão, pfv")
@@ -195,7 +196,7 @@ def tomacu(ctx, *args):
 @command(name="gordo", desc="Generates a Sou Gordo shirt image", params=["adjective"])
 def gordo(ctx, *args):
     try:
-        string = ' '.join(args[0])
+        string = args[0]
         return generate_card(string, "templates/imgs/gordo.png", "gordo", 40, 200, 525, (255, 0, 0), 10)
 
     except FutebotException as e:
