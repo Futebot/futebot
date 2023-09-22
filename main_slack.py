@@ -90,6 +90,7 @@ def say_hello(**payload):
 
 if __name__ == "__main__":
     slack_token = os.getenv("SLACK_TOKEN")
+    print(slack_token)
     rtm_client = RTMClient(token=slack_token)
     rtm_client.start()
 
