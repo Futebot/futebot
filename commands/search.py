@@ -22,7 +22,7 @@ from .config import (
 
 @command(name="imgme", desc="Returns an image", params=["search_term"])
 def imgme(ctx, *args, spoiler=None):
-    search_query = ' '.join(args[0])
+    search_query = args[0]
     try:
         return get_image(search_query, spoiler)
 
@@ -33,7 +33,7 @@ def imgme(ctx, *args, spoiler=None):
 
 @command(name="gifme", desc="Returns a GIF", params=["search_term"])
 def gifme(ctx, *args, spoiler=None):
-    search_query = ' '.join(args[0])
+    search_query = args[0]
     try:
         return get_image(search_query, spoiler, gif=True)
 
