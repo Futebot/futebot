@@ -11,6 +11,7 @@ slack_client = slack.WebClient(token=os.getenv('SLACK_TOKEN'))
 @command(name="ping", desc="Pings", params=["part_of_username"])
 def ping(ctx, *args):
     # if args is None:
+    print("entrou")
     return "pong 🏓"
     # arg = args[0][0]
     # if arg is None or arg == "":
